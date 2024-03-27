@@ -11,7 +11,14 @@ main:
 # About
 about:
   title: "Sobre nós"
-  desc: "A BLK é uma empresa de engenharia que combina vida real e tecnologia para oferecer soluções eficientes ao mercado. Com sócios experientes, nossa equipe trabalha em estreita colaboração com os clientes, desenvolvendo soluções personalizadas e de alta qualidade. Nosso compromisso é superar expectativas, buscando constantemente a excelência e aprimorando nossos processos para entregar resultados excepcionais."
+  desc: >
+    A BLK é uma empresa de engenharia que combina vida real e tecnologia
+    para oferecer soluções eficientes ao mercado. Com sócios experientes,
+    nossa equipe trabalha em estreita colaboração com os clientes,
+    desenvolvendo soluções personalizadas e de alta qualidade.
+    Nosso compromisso é superar expectativas, buscando constantemente
+    a excelência e aprimorando nossos processos para entregar resultados
+    excepcionais.
   button:
     enable: true
     text: "Ministério da Defesa"
