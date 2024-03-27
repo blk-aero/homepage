@@ -48,3 +48,8 @@ youtube = "https://www.youtube.com/@blk-aero"
   name = "Contato"
   URL = "#contact"
   weight = 3
+
+  # [[menu.main]]
+  # name = "Projetos"
+  # URL = "/projects"
+  # weight = 4
