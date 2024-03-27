@@ -12,7 +12,7 @@
                     {{ with site.Data.homepage.main }}
                     <img class="img-logo" src="{{ .logo}}" alt="..." width=375 />
                     <!-- <h1 class="mx-auto my-0 text-uppercase">{{ .header.title }}</h1> -->
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">{{ .header.description }}</h2>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">{{ .header.description | safeHTML }}</h2>
                     <a class="btn btn-primary" href="{{ .header.button.url }}">{{ .header.button.text }}</a>
                     {{ end }}
                 </div>
@@ -26,7 +26,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8">
                     <h2 class="text-white mb-4">{{ .title }}</h2>
-                    <p class="text-white-50">{{ .desc }}</p>
+                    <p class="text-white-50">{{ .desc | safeHTML }}</p>
                     {{ if .button.enable }}
                     <a class="btn btn-primary about-btn" href="{{ .button.url }}">{{ .button.text }}</a>
                     {{ end }}
@@ -54,7 +54,7 @@
                 <div class="col-xl-4 col-lg-5">
                     <div class="featured-text text-center text-lg-left">
                         <h4>{{ .title }}</h4>
-                        <p class="text-black-50 mb-0">{{ .text }}</p>
+                        <p class="text-black-50 mb-0">{{ .text | safeHTML }}</p>
                     </div>
                 </div>
             </div>
@@ -69,8 +69,8 @@
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">{{ $product.title }}</h4>
-                                <p class="mb-0 text-white-50">{{ $product.text }}</p>
+                                <h4 class="text-white">{{ $product.title | safeHTML }}</h4>
+                                <p class="mb-0 text-white-50">{{ $product.text | safeHTML }}</p>
                                 <hr class="d-none d-lg-block mb-0 me-0" />
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <h4 class="text-white">{{ $product.title }}</h4>
-                                <p class="mb-0 text-white-50">{{ $product.text }}</p>
+                                <p class="mb-0 text-white-50">{{ $product.text | safeHTML }}</p>
                                 <hr class="d-none d-lg-block mb-0 ms-0" />
                             </div>
                         </div>
