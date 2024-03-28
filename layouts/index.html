@@ -25,7 +25,7 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8">
-                    <h2 class="text-white mb-4">{{ .title }}</h2>
+                    <h2 class="text-white mb-4">{{ .title | safeHTML}}</h2>
                     <p class="text-white-50">{{ .desc | safeHTML }}</p>
                     {{ if .button.enable }}
                     <a class="btn btn-primary about-btn" href="{{ .button.url }}">{{ .button.text }}</a>
@@ -69,7 +69,7 @@
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">{{ $product.title | safeHTML }}</h4>
+                                <h4 class="text-white">{{ $product.title }}</h4>
                                 <p class="mb-0 text-white-50">{{ $product.text | safeHTML }}</p>
                                 <hr class="d-none d-lg-block mb-0 me-0" />
                             </div>
