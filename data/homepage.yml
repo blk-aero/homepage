@@ -2,40 +2,77 @@
 main:
   logo: "assets/logo_color.svg"
   header:
-    title : "bLk" # Title Text
-    description : "Topografia e Aerolevantamento com drone" # Title Desc
+    title: "bLk"
+    description: >
+      Topografia e Aerolevantamento com Drone
     button:
-      text: "Saiba Mais" # Button Text
-      url: "#about" # Button URL
+      text: "Saiba Mais"
+      url: "#about"
 
 # About
 about:
-  title: "Sobre nós"
+  title: >
+    Transforme complexidade em simplicidade,
+    <br />
+    garanta rapidez e superioridade em seus projetos
+
   desc: >
-    A BLK é uma empresa de engenharia que combina vida real e tecnologia
-    para oferecer soluções eficientes ao mercado. Com sócios experientes,
-    nossa equipe trabalha em estreita colaboração com os clientes,
-    desenvolvendo soluções personalizadas e de alta qualidade.
-    Nosso compromisso é superar expectativas, buscando constantemente
-    a excelência e aprimorando nossos processos para entregar resultados
-    excepcionais.
+    Simplificamos a obtenção de estudos topográficos precisos através de nossa plataforma
+    <br />
+    <br />
+    Oferecemos acesso rápido e assertivo a relatórios padronizados e histórico de informações
+    <br />
+    <br />
+    Categoria "A" em Aerolevantamento pelo Ministério da Defesa
+
   button:
     enable: true
-    text: "Ministério da Defesa"
-    url: "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento"
-  # image: "assets/img/about.jpg"
+    text: "Produtos"
+    url: "#products"
 
-intro :
+intro:
   title: "Aerolevantamento"
-  text: "Mapeamos a sua area, trazendo mais visibilidade e precisão para o seu projeto."
   videoID: "kLgHqpITECU"
-  img: "assets/img/colorfull-map.jpg"
+  text: >
+    Mapeamos a sua area, trazendo mais visibilidade e precisão para o seu projeto.
 
 products:
-  - title: "Mapas 3d"
-    text: "Geração de mapas 3d, mapas de superfície e ortomosáicos através de levantamento com drone."
-    img: "assets/img/gif-odm.gif"
-  - title: "Operação"
-    text: "Trabalho em campo para garantir uma maior acurácia."
-    img: "assets/img/drone.jpg"
+  - title: "Ortofoto"
+    img: "assets/img/orthophoto.gif"
+    text: >
+      Imagens aéreas georreferenciadas de alta precisão
+      <br />
+      <br />
+      Medições precisas e inspeções com imagens detalhadas tornam o
+      planejamento e execução de projetos mais eficientes, diminuindo visitas
+      ao local e retrabalho.
 
+  - title: "Nuvem de Pontos"
+    img: "assets/img/point-cloud.gif"
+    text: >
+      
+
+  - title: "Modelo Digital de Terreno/Superfície"
+    img: "assets/img/digital-terrain-model.jpg"
+    text: >
+      
+
+  - title: "Mapas 3D"
+    img: "assets/img/gif-odm.gif"
+    text: >
+      Geração de mapas 3d, mapas de superfície e ortomosáicos através de levantamento com drone.
+
+  - title: "Variação de Volume"
+    img: "assets/img/volume-delta.gif"
+    text: >
+      
+
+  - title: "Medição de Estoque"
+    img: "assets/img/stock-volume.jpg"
+    text: >
+      
+
+  - title: "Drenagem"
+    img: "assets/img/drainage.gif"
+    text: >
+      
