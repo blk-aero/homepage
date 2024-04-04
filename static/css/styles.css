@@ -11738,3 +11738,8 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/* Green highlight */
+.text-green {
+  color: #39ff14;
+}
