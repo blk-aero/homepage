@@ -61,7 +61,7 @@
             <!-- Dynamic Project Row-->
             {{ with site.Data.homepage.products}}
             {{ range $index, $product := . }}
-            <!-- Align Roght for Even $index -->
+            <!-- Align Right for Even $index -->
             {{ if eq (mod $index 2) 0 }}
             <div class="row gx-0 justify-content-center">
                 <div class="col-lg-6"><img class="img-fluid" src="{{ $product.img }}" alt="..." /></div>
