@@ -43,36 +43,81 @@ products:
       Imagens aéreas georreferenciadas de alta precisão
       <br />
       <br />
-      Medições precisas e inspeções com imagens detalhadas tornam o
-      planejamento e execução de projetos mais eficientes, diminuindo visitas
-      ao local e retrabalho.
+      Medições <span class="text-green">precisas</span> e inspeções com imagens
+      detalhadas tornam o planejamento e execução de projetos mais eficientes,
+      diminuindo visitas ao local e <span class="text-green">retrabalho</span>
 
   - title: "Nuvem de Pontos"
     img: "assets/img/point-cloud.gif"
     text: >
-      
+      Detalhamento preciso do ambiente
+      <br />
+      <br />
+      Captura <span class="text-green">detalhes finos</span> do terreno e
+      estruturas, fundamental para análises em mineração e geoprocessamento,
+      aumentando <span class="text-green">precisão</span> e segurança em projetos
 
-  - title: "Modelo Digital de Terreno/Superfície"
+  - title: "Modelo Digital de Terreno / Curvas de Nível"
     img: "assets/img/digital-terrain-model.jpg"
     text: >
-      
+      Representação detalhada do relevo
+      <br />
+      <br />
+      Essencial para entender <span class="text-green">variações do terreno</span>,
+      facilitando projetos de drenagem e análises de risco
+      <br />
+      Fundamental no <span class="text-green">planejamento urbano e infraestrutura</span>
 
   - title: "Mapas 3D"
     img: "assets/img/gif-odm.gif"
     text: >
-      Geração de mapas 3d, mapas de superfície e ortomosáicos através de levantamento com drone.
+      Visualização imersiva e detalhada
+      <br />
+      <br />
+      Nossos mapas 3D trazem realismo aos projetos, facilitando a vetorização e
+      criação de <span class="text-green">"Digital Twins"</span>
+      <br />
+      Indispensáveis para avanços em engenharia e arquitetura
+
 
   - title: "Variação de Volume"
     img: "assets/img/volume-delta.gif"
     text: >
-      
+      Controle e eficiência de recursos
+      <br />
+      <br />
+      Suporta <span class="text-green">decisões estratégicas</span> em áreas
+      como estradas e mineração, otimizando operações e assegurando
+      <span class="text-green">conformidade ambiental</span>
 
   - title: "Medição de Estoque"
     img: "assets/img/stock-volume.jpg"
     text: >
-      
+      Estimativas precisas para gestão eficiente
+      <br />
+      <br />
+      Crucial em setores como silvicultura e mineração, nossas medições precisas
+      permitem a <span class="text-green">otimização de recursos</span>
+      e um <span class="text-green">planejamento</span> eficaz
 
   - title: "Drenagem"
     img: "assets/img/drainage.gif"
     text: >
-      
+      Soluções avançadas para gestão de água
+      <br />
+      <br />
+      Nossas análises detalhadas garantem projetos de
+      <span class="text-green">escoamento</span> eficientes, elevando a
+      segurança e assegurando a <span class="text-green">sustentabilidade ambiental</span>
+
+  - title: "Plataforma BLK"
+    img: "assets/img/hub.png"
+    text: >
+      Acesso e análise em um clique
+      <br />
+      <br />
+      Acesse nossa plataforma web intuitiva que <span class="text-green">centraliza acessos</span>
+      a dados topográficos precisos, facilitando <span class="text-green">colaboração</span>
+      efetiva e <span class="text-green">tomada de decisão</span> baseada em qualidade e precisão
+
+
