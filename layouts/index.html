@@ -64,7 +64,21 @@
             <!-- Align Right for Even $index -->
             {{ if eq (mod $index 2) 0 }}
             <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="{{ $product.img }}" alt="..." /></div>
+                <div class="col-lg-6 bg-black">
+                    {{- if strings.Contains $product.img "youtube.com" -}}
+                    <!-- Extract the video ID from the URL -->
+                    {{- $videoID := (replace (replace $product.img "https://www.youtube.com/watch?v=" "") "&" "?") -}}
+                    <iframe class="img-fluid" width="100%" height="auto"
+                        src="https://www.youtube.com/embed/{{ $videoID }}?autoplay=1&mute=1&loop=1&playlist={{ $videoID }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                    {{- else -}}
+                    <!-- Default case, can handle other image types or errors -->
+                    <img class="img-fluid-custom" src="{{ $product.img }}" alt="..." />
+                    {{- end -}}
+                </div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -77,11 +91,24 @@
                     </div>
                 </div>
             </div>
-
             <!-- Align Left for Odd $index -->
             {{ else }}
             <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="{{ $product.img }}" alt="..." /></div>
+                <div class="col-lg-6 bg-black">
+                    {{- if strings.Contains $product.img "youtube.com" -}}
+                    <!-- Extract the video ID from the URL -->
+                    {{- $videoID := (replace (replace $product.img "https://www.youtube.com/watch?v=" "") "&" "?") -}}
+                    <iframe class="img-fluid" width="100%" height="auto"
+                        src="https://www.youtube.com/embed/{{ $videoID }}?autoplay=1&mute=1&loop=1&playlist={{ $videoID }}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                    {{- else -}}
+                    <!-- Default case, can handle other image types or errors -->
+                    <img class="img-fluid-custom" src="{{ $product.img }}" alt="..." />
+                    {{- end -}}
+                </div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
