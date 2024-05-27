@@ -17,10 +17,12 @@ about:
     garanta rapidez e superioridade em seus projetos
 
   desc: >
-    Simplificamos a obtenção de estudos topográficos precisos através de nossa plataforma
+    Oferecemos soluções rápidas e econômicas que combinam levantamento 
+    topográfico tradicional com tecnologia de drones.
     <br />
     <br />
-    Oferecemos acesso rápido e assertivo a relatórios padronizados e histórico de informações
+    Nossos produtos (serviço+plataforma) melhoram a colaboração e a tomada de 
+    decisões, proporcionando uma visão detalhada e auditável do terreno.
     <br />
     <br />
     Categoria "A" em Aerolevantamento pelo Ministério da Defesa
@@ -38,7 +40,7 @@ intro:
 
 products:
   - title: "Ortofoto"
-    img: "assets/img/orthophoto.gif"
+    img: "https://www.youtube.com/watch?v=vyeIAEmmhC8"
     text: >
       Imagens aéreas georreferenciadas de alta precisão
       <br />
@@ -48,7 +50,7 @@ products:
       diminuindo visitas ao local e <span class="text-green">retrabalho</span>
 
   - title: "Nuvem de Pontos"
-    img: "assets/img/point-cloud.gif"
+    img: "https://www.youtube.com/watch?v=1zReZhq6r3g"
     text: >
       Detalhamento preciso do ambiente
       <br />
@@ -58,18 +60,27 @@ products:
       aumentando <span class="text-green">precisão</span> e segurança em projetos
 
   - title: "Modelo Digital de Terreno / Curvas de Nível"
-    img: "assets/img/digital-terrain-model.jpg"
+    img: "assets/img/dtm_contours.webp"
     text: >
       Representação detalhada do relevo
       <br />
       <br />
-      Essencial para entender <span class="text-green">variações do terreno</span>,
+      Fundamental no <span class="text-green">planejamento urbano e infraestrutura</span>;
+      essencial para entender <span class="text-green">variações do terreno</span>, 
       facilitando projetos de drenagem e análises de risco
-      <br />
-      Fundamental no <span class="text-green">planejamento urbano e infraestrutura</span>
 
-  - title: "Mapas 3D"
-    img: "assets/img/gif-odm.gif"
+  - title: "Levantamento Planialtimétrico Georreferenciado"
+    img: "assets/img/lepac.webp"
+    text: >
+      Vetorização das informações
+      <br />
+      <br />
+      Facilita a <span class="text-green">viabilidade</span> de projetos e a 
+      <span class="text-green">conformidade legal</span>, garantindo eficiência 
+      e segurança na execução de obras
+
+  - title: "Mapas 3D Texturizado"
+    img: "https://www.youtube.com/watch?v=q31_Tec8RNk"
     text: >
       Visualização imersiva e detalhada
       <br />
@@ -80,28 +91,19 @@ products:
       Indispensáveis para avanços em engenharia e arquitetura
 
 
-  - title: "Variação de Volume"
-    img: "assets/img/volume-delta.gif"
+  - title: "Medições de Volume"
+    img: "https://www.youtube.com/watch?v=_FRWGVyXZrY"
     text: >
-      Controle e eficiência de recursos
+      Controle eficiente com estimativas precisas
       <br />
       <br />
-      Suporta <span class="text-green">decisões estratégicas</span> em áreas
-      como estradas e mineração, otimizando operações e assegurando
-      <span class="text-green">conformidade ambiental</span>
+      Essencial em <span class="text-green">terraplenagem</span>, estradas, 
+      silvicultura e mineração; nossas medições suportam 
+      <span class="text-green">decisões estratégicas</span>, otimizam operações 
+      e asseguram <span class="text-green">conformidade ambiental</span>
 
-  - title: "Medição de Estoque"
-    img: "assets/img/stock-volume.jpg"
-    text: >
-      Estimativas precisas para gestão eficiente
-      <br />
-      <br />
-      Crucial em setores como silvicultura e mineração, nossas medições precisas
-      permitem a <span class="text-green">otimização de recursos</span>
-      e um <span class="text-green">planejamento</span> eficaz
-
-  - title: "Drenagem"
-    img: "assets/img/drainage.gif"
+  - title: "Simulação de Drenagem/Erosão"
+    img: "https://www.youtube.com/watch?v=8PkNASJvSF8"
     text: >
       Soluções avançadas para gestão de água
       <br />
@@ -111,7 +113,7 @@ products:
       segurança e assegurando a <span class="text-green">sustentabilidade ambiental</span>
 
   - title: "Plataforma BLK"
-    img: "assets/img/hub.png"
+    img: "assets/img/web-plataform.webp"
     text: >
       Acesso e análise em um clique
       <br />
@@ -119,5 +121,4 @@ products:
       Acesse nossa plataforma web intuitiva que <span class="text-green">centraliza acessos</span>
       a dados topográficos precisos, facilitando <span class="text-green">colaboração</span>
       efetiva e <span class="text-green">tomada de decisão</span> baseada em qualidade e precisão
-
 
