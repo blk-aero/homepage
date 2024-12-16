@@ -1,28 +1,45 @@
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-38GBP0L75Z"></script>
+<!-- Google Tag Manager -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleTag }}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    gtag('config', 'G-38GBP0L75Z');
+    gtag('config', '{{ .Site.Params.googleTag }}');
 </script>
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    {{ $title := print .Site.Title " | " .Title }}
+    {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ .Site.Params.description }}" />
+    <link rel="canonical" href="{{ .Site.Params.canonical }}" />
     <link rel="icon" href="{{ site.Params.favicon }}" />
+
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Favicon-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-    {{ $title := print .Site.Title " | " .Title }}
-    {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
-    <title>{{ $title }}</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "{{ .Site.Params.name }}",
+      "url": "{{ .Site.Params.canonical }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ .Site.Params.businessAddres }}",
+        "addressLocality": "{{ .Site.Params.addressLocality }}",
+        "addressRegion": "{{ .Site.Params.addressRegion }}",
+        "postalCode": "{{ .Site.Params.postalCode }}"
+      },
+      "telephone": "{{ .Site.Params.telephone }}",
+      "email": "{{ .Site.Params.email }}"
+    }
+    </script>
 </head>
