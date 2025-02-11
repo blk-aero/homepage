@@ -4,9 +4,10 @@ title = "BLK Aerolevantamento - Topografia com Drones"
 description = "BLK Aerolevantamento: Topografia com drones para projetos mais rápidos e precisos."
 
 ## Site Settings
-assetDir = "assets"
-googleTag = "G-38GBP0L75Z"
 [params]
+  googleTagManager = "G-38GBP0L75Z"
+  
+assetDir = "assets"
 logo = "assets/logo_nav.svg"
 favicon = "assets/favicon.svg"
 canonical = "https://blk.app.br/"
