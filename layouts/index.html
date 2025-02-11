@@ -2,7 +2,16 @@
 <html lang="pt-br">
 {{- partial "head.html" . -}}
 
-<body id="page-top">
+    <body id="page-top">
+    {{ with .Site.Params.googleTagManager }}
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{.}}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {{ end }}
+    
     {{- partial "header.html" . -}}
     <!-- Masthead-->
     <header class="masthead">
