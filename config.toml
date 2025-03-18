@@ -10,7 +10,7 @@ description = "BLK Aerolevantamento: Topografia com drones para projetos mais r√
 assetDir = "assets"
 logo = "assets/logo_nav.svg"
 favicon = "assets/favicon.svg"
-canonical = "https://blk.app.br/"
+canonical = "https://blk.aero/"
 
 # Info
 address = "Rua Br√°s Cubas, 55"
