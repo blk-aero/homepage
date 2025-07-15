@@ -1,6 +1,6 @@
 # Hugo specific
 /public/
-/resources/_gen/
+/resources/
 /hugo_stats.json
 
 # Virtual environments #
