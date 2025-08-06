@@ -1,13 +1,8 @@
-baseURL: http://something-fresh.org/
-languageCode: en-us
-title: Hugo Fresh Theme
+baseURL: http://blk.aero/
+languageCode: pt-br
+title: BLK Aero
 
-module:
-  # uncomment line below for local development of module
-  # workspace: hugo.work
-  imports:
-    path: hugo-fresh
-
+theme: hugo-fresh
 
 googleAnalytics: # Put in your tracking code without quotes like this: UA-XXX for universal tracking or G-XXX analytics v4 tracking
 # Disables warnings
@@ -20,37 +15,42 @@ markup:
       unsafe: true # Allows you to write raw html in your md files
 
 params:
+  whatsapp_url: "https://wa.me/5511999999999"
+  phone_number: "(12) 98806-2737"
   # Open graph allows easy social sharing. If you don't want it you can set it to false or just delete the variable
   openGraph: true
   # Used as meta data; describe your site to make Google Bots happy
-  description:
+  description: BLK Aerolevantamento - Topografia com drones para projetos mais rápidos e precisos.
   # Preloader ensures images are loaded before displaying to the user. If you don't want it uncomment to set it to false
-  # preloader: false
+  # preloader: true
   navbarlogo:
   # Logo (from static/images/logos/___)
-    image: logos/fresh.svg
+    image: logos/logo_inline_grey_fulltext_aero_nobackground.svg
     link: /
     # Default width/height. Uncomment if you need to change
     # width: 112
     # height: 28
+    width: 214.04
+    height: 20.0742857143
+
   font:
-    name: "Open Sans"
-    sizes: [400,600]
+    name: "Lato"
+    sizes: [400,700]
   hero:
     # Main hero title
-    title: Manage. Deploy.
+    title: Topográfia, Georreferenciamento & Engenharia
     # Hero subtitle (optional)
     subtitle: Lorem ipsum sit dolor amet is dummy text used by the typography industry
     # Button text
-    buttontext: Get started
+    buttontext: Agende uma consultoria gratuíta
     # Where the main hero button links to
-    buttonlink: "#"
+    buttonlink: "agende-consultoria"
     # Hero image (from static/images/___)
-    image: illustrations/worker.svg
+    image: drone-survey.svg
     # Footer logos (from static/images/logos/clients/*.svg)
     # urls are optional
     clientlogos:
-    - logo: systek
+    - logo: aconvap.png
       url: https://google.com
     - logo: tribe
       url: https://stefma.github.io/hugo-fresh/
@@ -62,57 +62,60 @@ params:
       url: https://bulma.io/
   # Customizable navbar. For a dropdown, add a "sublinks" list.
   navbar:
-  - title: Features
-    url: /
-  - title: Pricing
-    url: /
-  - title: Dropdown
+  - title: Industias
     sublinks:
-    - title: Dropdown item
+    - title: REURB
       url: /
-    - title: Dropdown item
+    - title: Georreferenciamento de Imóveis Rurais
       url: /
-    - title: Dropdown item
+    - title: Loteamentos
       url: /
-  - title: Log in
+  - title: Projetos
     url: /
-  - title: Sign up
+  - title: Sobre nós
     url: /
-    button: true
-  sidebar:
-    # Logo (from static/images/logos/___.svg)
-    logo: fresh-square
-    sections:
-    - title: User
-      icon: user
-      links:
-      - text: Profile
-        url: /
-      - text: Account
-        url: /
-      - text: Settings
-        url: /
-    - title: Messages
-      icon: envelope
-      links:
-      - text: Inbox
-        url: /
-      - text: Compose
-        url: /
-    - title: Images
-      icon: image
-      links:
-      - text: Library
-        url: /
-      - text: Upload
-        url: /
-    - title: Settings
-      icon: cog
-      links:
-      - text: User settings
-        url: /
-      - text: App settings
-        url: /
+  - title: Reviews
+    url: /
+  - title: Blog
+    url: /
+
+  # - title: (12) 98806-2737
+    # url: https://wa.me/5512988062737
+    # button: true
+  # sidebar:
+  #   # Logo (from static/images/logos/___.svg)
+  #   logo: fresh-square
+  #   sections:
+  #   - title: User
+  #     icon: user
+  #     links:
+  #     - text: Profile
+  #       url: /
+  #     - text: Account
+  #       url: /
+  #     - text: Settings
+  #       url: /
+  #   - title: Messages
+  #     icon: envelope
+  #     links:
+  #     - text: Inbox
+  #       url: /
+  #     - text: Compose
+  #       url: /
+  #   - title: Images
+  #     icon: image
+  #     links:
+  #     - text: Library
+  #       url: /
+  #     - text: Upload
+  #       url: /
+  #   - title: Settings
+  #     icon: cog
+  #     links:
+  #     - text: User settings
+  #       url: /
+  #     - text: App settings
+  #       url: /
   section1:
     title: Great power comes
     subtitle: with great responsibility
@@ -149,7 +152,7 @@ params:
   section3:
     title: One platform
     subtitle: To rule them all
-    image: illustrations/mockups/app-mockup.png
+    image: blk-hub.webp
     buttonText: Get started
     buttonLink: "#"
   section4:
@@ -168,15 +171,15 @@ params:
       quote: Lorem ipsum dolor sit amet, elit deleniti dissentias quo eu, hinc minim appetere te usu, ea case duis scribentur has. Duo te consequat elaboraret, has quando suavitate at.
       job: HR Manager
       img: 3
-  section5:
-    title: Drop us a line or two
-    subtitle: We'd love to hear from you
-    buttonText: Send Message
+  # section5:
+  #   title: Drop us a line or two
+  #   subtitle: We'd love to hear from you
+  #   buttonText: Send Message
     # action: https://formspree.io/f/<form_id>
     # method: POST
   footer:
     # Logo (from static/images/logos/___)
-    logo: fresh-white-alt.svg
+    logo: logo_square_color_fulltext_aero_nobackground.svg
     # Social Media Title
     socialmediatitle: Follow Us
     # Social media links (GitHub, Twitter, etc.). All are optional.
@@ -192,7 +195,7 @@ params:
       icon: twitter
     - link: https://bitbucket.org/#
       icon: bitbucket
-    bulmalogo: true
+    bulmalogo: false
     quicklinks:
       column1:
         title: "Product"
