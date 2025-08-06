@@ -1,15 +1,15 @@
 services:
   hugo:
-    image: klakegg/hugo:ext                  # extended edition with SCSS/WebP support
+    image: hugomods/hugo:exts
     container_name: hugo_server
-    ports:
-      - "1313:1313"                           # host → container
+    working_dir: /src                  # project is mounted here
     volumes:
-      - ./:/src                              # mount current dir into /src
+      - ./:/src
+    ports:
+      - "1313:1313"                    # host → container
     command: >
-      server                                  # ENTRYPOINT is already “hugo”
-      --bind=0.0.0.0                          # listen on all interfaces
-      --disableFastRender                    # ensure full rebuilds
-      --watch                                 # explicitly enable watchers
-      --poll=700ms                           # fallback polling
-      -D                                     # include drafts
+      server
+      --bind=0.0.0.0
+      --disableFastRender
+      --poll=700ms
+      -D
