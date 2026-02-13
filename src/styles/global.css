@@ -1,1 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap");
 @import "tailwindcss";
+
+:root {
+  --color-text: #23281f;
+  --color-background: #f5f9f8;
+  --color-primary: #6ba569;
+  --color-secondary: #515a3a;
+  --color-accent: #38ff14;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: "Lato", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-text);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: #ffffff;
+}
+
+.pill-accent {
+  background: color-mix(in srgb, var(--color-accent) 22%, white);
+  color: var(--color-text);
+}
+
+.surface {
+  background: #ffffff;
+  border: 1px solid color-mix(in srgb, var(--color-secondary) 20%, white);
+}

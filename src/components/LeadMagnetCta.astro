@@ -1,0 +1,21 @@
+---
+type Props = {
+  title?: string;
+  description?: string;
+  href: string;
+  label?: string;
+};
+
+const {
+  title = "Ainda pesquisando?",
+  description = "Baixe o guia rapido para comparar escopo, prazo e risco antes de contratar.",
+  href,
+  label = "Baixar guia"
+} = Astro.props as Props;
+---
+
+<aside class="surface mt-6 rounded-2xl p-5">
+  <h2 class="text-xl font-semibold">{title}</h2>
+  <p class="mt-2 text-sm">{description}</p>
+  <a class="btn-secondary mt-4 inline-flex rounded-lg px-4 py-2 text-sm font-semibold" href={href}>{label}</a>
+</aside>

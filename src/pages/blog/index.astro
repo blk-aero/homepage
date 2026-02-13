@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const posts = await getCollection("blog");
+---
+
+<BaseLayout title="Blog BLK" description="Conteudo tecnico para reduzir risco em projetos geoespaciais.">
+  <section class="surface rounded-2xl p-6">
+    <h1 class="text-3xl font-bold">Blog</h1>
+    <p class="mt-2 text-sm">Conteudos curtos para apoiar escopo, prazo e decisao tecnica.</p>
+  </section>
+
+  <section class="mt-6 grid gap-4">
+    {posts.map((post) => (
+      <a class="surface rounded-xl p-4" href={`/blog/${post.slug}`}>
+        <h2 class="text-xl font-semibold">{post.data.title}</h2>
+        <p class="mt-2 text-sm">{post.data.summary}</p>
+      </a>
+    ))}
+  </section>
+</BaseLayout>

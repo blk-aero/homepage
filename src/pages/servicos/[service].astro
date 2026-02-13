@@ -1,6 +1,12 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import rolloutData from "../../../data/rollout-control.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ComparisonTable from "../../components/ComparisonTable.astro";
+import Hero from "../../components/Hero.astro";
+import LeadMagnetCta from "../../components/LeadMagnetCta.astro";
+import TrustBar from "../../components/TrustBar.astro";
+import WhatsAppCTA from "../../components/WhatsAppCTA.astro";
 import { parseRolloutControl, isServiceActive } from "../../lib/rollout";
 
 export async function getStaticPaths() {
@@ -19,19 +25,50 @@ type Props = {
 };
 
 const { entry } = Astro.props as Props;
+const comparisonRows = entry.data.competitor_comparison ?? [];
 ---
 
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{entry.data.title}</title>
-  </head>
-  <body>
-    <main>
-      <h1>{entry.data.title}</h1>
-      <p>{entry.data.summary_bluf}</p>
-      <p><strong>{entry.data.price_anchor}</strong></p>
-    </main>
-  </body>
-</html>
+<BaseLayout title={entry.data.title} description={entry.data.summary_bluf}>
+  <Hero
+    h1={entry.data.title}
+    subheadline={entry.data.summary_bluf}
+    primaryCtaLabel="Chamar no WhatsApp"
+    primaryCtaHref="#primary-whatsapp"
+    secondaryCtaLabel="Baixar guia"
+    secondaryCtaHref={entry.data.lead_magnet_href ?? "/ofertas/guia-georreferenciamento"}
+    guaranteeText={entry.data.guarantee ?? null}
+    priceAnchor={entry.data.price_anchor}
+  />
+
+  <TrustBar
+    items={[
+      { label: "Precisao tecnica com rastreabilidade" },
+      { label: "SLA de resposta comercial < 5 min" },
+      { label: "Ver avaliacoes no Google", href: "https://maps.google.com" }
+    ]}
+  />
+
+  <section class="surface mt-6 rounded-2xl p-5">
+    <h2 class="text-xl font-semibold">Escopo e entregaveis</h2>
+    <dl id="specs" class="mt-4 space-y-3">
+      {entry.data.specifications.map((spec) => (
+        <div>
+          <dt class="text-sm font-semibold">{spec.key}</dt>
+          <dd class="text-sm">{spec.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  {comparisonRows.length > 0 && <ComparisonTable rows={comparisonRows} />}
+
+  <LeadMagnetCta href={entry.data.lead_magnet_href ?? "/ofertas/guia-georreferenciamento"} />
+
+  <section class="surface mt-6 rounded-2xl p-5" id="primary-whatsapp">
+    <h2 class="text-xl font-semibold">Fale com especialista</h2>
+    <p class="mt-2 text-sm">Compartilhe localizacao, area e objetivo para receber escopo inicial.</p>
+    <div class="mt-4">
+      <WhatsAppCTA service={entry.slug} />
+    </div>
+  </section>
+</BaseLayout>

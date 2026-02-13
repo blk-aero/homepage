@@ -1,6 +1,11 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import rolloutData from "../../../../data/rollout-control.json";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ComparisonTable from "../../../components/ComparisonTable.astro";
+import Hero from "../../../components/Hero.astro";
+import LeadMagnetCta from "../../../components/LeadMagnetCta.astro";
+import WhatsAppCTA from "../../../components/WhatsAppCTA.astro";
 import { parseRolloutControl, isCityActive, isServiceActive } from "../../../lib/rollout";
 import { buildServiceCityPairs } from "../../../lib/routes";
 
@@ -41,18 +46,47 @@ type Props = {
 };
 
 const { serviceEntry, cityEntry } = Astro.props as Props;
+const comparisonRows = serviceEntry.data.competitor_comparison ?? [];
 ---
 
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{`${serviceEntry.data.title} em ${cityEntry.data.name}`}</title>
-  </head>
-  <body>
-    <main>
-      <h1>{serviceEntry.data.title} em {cityEntry.data.name}</h1>
-      <p>{serviceEntry.data.summary_bluf}</p>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  title={`${serviceEntry.data.title} em ${cityEntry.data.name}`}
+  description={serviceEntry.data.summary_bluf}
+>
+  <Hero
+    h1={`${serviceEntry.data.title} em ${cityEntry.data.name}`}
+    subheadline={serviceEntry.data.summary_bluf}
+    primaryCtaLabel="Chamar no WhatsApp"
+    primaryCtaHref="#primary-whatsapp"
+    secondaryCtaLabel="Baixar guia"
+    secondaryCtaHref={serviceEntry.data.lead_magnet_href ?? "/ofertas/guia-georreferenciamento"}
+    guaranteeText={serviceEntry.data.guarantee ?? null}
+    priceAnchor={serviceEntry.data.price_anchor}
+  />
+
+  <section class="surface mt-6 rounded-2xl p-5">
+    <h2 class="text-xl font-semibold">Cobertura em {cityEntry.data.name}</h2>
+    <p class="mt-2 text-sm">
+      Atendemos bairros como {cityEntry.data.neighborhoods.slice(0, 3).join(", ")} com planejamento de campo e entrega auditavel.
+    </p>
+    <dl id="specs" class="mt-4 space-y-3">
+      {serviceEntry.data.specifications.map((spec) => (
+        <div>
+          <dt class="text-sm font-semibold">{spec.key}</dt>
+          <dd class="text-sm">{spec.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  {comparisonRows.length > 0 && <ComparisonTable rows={comparisonRows} />}
+
+  <LeadMagnetCta href={serviceEntry.data.lead_magnet_href ?? "/ofertas/guia-georreferenciamento"} />
+
+  <section class="surface mt-6 rounded-2xl p-5" id="primary-whatsapp">
+    <h2 class="text-xl font-semibold">Atendimento para {cityEntry.data.name}</h2>
+    <div class="mt-4">
+      <WhatsAppCTA service={serviceEntry.slug} city={cityEntry.slug} />
+    </div>
+  </section>
+</BaseLayout>

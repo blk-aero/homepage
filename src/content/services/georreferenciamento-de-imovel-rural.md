@@ -5,7 +5,23 @@ primary_keyword: georreferenciamento de imovel rural
 summary_bluf: Entregamos pecas tecnicas auditaveis para regularizacao rural com foco em seguranca juridica.
 whatsapp_prompt: Quero iniciar georreferenciamento de imovel rural com escopo completo.
 price_anchor: a partir de R$ 5.000
+guarantee: Escopo tecnico validado antes de protocolo para reduzir retrabalho documental.
+lead_magnet_href: /ofertas/guia-georreferenciamento
 updated_at: "2026-02-13"
+proof_images:
+  - src: /images/proof/georreferenciamento-jacarei-sp.jpg
+    alt: Exemplo de produto tecnico georreferenciado
+    caption: Entrega com rastreabilidade de campo
+competitor_comparison:
+  - feature: Metodo de captura
+    us: Drone com pontos de controle GNSS
+    them: Captura sem controle consistente
+  - feature: Entrega para decisao
+    us: Peças tecnicas + narrativa de risco
+    them: Apenas arquivo final sem contexto
+  - feature: Qualidade
+    us: Relatorio de precisao e checklist
+    them: Validacao limitada
 specifications:
   - key: Entrega tecnica
     value: Planta, memorial e arquivos tecnicos para fluxo INCRA SIGEF conforme escopo

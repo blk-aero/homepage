@@ -1,6 +1,8 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import rolloutData from "../../../data/rollout-control.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/Hero.astro";
 import { parseRolloutControl, isCityActive } from "../../lib/rollout";
 
 export async function getStaticPaths() {
@@ -21,16 +23,28 @@ type Props = {
 const { entry } = Astro.props as Props;
 ---
 
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{`Atendimento em ${entry.data.name}`}</title>
-  </head>
-  <body>
-    <main>
-      <h1>{entry.data.name}, {entry.data.state}</h1>
-      <p>Atendimento tecnico com foco em base geoespacial auditavel.</p>
-    </main>
-  </body>
-</html>
+<BaseLayout title={`Atendimento em ${entry.data.name}`}>
+  <Hero
+    h1={`${entry.data.name}, ${entry.data.state}`}
+    subheadline={`Atendemos ${entry.data.name} com foco em base geoespacial auditavel para obra, regularizacao e decisao tecnica.`}
+    primaryCtaLabel="Chamar no WhatsApp"
+    primaryCtaHref="https://wa.me/5511999999999"
+  />
+
+  <section class="surface mt-6 rounded-2xl p-5">
+    <h2 class="text-xl font-semibold">Bairros com atendimento</h2>
+    <p class="mt-2 text-sm">{entry.data.neighborhoods.join(", ")}.</p>
+  </section>
+
+  <section class="surface mt-6 rounded-2xl p-5">
+    <h2 class="text-xl font-semibold">Perguntas locais</h2>
+    <div class="mt-4 space-y-3">
+      {entry.data.local_faqs.map((faq) => (
+        <details class="rounded-lg border p-3">
+          <summary class="cursor-pointer text-sm font-semibold">{faq.question}</summary>
+          <p class="mt-2 text-sm">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

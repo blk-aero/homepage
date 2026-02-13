@@ -1,0 +1,39 @@
+---
+type Props = {
+  h1: string;
+  subheadline: string;
+  primaryCtaLabel: string;
+  primaryCtaHref: string;
+  guaranteeText?: string | null;
+  secondaryCtaLabel?: string | null;
+  secondaryCtaHref?: string | null;
+  priceAnchor?: string | null;
+};
+
+const {
+  h1,
+  subheadline,
+  primaryCtaLabel,
+  primaryCtaHref,
+  guaranteeText = null,
+  secondaryCtaLabel = null,
+  secondaryCtaHref = null,
+  priceAnchor = null
+} = Astro.props as Props;
+---
+
+<section class="surface rounded-2xl p-6 md:p-8">
+  <div class="mb-2 inline-flex rounded-full px-3 py-1 text-xs font-semibold pill-accent">Decisao auditavel</div>
+  <h1 class="text-3xl font-bold leading-tight md:text-5xl">{h1}</h1>
+  <p id="summary" class="bluf-text mt-4 max-w-3xl text-base md:text-lg">{subheadline}</p>
+
+  <div class="mt-6 flex flex-wrap items-center gap-3">
+    <a class="btn-primary rounded-lg px-5 py-3 text-sm font-semibold" href={primaryCtaHref}>{primaryCtaLabel}</a>
+    {secondaryCtaLabel && secondaryCtaHref && (
+      <a class="btn-secondary rounded-lg px-5 py-3 text-sm font-semibold" href={secondaryCtaHref}>{secondaryCtaLabel}</a>
+    )}
+  </div>
+
+  {priceAnchor && <p class="mt-3 text-sm">{priceAnchor}</p>}
+  {guaranteeText && <p class="mt-1 text-sm"><strong>Garantia:</strong> {guaranteeText}</p>}
+</section>

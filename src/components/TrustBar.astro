@@ -1,0 +1,17 @@
+---
+type Item = { label: string; href?: string };
+
+type Props = {
+  items: Item[];
+};
+
+const { items } = Astro.props as Props;
+---
+
+<section class="mt-5 grid gap-3 md:grid-cols-3">
+  {items.map((item) => (
+    <div class="surface rounded-xl p-3 text-sm">
+      {item.href ? <a class="underline" href={item.href}>{item.label}</a> : <span>{item.label}</span>}
+    </div>
+  ))}
+</section>

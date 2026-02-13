@@ -1,0 +1,67 @@
+---
+import "../styles/global.css";
+import ConsentBanner from "../components/ConsentBanner.astro";
+import GtmHead from "../components/GtmHead.astro";
+
+type Props = {
+  title: string;
+  description?: string;
+};
+
+const {
+  title,
+  description = "BLK - base geoespacial auditavel para decisao tecnica"
+} = Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <GtmHead />
+  </head>
+  <body class="min-h-screen">
+    <header class="surface sticky top-0 z-40">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3" aria-label="Navegacao principal">
+        <a class="text-lg font-semibold" href="/">BLK Aero</a>
+        <ul class="hidden items-center gap-5 text-sm md:flex">
+          <li><a class="hover:underline" href="/servicos/georreferenciamento-de-imovel-rural">Servicos</a></li>
+          <li><a class="hover:underline" href="/cidades/jacarei-sp">Cidades</a></li>
+          <li><a class="hover:underline" href="/sobre">Sobre</a></li>
+          <li><a class="hover:underline" href="/blog/post-1">Blog</a></li>
+        </ul>
+        <a class="btn-primary rounded-lg px-4 py-2 text-sm font-semibold" href="tel:+5512988062737">(12) 98806-2737</a>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-8">
+      <slot />
+    </main>
+
+    <footer class="surface mt-12">
+      <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:grid-cols-3">
+        <div>
+          <h2 class="mb-2 text-base font-semibold">BLK Aero</h2>
+          <p class="text-sm">Base geoespacial auditavel para engenharia, legal e decisao financeira.</p>
+        </div>
+        <div>
+          <h2 class="mb-2 text-base font-semibold">Confianca</h2>
+          <p class="text-sm">CNPJ: 00.000.000/0001-00</p>
+          <p class="text-sm">Endereco: Sao Jose dos Campos, SP</p>
+          <p class="text-sm">Certificacoes: Piloto remoto homologado + fluxo QC interno</p>
+        </div>
+        <div>
+          <h2 class="mb-2 text-base font-semibold">Contato</h2>
+          <p class="text-sm"><a class="underline" href="mailto:contato@blkaero.com.br">contato@blkaero.com.br</a></p>
+          <p class="text-sm"><a class="underline" href="https://wa.me/5511999999999">WhatsApp</a></p>
+          <p class="text-sm"><a class="underline" href="/politica-de-privacidade">Politica de privacidade</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <ConsentBanner />
+  </body>
+</html>
