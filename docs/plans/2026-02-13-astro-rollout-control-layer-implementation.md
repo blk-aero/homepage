@@ -689,9 +689,87 @@ git add /Users/lupion/Documents/homepage/package.json /Users/lupion/Documents/ho
 git commit -m "test(release): add phase1 conversion and accessibility smoke gates"
 ```
 
+## Task 14: PRD Visual and Content Parity Pass (Flowbite + Missing UX Blocks)
+
+**Files:**
+- Create: `/Users/lupion/Documents/homepage/src/layouts/BaseLayout.astro`
+- Create: `/Users/lupion/Documents/homepage/src/components/Hero.astro`
+- Create: `/Users/lupion/Documents/homepage/src/components/TrustBar.astro`
+- Create: `/Users/lupion/Documents/homepage/src/components/LeadMagnetCta.astro`
+- Create: `/Users/lupion/Documents/homepage/src/components/ComparisonTable.astro`
+- Modify: `/Users/lupion/Documents/homepage/src/styles/global.css`
+- Modify: `/Users/lupion/Documents/homepage/src/pages/servicos/[service].astro`
+- Modify: `/Users/lupion/Documents/homepage/src/pages/servicos/[service]/[city].astro`
+- Modify: `/Users/lupion/Documents/homepage/src/pages/sobre.astro`
+- Create: `/Users/lupion/Documents/homepage/src/pages/blog/index.astro`
+- Create: `/Users/lupion/Documents/homepage/src/pages/blog/[slug].astro`
+- Create: `/Users/lupion/Documents/homepage/src/pages/cases/[slug].astro`
+- Create: `/Users/lupion/Documents/homepage/src/content/blog/post-1.md`
+- Create: `/Users/lupion/Documents/homepage/src/content/blog/post-2.md`
+- Create: `/Users/lupion/Documents/homepage/src/content/cases/case-1.md`
+- Create: `/Users/lupion/Documents/homepage/src/content/cases/case-2.md`
+- Test: `/Users/lupion/Documents/homepage/tests/e2e/prd-parity.spec.ts`
+
+**Step 1: Write the failing test**
+```ts
+import { test, expect } from "@playwright/test";
+
+test("service page renders lead magnet and differentiation blocks", async ({ page }) => {
+  await page.goto("/servicos/georreferenciamento-de-imovel-rural");
+  await expect(page.getByRole("link", { name: /baixar guia/i })).toBeVisible();
+  await expect(page.getByText(/Garantia:/i)).toBeVisible();
+  await expect(page.getByRole("table", { name: /nós vs outros/i })).toBeVisible();
+});
+
+test("/sobre renders trust entity details", async ({ page }) => {
+  await page.goto("/sobre");
+  await expect(page.getByText(/CNPJ/i)).toBeVisible();
+  await expect(page.getByText(/Endereço|Endereco/i)).toBeVisible();
+});
+
+test("mock blog and case routes are available", async ({ page }) => {
+  expect((await page.goto("/blog/post-1"))?.status()).toBe(200);
+  expect((await page.goto("/cases/case-1"))?.status()).toBe(200);
+});
+```
+
+**Step 2: Run test to verify it fails**
+
+Run: `npm run test:e2e -- /Users/lupion/Documents/homepage/tests/e2e/prd-parity.spec.ts`  
+Expected: FAIL due to missing components/routes/blocks
+
+**Step 3: Write minimal implementation**
+
+- Build shared Flowbite/Tailwind layout and component primitives for Hero, TrustBar, LeadMagnet CTA, and Comparison table.
+- Add PRD-required missing sections:
+  - Lead magnet secondary CTA on priority service and service+city pages.
+  - Risk reversal (`Garantia`) near primary CTA.
+  - Differentiation block (`Nós vs Outros`) with compact table.
+  - `/sobre` visible trust details (CNPJ, address, certifications) with mock values if final data is pending.
+  - Mock blog/cases content and route templates so `/blog/<slug>` and `/cases/<slug>` render.
+- Apply locked visual tokens in `src/styles/global.css`:
+  - Colors: `text #23281f`, `background #f5f9f8`, `primary #6ba569`, `secondary #515a3a`, `accent #38ff14`
+  - Fonts: `Poppins` (heading), `Lato` (body)
+- Accessibility constraint:
+  - Never use `primary`/`accent` as normal text on `background`.
+  - Use dark text for primary/accent buttons and white text for secondary button.
+
+**Step 4: Run tests to verify it passes**
+
+Run:
+- `npm run test:e2e -- /Users/lupion/Documents/homepage/tests/e2e/prd-parity.spec.ts`
+- `npm run build`
+
+Expected: PASS and successful build
+
+**Step 5: Commit**
+```bash
+git add /Users/lupion/Documents/homepage/src/layouts/BaseLayout.astro /Users/lupion/Documents/homepage/src/components/Hero.astro /Users/lupion/Documents/homepage/src/components/TrustBar.astro /Users/lupion/Documents/homepage/src/components/LeadMagnetCta.astro /Users/lupion/Documents/homepage/src/components/ComparisonTable.astro /Users/lupion/Documents/homepage/src/styles/global.css /Users/lupion/Documents/homepage/src/pages/servicos/[service].astro /Users/lupion/Documents/homepage/src/pages/servicos/[service]/[city].astro /Users/lupion/Documents/homepage/src/pages/sobre.astro /Users/lupion/Documents/homepage/src/pages/blog/index.astro /Users/lupion/Documents/homepage/src/pages/blog/[slug].astro /Users/lupion/Documents/homepage/src/pages/cases/[slug].astro /Users/lupion/Documents/homepage/src/content/blog/post-1.md /Users/lupion/Documents/homepage/src/content/blog/post-2.md /Users/lupion/Documents/homepage/src/content/cases/case-1.md /Users/lupion/Documents/homepage/src/content/cases/case-2.md /Users/lupion/Documents/homepage/tests/e2e/prd-parity.spec.ts
+git commit -m "feat(ui): add prd parity blocks and flowbite visual system"
+```
+
 ## Deferred Post-Rollout Tasks (explicitly deferred)
 
-- Lead magnet pages and `lead_magnet_submit` tracking.
 - Strict official-source outbound citation enforcement and stricter RAG formatting checks.
 - Quarterly freshness sprint operations (`updated_at` policy automation and checks).
 
