@@ -8,9 +8,11 @@
     "preview": "astro preview",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "check:links": "linkinator http://127.0.0.1:4321 --recurse --skip \"mailto:.*,tel:.*\"",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "flowbite": "^4.0.1",
