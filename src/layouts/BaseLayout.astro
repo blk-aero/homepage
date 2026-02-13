@@ -2,15 +2,20 @@
 import "../styles/global.css";
 import ConsentBanner from "../components/ConsentBanner.astro";
 import GtmHead from "../components/GtmHead.astro";
+import SeoHead from "../components/SeoHead.astro";
 
 type Props = {
   title: string;
   description?: string;
+  canonicalPath?: string;
+  jsonLd?: Record<string, unknown> | null;
 };
 
 const {
   title,
-  description = "BLK - base geoespacial auditavel para decisao tecnica"
+  description = "BLK - base geoespacial auditavel para decisao tecnica",
+  canonicalPath = Astro.url.pathname,
+  jsonLd = null
 } = Astro.props as Props;
 ---
 
@@ -19,8 +24,9 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
     <title>{title}</title>
+    <SeoHead title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} />
+    <slot name="head" />
     <GtmHead />
   </head>
   <body class="min-h-screen">

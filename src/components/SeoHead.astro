@@ -1,0 +1,18 @@
+---
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  jsonLd?: Record<string, unknown> | null;
+};
+
+const { title, description, canonicalPath, jsonLd = null } = Astro.props as Props;
+const canonical = new URL(canonicalPath, Astro.site ?? "http://localhost:4321").toString();
+---
+
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>}
