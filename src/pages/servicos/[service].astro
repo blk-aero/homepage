@@ -5,6 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ComparisonTable from "../../components/ComparisonTable.astro";
 import Hero from "../../components/Hero.astro";
 import LeadMagnetCta from "../../components/LeadMagnetCta.astro";
+import LiteYouTube from "../../components/LiteYouTube.astro";
 import TrustBar from "../../components/TrustBar.astro";
 import WhatsAppCTA from "../../components/WhatsAppCTA.astro";
 import { buildServiceGraph } from "../../lib/schema";
@@ -64,6 +65,12 @@ const jsonLd = buildServiceGraph({ siteUrl, slug: entry.slug, title: entry.data.
   </section>
 
   {comparisonRows.length > 0 && <ComparisonTable rows={comparisonRows} />}
+
+  {entry.slug === "viabilidade-de-terraplenagem" && (
+    <section class="mt-6">
+      <LiteYouTube videoId="dQw4w9WgXcQ" title="Demo de viabilidade de terraplenagem" />
+    </section>
+  )}
 
   <LeadMagnetCta href={entry.data.lead_magnet_href ?? "/ofertas/guia-georreferenciamento"} />
 
