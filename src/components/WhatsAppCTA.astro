@@ -1,0 +1,28 @@
+---
+import { buildWhatsAppUrl } from "../lib/whatsapp";
+
+type Props = {
+  service?: string | null;
+  city?: string | null;
+  label?: string;
+};
+
+const {
+  service = null,
+  city = null,
+  label = "Chamar no WhatsApp"
+} = Astro.props as Props;
+
+const number = (import.meta.env.PUBLIC_WHATSAPP_NUMBER as string | undefined) ?? "5511999999999";
+const href = buildWhatsAppUrl(number, { service, city });
+---
+
+<a
+  data-testid="whatsapp-cta"
+  class="inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold"
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {label}
+</a>
