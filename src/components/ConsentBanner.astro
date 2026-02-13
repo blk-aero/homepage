@@ -1,0 +1,53 @@
+---
+import { grantedConsentState, defaultConsentState } from "../lib/consent";
+
+const denied = JSON.stringify(defaultConsentState());
+const granted = JSON.stringify(grantedConsentState());
+---
+
+<div id="cookie-banner" class="fixed bottom-4 left-4 right-4 z-50 rounded-lg border bg-white p-4 shadow-lg" hidden>
+  <p class="mb-3 text-sm">
+    Usamos cookies para medicao e melhoria de campanhas. Voce pode aceitar ou recusar.
+  </p>
+  <div class="flex gap-2">
+    <button id="cookie-accept" class="rounded px-3 py-2 font-semibold">Aceitar</button>
+    <button id="cookie-reject" class="rounded border px-3 py-2 font-semibold">Recusar</button>
+  </div>
+</div>
+
+<script is:inline>
+  {`const storageKey = 'blk_cookie_consent_v1';
+const banner = document.getElementById('cookie-banner');
+const accept = document.getElementById('cookie-accept');
+const reject = document.getElementById('cookie-reject');
+const deniedState = ${denied};
+const grantedState = ${granted};
+
+function ensureDataLayer() {
+  window.dataLayer = window.dataLayer || [];
+  return window.dataLayer;
+}
+
+function applyConsent(state) {
+  const dl = ensureDataLayer();
+  dl.push({ event: 'consent_update', ...state });
+}
+
+const existing = localStorage.getItem(storageKey);
+if (!existing && banner) {
+  banner.hidden = false;
+  applyConsent(deniedState);
+}
+
+accept?.addEventListener('click', () => {
+  localStorage.setItem(storageKey, 'accepted');
+  applyConsent(grantedState);
+  if (banner) banner.hidden = true;
+});
+
+reject?.addEventListener('click', () => {
+  localStorage.setItem(storageKey, 'rejected');
+  applyConsent(deniedState);
+  if (banner) banner.hidden = true;
+});`}
+</script>
