@@ -3,7 +3,6 @@ import { defineCollection, z } from "astro:content";
 const services = defineCollection({
   type: "content",
   schema: z.object({
-    slug: z.string(),
     title: z.string(),
     primary_keyword: z.string(),
     summary_bluf: z.string(),
@@ -36,7 +35,6 @@ const services = defineCollection({
 const cities = defineCollection({
   type: "content",
   schema: z.object({
-    slug: z.string(),
     name: z.string(),
     state: z.string(),
     lat: z.number(),
