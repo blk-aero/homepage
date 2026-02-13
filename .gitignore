@@ -3,6 +3,13 @@
 /resources/
 /hugo_stats.json
 
+# Node / Astro
+node_modules/
+dist/
+.astro/
+coverage/
+playwright-report/
+
 # Virtual environments #
 venv/
 env/
