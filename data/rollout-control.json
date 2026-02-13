@@ -1,0 +1,15 @@
+{
+  "active_services": [
+    "levantamento-planialtimetrico-para-projeto-arquitetonico",
+    "georreferenciamento-de-imovel-rural",
+    "viabilidade-de-terraplenagem"
+  ],
+  "active_cities": [
+    "sao-jose-dos-campos-sp",
+    "jacarei-sp",
+    "cacapava-sp",
+    "taubate-sp",
+    "pindamonhangaba-sp"
+  ],
+  "blocked_combinations": []
+}
