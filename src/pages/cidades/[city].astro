@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import rolloutData from "../../../data/rollout-control.json";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Hero from "../../components/Hero.astro";
+import { buildDefaultWhatsAppUrl } from "../../lib/contact";
 import { parseRolloutControl, isCityActive } from "../../lib/rollout";
 
 export async function getStaticPaths() {
@@ -21,6 +22,10 @@ type Props = {
 };
 
 const { entry } = Astro.props as Props;
+const whatsappHref = buildDefaultWhatsAppUrl({
+  city: entry.slug,
+  intro: `Olá! Quero atendimento em ${entry.data.name}.`
+});
 ---
 
 <BaseLayout title={`Atendimento em ${entry.data.name}`}>
@@ -28,7 +33,7 @@ const { entry } = Astro.props as Props;
     h1={`${entry.data.name}, ${entry.data.state}`}
     subheadline={`Atendemos ${entry.data.name} com foco em base geoespacial auditavel para obra, regularizacao e decisao tecnica.`}
     primaryCtaLabel="Chamar no WhatsApp"
-    primaryCtaHref="https://wa.me/5511999999999"
+    primaryCtaHref={whatsappHref}
   />
 
   <section class="surface mt-6 rounded-2xl p-5">

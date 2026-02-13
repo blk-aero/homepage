@@ -1,11 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { buildDefaultWhatsAppUrl } from "../../lib/contact";
+
+const whatsappHref = buildDefaultWhatsAppUrl({
+  intro: "Olá! Quero baixar o guia e receber um orçamento."
+});
 ---
 
 <BaseLayout title="Guia de Georreferenciamento" description="Guia rapido para avaliar escopo e prazo de georreferenciamento.">
   <section class="surface rounded-2xl p-6">
     <h1 class="text-3xl font-bold">Guia rapido de georreferenciamento</h1>
     <p class="mt-3 text-sm">Versao mock para captacao secundaria. O formulario sera conectado na etapa de lead magnet tracking.</p>
-    <a class="btn-primary mt-4 inline-flex rounded-lg px-4 py-2 text-sm font-semibold" href="https://wa.me/5511999999999">Chamar no WhatsApp</a>
+    <a class="btn-primary mt-4 inline-flex rounded-lg px-4 py-2 text-sm font-semibold" href={whatsappHref} target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
   </section>
 </BaseLayout>

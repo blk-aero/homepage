@@ -1,4 +1,6 @@
 ---
+import { buildWhatsAppUrl } from "../lib/whatsapp";
+
 type Props = {
   phone: string;
   email: string;
@@ -7,12 +9,13 @@ type Props = {
 };
 
 const { phone, email, service = null, city = null } = Astro.props as Props;
-const cleanPhone = phone.replace(/\s+/g, "");
+const cleanPhone = phone.replace(/\D/g, "");
+const whatsappHref = buildWhatsAppUrl(cleanPhone, { service, city });
 const payload = JSON.stringify({ service, city, page_path: Astro.url.pathname });
 ---
 
 <div class="flex flex-wrap items-center gap-4" data-contact-links data-payload={payload}>
-  <a data-track="call" href={`tel:${cleanPhone}`} class="underline">{phone}</a>
+  <a data-track="whatsapp" href={whatsappHref} target="_blank" rel="noopener noreferrer" class="underline">{phone}</a>
   <a data-track="email" href={`mailto:${email}`} class="underline">{email}</a>
 </div>
 
@@ -23,9 +26,9 @@ const payload = JSON.stringify({ service, city, page_path: Astro.url.pathname })
     const raw = root.dataset.payload;
     const basePayload = raw ? JSON.parse(raw) : {};
 
-    root.querySelector('[data-track="call"]')?.addEventListener("click", () => {
+    root.querySelector('[data-track="whatsapp"]')?.addEventListener("click", () => {
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: "click_to_call", ...basePayload });
+      window.dataLayer.push({ event: "whatsapp_click", ...basePayload });
     });
 
     root.querySelector('[data-track="email"]')?.addEventListener("click", () => {

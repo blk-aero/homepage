@@ -1,0 +1,92 @@
+---
+import aconvapLogo from "../assets/brand/aconvap.png";
+import heroCover from "../assets/brand/cover-drone-mountain-bw.webp";
+
+type Props = {
+  h1: string;
+  subheadline: string;
+  primaryCtaLabel: string;
+  primaryCtaHref: string;
+  secondaryCtaLabel?: string | null;
+  secondaryCtaHref?: string | null;
+};
+
+const {
+  h1,
+  subheadline,
+  primaryCtaLabel,
+  primaryCtaHref,
+  secondaryCtaLabel = null,
+  secondaryCtaHref = null
+} = Astro.props as Props;
+
+const primaryExternal = /^https?:\/\//.test(primaryCtaHref);
+const secondaryExternal = secondaryCtaHref ? /^https?:\/\//.test(secondaryCtaHref) : false;
+const heroCoverSrc = typeof heroCover === "string" ? heroCover : heroCover.src;
+const aconvapLogoSrc = typeof aconvapLogo === "string" ? aconvapLogo : aconvapLogo.src;
+---
+
+<section class="surface overflow-hidden rounded-2xl">
+  <div data-testid="home-hero-main" class="grid gap-0 border-b border-gray-200 md:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)] dark:border-gray-800">
+    <div data-testid="home-hero-copy" class="min-w-0 p-6 md:p-8">
+      <div class="mb-2 inline-flex rounded-full px-3 py-1 text-xs font-semibold pill-accent">Decisao auditavel</div>
+      <h1 class="text-3xl font-bold leading-tight md:text-5xl">{h1}</h1>
+      <p id="summary" class="bluf-text mt-4 text-base md:text-lg">{subheadline}</p>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <a
+          class="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
+          href={primaryCtaHref}
+          target={primaryExternal ? "_blank" : undefined}
+          rel={primaryExternal ? "noopener noreferrer" : undefined}
+        >
+          {primaryCtaLabel}
+        </a>
+        {secondaryCtaLabel && secondaryCtaHref && (
+          <a
+            class="btn-secondary rounded-lg px-5 py-3 text-sm font-semibold"
+            href={secondaryCtaHref}
+            target={secondaryExternal ? "_blank" : undefined}
+            rel={secondaryExternal ? "noopener noreferrer" : undefined}
+          >
+            {secondaryCtaLabel}
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div data-testid="home-hero-media" class="relative min-h-72 border-t border-gray-200 md:min-h-full md:border-t-0 md:border-l dark:border-gray-800">
+      <img
+        data-testid="home-hero-image"
+        src={heroCoverSrc}
+        alt="Operacao de drone em area montanhosa"
+        class="h-full w-full object-cover object-center grayscale contrast-110"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-gradient-to-tr from-black/35 via-black/20 to-transparent"></div>
+    </div>
+  </div>
+
+  <div data-testid="home-hero-brands" class="px-6 py-6 md:px-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-600 dark:text-gray-400">Parcerias de campo</p>
+    <div class="mt-4 flex flex-wrap items-center gap-10">
+      <a
+        class="inline-flex transition hover:-translate-y-0.5"
+        href="https://aconvap.com.br/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="ACONVAP"
+      >
+        <img
+          data-testid="brand-aconvap"
+          src={aconvapLogoSrc}
+          alt="ACONVAP"
+          class="h-8 w-auto grayscale opacity-70 transition hover:opacity-90"
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    </div>
+  </div>
+</section>

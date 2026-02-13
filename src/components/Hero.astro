@@ -20,6 +20,9 @@ const {
   secondaryCtaHref = null,
   priceAnchor = null
 } = Astro.props as Props;
+
+const primaryExternal = /^https?:\/\//.test(primaryCtaHref);
+const secondaryExternal = secondaryCtaHref ? /^https?:\/\//.test(secondaryCtaHref) : false;
 ---
 
 <section class="surface rounded-2xl p-6 md:p-8">
@@ -28,9 +31,23 @@ const {
   <p id="summary" class="bluf-text mt-4 max-w-3xl text-base md:text-lg">{subheadline}</p>
 
   <div class="mt-6 flex flex-wrap items-center gap-3">
-    <a class="btn-primary rounded-lg px-5 py-3 text-sm font-semibold" href={primaryCtaHref}>{primaryCtaLabel}</a>
+    <a
+      class="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
+      href={primaryCtaHref}
+      target={primaryExternal ? "_blank" : undefined}
+      rel={primaryExternal ? "noopener noreferrer" : undefined}
+    >
+      {primaryCtaLabel}
+    </a>
     {secondaryCtaLabel && secondaryCtaHref && (
-      <a class="btn-secondary rounded-lg px-5 py-3 text-sm font-semibold" href={secondaryCtaHref}>{secondaryCtaLabel}</a>
+      <a
+        class="btn-secondary rounded-lg px-5 py-3 text-sm font-semibold"
+        href={secondaryCtaHref}
+        target={secondaryExternal ? "_blank" : undefined}
+        rel={secondaryExternal ? "noopener noreferrer" : undefined}
+      >
+        {secondaryCtaLabel}
+      </a>
     )}
   </div>
 

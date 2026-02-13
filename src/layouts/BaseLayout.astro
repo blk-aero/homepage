@@ -1,9 +1,12 @@
 ---
 import "../styles/global.css";
+import faviconPng from "../assets/brand/favicon.png";
+import logoInline from "../assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg";
 import AttributionCapture from "../components/AttributionCapture.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
 import GtmHead from "../components/GtmHead.astro";
 import SeoHead from "../components/SeoHead.astro";
+import { buildDefaultWhatsAppUrl } from "../lib/contact";
 
 type Props = {
   title: string;
@@ -18,6 +21,15 @@ const {
   canonicalPath = Astro.url.pathname,
   jsonLd = null
 } = Astro.props as Props;
+
+const navWhatsAppHref = buildDefaultWhatsAppUrl({
+  intro: "Olá! Quero falar com a BLK Aero."
+});
+const footerWhatsAppHref = buildDefaultWhatsAppUrl({
+  intro: "Olá! Quero atendimento da BLK Aero."
+});
+const logoInlineSrc = typeof logoInline === "string" ? logoInline : logoInline.src;
+const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 ---
 
 <!doctype html>
@@ -26,21 +38,62 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <link rel="icon" type="image/png" href={faviconSrc} />
+    <link rel="apple-touch-icon" href={faviconSrc} />
     <SeoHead title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} />
     <slot name="head" />
     <GtmHead />
   </head>
   <body class="min-h-screen">
     <header class="surface sticky top-0 z-40">
-      <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3" aria-label="Navegacao principal">
-        <a class="text-lg font-semibold" href="/">BLK Aero</a>
-        <ul class="hidden items-center gap-5 text-sm md:flex">
-          <li><a class="hover:underline" href="/servicos/georreferenciamento-de-imovel-rural">Servicos</a></li>
-          <li><a class="hover:underline" href="/cidades/jacarei-sp">Cidades</a></li>
-          <li><a class="hover:underline" href="/sobre">Sobre</a></li>
-          <li><a class="hover:underline" href="/blog/post-1">Blog</a></li>
-        </ul>
-        <a class="btn-primary rounded-lg px-4 py-2 text-sm font-semibold" href="tel:+5512988062737">(12) 98806-2737</a>
+      <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="Navegacao principal">
+        <a class="inline-flex items-center" href="/">
+          <img
+            src={logoInlineSrc}
+            alt="BLK Aero"
+            class="h-8 w-auto md:h-9"
+            loading="eager"
+            decoding="async"
+          />
+        </a>
+        <div class="order-2 flex items-center gap-2 md:order-3">
+          <a
+            class="btn-primary inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold"
+            href={navWhatsAppHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="nav-whatsapp-cta"
+            aria-label="WhatsApp"
+          >
+            <span aria-hidden="true" class="inline-flex h-4 w-4">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.5 14.4c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-.9 1.1c-.2.2-.3.2-.6.1s-1.3-.5-2.5-1.6c-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.1 1.1-1.1 2.7 1.2 3.2 1.4 3.4c.2.2 2.3 3.5 5.6 4.8.8.3 1.4.5 1.9.6.8.2 1.5.1 2 .1.6-.1 1.9-.8 2.1-1.6.3-.8.3-1.4.2-1.6 0-.1-.2-.2-.5-.3z"></path>
+                <path d="M12 2C6.5 2 2 6.4 2 11.9c0 1.9.5 3.8 1.6 5.4L2 22l4.9-1.5c1.5.8 3.3 1.3 5.1 1.3 5.5 0 10-4.4 10-9.9S17.5 2 12 2zm0 18.1c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-2.9.9.9-2.8-.2-.3C4 15.2 3.5 13.6 3.5 12 3.5 7.3 7.3 3.5 12 3.5s8.5 3.8 8.5 8.5-3.8 8.1-8.5 8.1z"></path>
+              </svg>
+            </span>
+            <span>WhatsApp</span>
+          </a>
+          <button
+            data-collapse-toggle="main-nav-menu"
+            type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 text-gray-700 md:hidden dark:border-gray-700 dark:text-gray-100"
+            aria-controls="main-nav-menu"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Abrir menu</span>
+            <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+          </button>
+        </div>
+        <div id="main-nav-menu" class="order-3 hidden w-full md:order-2 md:block md:w-auto">
+          <ul class="mt-2 flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-3 text-sm md:mt-0 md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0 dark:border-gray-700 dark:bg-gray-900 md:dark:bg-transparent">
+            <li><a class="hover:underline" href="/servicos/georreferenciamento-de-imovel-rural">Servicos</a></li>
+            <li><a class="hover:underline" href="/cidades/jacarei-sp">Cidades</a></li>
+            <li><a class="hover:underline" href="/sobre">Sobre</a></li>
+            <li><a class="hover:underline" href="/blog/post-1">Blog</a></li>
+          </ul>
+        </div>
       </nav>
     </header>
 
@@ -51,7 +104,13 @@ const {
     <footer class="surface mt-12">
       <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:grid-cols-3">
         <div>
-          <h2 class="mb-2 text-base font-semibold">BLK Aero</h2>
+          <img
+            src={logoInlineSrc}
+            alt="BLK Aero"
+            class="mb-2 h-7 w-auto"
+            loading="lazy"
+            decoding="async"
+          />
           <p class="text-sm">Base geoespacial auditavel para engenharia, legal e decisao financeira.</p>
         </div>
         <div>
@@ -63,7 +122,11 @@ const {
         <div>
           <h2 class="mb-2 text-base font-semibold">Contato</h2>
           <p class="text-sm"><a class="underline" href="mailto:contato@blkaero.com.br">contato@blkaero.com.br</a></p>
-          <p class="text-sm"><a class="underline" href="https://wa.me/5511999999999">WhatsApp</a></p>
+          <p class="text-sm">
+            <a class="underline" href={footerWhatsAppHref} target="_blank" rel="noopener noreferrer">
+              WhatsApp
+            </a>
+          </p>
           <p class="text-sm"><a class="underline" href="/politica-de-privacidade">Politica de privacidade</a></p>
         </div>
       </div>
@@ -71,5 +134,26 @@ const {
 
     <ConsentBanner />
     <AttributionCapture />
+    <script type="module">
+      import { initFlowbite } from "flowbite";
+
+      initFlowbite();
+    </script>
+
+    <script is:inline>
+      document.querySelectorAll("[data-collapse-toggle]").forEach((trigger) => {
+        if (!(trigger instanceof HTMLElement)) return;
+        const targetId = trigger.dataset.collapseToggle;
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        trigger.addEventListener("click", (event) => {
+          event.preventDefault();
+          const hidden = target.classList.toggle("hidden");
+          trigger.setAttribute("aria-expanded", String(!hidden));
+        });
+      });
+    </script>
   </body>
 </html>
