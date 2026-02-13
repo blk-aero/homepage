@@ -1,0 +1,36 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import rolloutData from "../../../data/rollout-control.json";
+import { parseRolloutControl, isCityActive } from "../../lib/rollout";
+
+export async function getStaticPaths() {
+  const control = parseRolloutControl(rolloutData);
+  const cities = await getCollection("cities");
+  const activeCities = cities.filter((entry) => isCityActive(control, entry.slug));
+
+  return activeCities.map((entry) => ({
+    params: { city: entry.slug },
+    props: { entry }
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<"cities">;
+};
+
+const { entry } = Astro.props as Props;
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{`Atendimento em ${entry.data.name}`}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{entry.data.name}, {entry.data.state}</h1>
+      <p>Atendimento tecnico com foco em base geoespacial auditavel.</p>
+    </main>
+  </body>
+</html>

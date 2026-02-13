@@ -1,0 +1,58 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import rolloutData from "../../../../data/rollout-control.json";
+import { parseRolloutControl, isCityActive, isServiceActive } from "../../../lib/rollout";
+import { buildServiceCityPairs } from "../../../lib/routes";
+
+export async function getStaticPaths() {
+  const control = parseRolloutControl(rolloutData);
+  const services = await getCollection("services");
+  const cities = await getCollection("cities");
+
+  const activeServiceEntries = services.filter((entry) => isServiceActive(control, entry.slug));
+  const activeCityEntries = cities.filter((entry) => isCityActive(control, entry.slug));
+
+  const pairings = buildServiceCityPairs(
+    activeServiceEntries.map((entry) => entry.slug),
+    activeCityEntries.map((entry) => entry.slug),
+    control.blocked_combinations ?? []
+  );
+
+  const servicesBySlug = new Map(activeServiceEntries.map((entry) => [entry.slug, entry]));
+  const citiesBySlug = new Map(activeCityEntries.map((entry) => [entry.slug, entry]));
+
+  return pairings
+    .map((pair) => {
+      const serviceEntry = servicesBySlug.get(pair.service);
+      const cityEntry = citiesBySlug.get(pair.city);
+      if (!serviceEntry || !cityEntry) return null;
+
+      return {
+        params: { service: pair.service, city: pair.city },
+        props: { serviceEntry, cityEntry }
+      };
+    })
+    .filter(Boolean);
+}
+
+type Props = {
+  serviceEntry: CollectionEntry<"services">;
+  cityEntry: CollectionEntry<"cities">;
+};
+
+const { serviceEntry, cityEntry } = Astro.props as Props;
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{`${serviceEntry.data.title} em ${cityEntry.data.name}`}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{serviceEntry.data.title} em {cityEntry.data.name}</h1>
+      <p>{serviceEntry.data.summary_bluf}</p>
+    </main>
+  </body>
+</html>

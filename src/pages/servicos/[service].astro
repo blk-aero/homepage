@@ -1,0 +1,37 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import rolloutData from "../../../data/rollout-control.json";
+import { parseRolloutControl, isServiceActive } from "../../lib/rollout";
+
+export async function getStaticPaths() {
+  const control = parseRolloutControl(rolloutData);
+  const services = await getCollection("services");
+  const activeServices = services.filter((entry) => isServiceActive(control, entry.slug));
+
+  return activeServices.map((entry) => ({
+    params: { service: entry.slug },
+    props: { entry }
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<"services">;
+};
+
+const { entry } = Astro.props as Props;
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{entry.data.title}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{entry.data.title}</h1>
+      <p>{entry.data.summary_bluf}</p>
+      <p><strong>{entry.data.price_anchor}</strong></p>
+    </main>
+  </body>
+</html>
