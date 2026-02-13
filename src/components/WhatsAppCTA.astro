@@ -19,6 +19,9 @@ const href = buildWhatsAppUrl(number, { service, city });
 
 <a
   data-testid="whatsapp-cta"
+  data-whatsapp-number={number}
+  data-service={service ?? ""}
+  data-city={city ?? ""}
   class="inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold"
   href={href}
   target="_blank"
@@ -26,3 +29,65 @@ const href = buildWhatsAppUrl(number, { service, city });
 >
   {label}
 </a>
+
+<script is:inline>
+  (function () {
+    const storageKey = "blk_attribution_v1";
+    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+
+    function readStored() {
+      try {
+        return JSON.parse(sessionStorage.getItem(storageKey) || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function readCurrentParams() {
+      const params = new URLSearchParams(window.location.search);
+      const out = {};
+      keys.forEach((key) => {
+        const value = params.get(key);
+        if (value) out[key] = value;
+      });
+      return out;
+    }
+
+    function buildMessage(service, city, attribution) {
+      const parts = ["Olá! Quero orçamento."];
+      if (service) parts.push(`Serviço: ${service}.`);
+      if (city) parts.push(`Cidade: ${city}.`);
+      const pairs = Object.entries(attribution).map(([k, v]) => `${k}=${v}`);
+      if (pairs.length) parts.push(pairs.join(" "));
+      return parts.join(" ");
+    }
+
+    document.querySelectorAll("[data-testid='whatsapp-cta']").forEach((node) => {
+      if (!(node instanceof HTMLAnchorElement)) return;
+      if (node.dataset.bound === "1") return;
+      node.dataset.bound = "1";
+
+      const number = (node.dataset.whatsappNumber || "").replace(/\D/g, "");
+      const service = node.dataset.service || "";
+      const city = node.dataset.city || "";
+      const attribution = { ...readStored(), ...readCurrentParams() };
+      if (Object.keys(attribution).length > 0) {
+        sessionStorage.setItem(storageKey, JSON.stringify(attribution));
+      }
+
+      const message = buildMessage(service, city, attribution);
+      node.href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+
+      node.addEventListener("click", () => {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "whatsapp_click",
+          service: service || undefined,
+          city: city || undefined,
+          page_path: window.location.pathname,
+          ...attribution
+        });
+      });
+    });
+  })();
+</script>
