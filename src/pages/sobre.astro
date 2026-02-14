@@ -1,32 +1,36 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getSiteConfig } from "../lib/site-config";
+
+const siteConfig = await getSiteConfig();
+const { meta, contact } = siteConfig;
 
 const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "BLK Aero",
-  taxID: "00.000.000/0001-00",
+  name: meta.legal_name,
+  taxID: contact.cnpj,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Sao Jose dos Campos",
-    addressRegion: "SP",
-    addressCountry: "BR"
+    addressLocality: contact.address_city,
+    addressRegion: contact.address_state,
+    addressCountry: contact.address_country
   }
 };
 ---
 
-<BaseLayout title="Sobre a BLK Aero" description="Entidade tecnica com foco em base geoespacial auditavel.">
+<BaseLayout title={meta.about_title} description={meta.about_description}>
   <section class="surface rounded-2xl p-6">
-    <h1 class="text-3xl font-bold">Sobre a BLK Aero</h1>
-    <p class="mt-3 text-sm">Somos uma operacao tecnica focada em transformar captura de campo em decisao auditavel.</p>
+    <h1 class="text-3xl font-bold">{meta.about_title}</h1>
+    <p class="mt-3 text-sm">{contact.about_intro}</p>
   </section>
 
   <section class="surface mt-6 rounded-2xl p-6">
-    <h2 class="text-xl font-semibold">Dados de confianca</h2>
+    <h2 class="text-xl font-semibold">{contact.about_trust_title}</h2>
     <ul class="mt-3 space-y-2 text-sm">
-      <li><strong>CNPJ:</strong> 00.000.000/0001-00</li>
-      <li><strong>Endereco:</strong> Sao Jose dos Campos, SP</li>
-      <li><strong>Certificacoes:</strong> Piloto remoto homologado e rotina de controle de qualidade interno</li>
+      <li><strong>CNPJ:</strong> {contact.cnpj}</li>
+      <li><strong>Endereco:</strong> {contact.address_city}, {contact.address_state}</li>
+      <li><strong>Certificacoes:</strong> {contact.about_certifications}</li>
     </ul>
   </section>
 

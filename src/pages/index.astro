@@ -2,32 +2,35 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HomeHeroShowcase from "../components/HomeHeroShowcase.astro";
 import LeadMagnetCta from "../components/LeadMagnetCta.astro";
+import { getSiteConfig } from "../lib/site-config";
+
+const siteConfig = await getSiteConfig();
+const { home, meta } = siteConfig;
 ---
 
-<BaseLayout title="BLK Aero - Topografia e Georreferenciamento" description="Topografia, georreferenciamento e viabilidade com base auditavel para decisoes tecnicas.">
+<BaseLayout title={meta.home_title} description={meta.home_description}>
   <HomeHeroShowcase
-    h1="Topografia e Georreferenciamento para Decisao sem Retrabalho"
-    subheadline="Entregamos base geoespacial auditavel para reduzir risco, acelerar cronograma e melhorar a qualidade da decisao tecnica."
-    primaryCtaLabel="Chamar no WhatsApp"
-    primaryCtaHref="/servicos/georreferenciamento-de-imovel-rural"
-    secondaryCtaLabel="Baixar guia"
-    secondaryCtaHref="/ofertas/guia-georreferenciamento"
+    h1={home.hero.h1}
+    subheadline={home.hero.subheadline}
+    primaryCtaLabel={home.hero.primary_cta_label}
+    primaryCtaHref={home.hero.primary_cta_href}
+    secondaryCtaLabel={home.hero.secondary_cta_label}
+    secondaryCtaHref={home.hero.secondary_cta_href}
   />
 
   <section class="mt-6 grid gap-4 md:grid-cols-3">
-    <a class="surface rounded-xl p-4" href="/servicos/levantamento-planialtimetrico-para-projeto-arquitetonico">
-      <h2 class="text-lg font-semibold">Levantamento planialtimetrico</h2>
-      <p class="mt-2 text-sm">Base precisa para projeto arquitetonico com menor risco de retrabalho.</p>
-    </a>
-    <a class="surface rounded-xl p-4" href="/servicos/georreferenciamento-de-imovel-rural">
-      <h2 class="text-lg font-semibold">Georreferenciamento rural</h2>
-      <p class="mt-2 text-sm">Peças tecnicas com foco em regularizacao e seguranca juridica.</p>
-    </a>
-    <a class="surface rounded-xl p-4" href="/servicos/viabilidade-de-terraplenagem">
-      <h2 class="text-lg font-semibold">Viabilidade de terraplenagem</h2>
-      <p class="mt-2 text-sm">Cenarios de volume para reduzir surpresa financeira na obra.</p>
-    </a>
+    {home.service_cards.map((card) => (
+      <a class="surface rounded-xl p-4" href={card.href}>
+        <h2 class="text-lg font-semibold">{card.title}</h2>
+        <p class="mt-2 text-sm">{card.description}</p>
+      </a>
+    ))}
   </section>
 
-  <LeadMagnetCta href="/ofertas/guia-georreferenciamento" />
+  <LeadMagnetCta
+    title={home.lead_magnet.title}
+    description={home.lead_magnet.description}
+    href={home.lead_magnet.href}
+    label={home.lead_magnet.label}
+  />
 </BaseLayout>

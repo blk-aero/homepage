@@ -7,6 +7,7 @@ import ConsentBanner from "../components/ConsentBanner.astro";
 import GtmHead from "../components/GtmHead.astro";
 import SeoHead from "../components/SeoHead.astro";
 import { buildDefaultWhatsAppUrl } from "../lib/contact";
+import { getSiteConfig } from "../lib/site-config";
 
 type Props = {
   title: string;
@@ -17,17 +18,22 @@ type Props = {
 
 const {
   title,
-  description = "BLK - base geoespacial auditavel para decisao tecnica",
+  description = null,
   canonicalPath = Astro.url.pathname,
   jsonLd = null
 } = Astro.props as Props;
 
+const siteConfig = await getSiteConfig();
+const pageDescription = description ?? siteConfig.meta.default_description;
 const navWhatsAppHref = buildDefaultWhatsAppUrl({
-  intro: "Olá! Quero falar com a BLK Aero."
+  intro: siteConfig.contact.whatsapp.nav_intro
 });
 const footerWhatsAppHref = buildDefaultWhatsAppUrl({
-  intro: "Olá! Quero atendimento da BLK Aero."
+  intro: siteConfig.contact.whatsapp.footer_intro
 });
+const footerSocialTitle = siteConfig.footer.social_title;
+const footerSocialLinks = siteConfig.footer.social_links;
+const navLinks = siteConfig.navigation.primary_links;
 const logoInlineSrc = typeof logoInline === "string" ? logoInline : logoInline.src;
 const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 ---
@@ -40,7 +46,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
     <title>{title}</title>
     <link rel="icon" type="image/png" href={faviconSrc} />
     <link rel="apple-touch-icon" href={faviconSrc} />
-    <SeoHead title={title} description={description} canonicalPath={canonicalPath} jsonLd={jsonLd} />
+    <SeoHead title={title} description={pageDescription} canonicalPath={canonicalPath} jsonLd={jsonLd} />
     <slot name="head" />
     <GtmHead />
   </head>
@@ -50,7 +56,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
         <a class="inline-flex items-center" href="/">
           <img
             src={logoInlineSrc}
-            alt="BLK Aero"
+            alt={siteConfig.meta.brand_name}
             class="h-8 w-auto md:h-9"
             loading="eager"
             decoding="async"
@@ -88,10 +94,21 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
         </div>
         <div id="main-nav-menu" class="order-3 hidden w-full md:order-2 md:block md:w-auto">
           <ul class="mt-2 flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-3 text-sm md:mt-0 md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0 dark:border-gray-700 dark:bg-gray-900 md:dark:bg-transparent">
-            <li><a class="hover:underline" href="/servicos/georreferenciamento-de-imovel-rural">Servicos</a></li>
-            <li><a class="hover:underline" href="/cidades/jacarei-sp">Cidades</a></li>
-            <li><a class="hover:underline" href="/sobre">Sobre</a></li>
-            <li><a class="hover:underline" href="/blog/post-1">Blog</a></li>
+            {navLinks.map((link) => {
+              const external = /^https?:\/\//.test(link.href);
+              return (
+                <li>
+                  <a
+                    class="hover:underline"
+                    href={link.href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>
@@ -102,32 +119,45 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
     </main>
 
     <footer class="surface mt-12">
-      <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:grid-cols-3">
+      <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:grid-cols-4">
         <div>
           <img
             src={logoInlineSrc}
-            alt="BLK Aero"
+            alt={siteConfig.meta.brand_name}
             class="mb-2 h-7 w-auto"
             loading="lazy"
             decoding="async"
           />
-          <p class="text-sm">Base geoespacial auditavel para engenharia, legal e decisao financeira.</p>
+          <p class="text-sm">{siteConfig.contact.footer_summary}</p>
         </div>
         <div>
-          <h2 class="mb-2 text-base font-semibold">Confianca</h2>
-          <p class="text-sm">CNPJ: 00.000.000/0001-00</p>
-          <p class="text-sm">Endereco: Sao Jose dos Campos, SP</p>
-          <p class="text-sm">Certificacoes: Piloto remoto homologado + fluxo QC interno</p>
+          <h2 class="mb-2 text-base font-semibold">{siteConfig.contact.trust_title}</h2>
+          <p class="text-sm">CNPJ: {siteConfig.contact.cnpj}</p>
+          <p class="text-sm">Endereco: {siteConfig.contact.address_city}, {siteConfig.contact.address_state}</p>
+          <p class="text-sm">Certificacoes: {siteConfig.contact.trust_certifications}</p>
         </div>
         <div>
           <h2 class="mb-2 text-base font-semibold">Contato</h2>
-          <p class="text-sm"><a class="underline" href="mailto:contato@blkaero.com.br">contato@blkaero.com.br</a></p>
+          <p class="text-sm">{siteConfig.contact.phone_display}</p>
+          <p class="text-sm"><a class="underline" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></p>
           <p class="text-sm">
             <a class="underline" href={footerWhatsAppHref} target="_blank" rel="noopener noreferrer">
               WhatsApp
             </a>
           </p>
-          <p class="text-sm"><a class="underline" href="/politica-de-privacidade">Politica de privacidade</a></p>
+          <p class="text-sm"><a class="underline" href={siteConfig.contact.privacy_path}>{siteConfig.contact.privacy_label}</a></p>
+        </div>
+        <div>
+          <h2 class="mb-2 text-base font-semibold">{footerSocialTitle}</h2>
+          <ul class="flex flex-col gap-1 text-sm">
+            {footerSocialLinks.map((social) => (
+              <li>
+                <a class="underline" href={social.href} target="_blank" rel="noopener noreferrer">
+                  {social.label!}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>
