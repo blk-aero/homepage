@@ -43,6 +43,7 @@ Scope is technical execution only: implementation workflow, verification standar
 
 - `npm run dev`
 - `npm run build`
+- `npm run preview`
 - `npm run test`
 - `npm run test:e2e`
 - `npm run check:links` (expects local server at `http://127.0.0.1:4321`)
