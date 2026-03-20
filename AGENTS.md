@@ -53,6 +53,10 @@ Scope is technical execution only: implementation workflow, verification standar
 - `src/lib/*` changes:
   - Run related unit tests under `tests/lib/*`.
   - Run `npm run test`.
+- `scripts/indexnow.mjs` changes:
+  - Run `npm run test -- tests/lib/indexnow.test.ts`.
+- `package.json` script changes:
+  - Run `npm run test -- tests/config/package-scripts.test.ts`.
 - Route/content changes (`src/pages`, `src/content`):
   - Run `npm run test:e2e -- tests/e2e/routing.spec.ts`.
   - Run additional relevant e2e specs for touched behavior.
@@ -62,6 +66,14 @@ Scope is technical execution only: implementation workflow, verification standar
     - `tests/e2e/conversion-flow.spec.ts`
     - `tests/e2e/navigation-whatsapp.spec.ts`
     - `tests/e2e/home-hero-showcase.spec.ts`
+- Lead magnet/trust/about parity changes:
+  - Run `npm run test:e2e -- tests/e2e/prd-parity.spec.ts`.
+- Embed/lazy-media changes:
+  - Run `npm run test:e2e -- tests/e2e/lite-embed.spec.ts`.
+- Footer contact/social changes:
+  - Run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.
+- Accessibility-sensitive UI changes:
+  - Run `npm run test:e2e -- tests/e2e/accessibility-smoke.spec.ts`.
 - Release-sensitive changes:
   - Run `npm run build`.
   - Run `npm run test`.
