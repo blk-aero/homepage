@@ -12,6 +12,8 @@ Scope is technical execution only: implementation workflow, verification standar
 - `src/content`: content collections for services, cities, blog, and cases.
 - `src/lib`: shared logic (`consent`, `datalayer`, `routes`, `schema`, `rollout`, `whatsapp`, `contact`).
 - `src/components`, `src/layouts`, `src/styles`: UI composition and styling.
+- `tests/config`: script and repo-config assertions.
+- `tests/content`: content inventory and structure checks.
 - `tests/lib`: unit tests for shared logic.
 - `tests/e2e`: Playwright end-to-end checks for routing, conversion flow, accessibility, embeds, and navigation.
 - `docs/runbooks`: operational procedures, including rollout QA.
@@ -57,6 +59,8 @@ Scope is technical execution only: implementation workflow, verification standar
   - Run `npm run test -- tests/lib/indexnow.test.ts`.
 - `package.json` script changes:
   - Run `npm run test -- tests/config/package-scripts.test.ts`.
+- `src/content/config.ts` or content inventory changes:
+  - Run `npm run test -- tests/content/phase1-content-files.test.ts`.
 - Route/content changes (`src/pages`, `src/content`):
   - Run `npm run test:e2e -- tests/e2e/routing.spec.ts`.
   - Run additional relevant e2e specs for touched behavior.
