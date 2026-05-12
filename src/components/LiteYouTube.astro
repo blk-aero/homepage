@@ -72,14 +72,15 @@ const videoJson =
       const root = document.getElementById(targetId);
       if (!root) return;
 
-      root.innerHTML = `<iframe
-        src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        loading="lazy"
-        class="aspect-video w-full"
-      ></iframe>`;
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1`;
+      iframe.title = "YouTube video player";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      iframe.className = "aspect-video w-full";
+
+      root.replaceChildren(iframe);
     });
   });
 </script>

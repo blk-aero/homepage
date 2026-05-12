@@ -37,7 +37,14 @@ const boxId = `lazy-iframe-${Math.random().toString(36).slice(2, 9)}`;
       const root = trigger.closest("div");
       if (!root) return;
 
-      root.innerHTML = `<iframe src="${src}" title="${title}" loading="lazy" class="w-full" style="height:${height}px"></iframe>`;
+      const iframe = document.createElement("iframe");
+      iframe.src = src;
+      iframe.title = title;
+      iframe.loading = "lazy";
+      iframe.className = "w-full";
+      iframe.style.height = `${Number.parseInt(height, 10) || 480}px`;
+
+      root.replaceChildren(iframe);
     });
   });
 </script>
