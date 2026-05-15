@@ -4,11 +4,8 @@ Astro homepage for BLK Aero, with content-driven service/city pages, conversion 
 
 ## Essentials
 
-- Package manager: npm.
 - Generated output: do not edit `dist` or `.astro` unless explicitly requested.
-- Before editing, identify impacted files and nearby tests; keep changes scoped to the requested task.
 - Before declaring completion, run relevant verification and report exact commands plus pass/fail results.
-- Use `npm run check:links` only with the local site available at `http://127.0.0.1:4321`.
 
 ## Guides
 
