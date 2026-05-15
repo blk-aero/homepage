@@ -164,12 +164,6 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 
     <ConsentBanner />
     <AttributionCapture />
-    <script type="module">
-      import { initFlowbite } from "flowbite";
-
-      initFlowbite();
-    </script>
-
     <script is:inline>
       document.querySelectorAll("[data-collapse-toggle]").forEach((trigger) => {
         if (!(trigger instanceof HTMLElement)) return;
