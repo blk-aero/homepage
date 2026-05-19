@@ -60,9 +60,12 @@ The homepage is an **authority + triage homepage**, not a single-service landing
 1. Hero with the primary specialist CTA.
 2. Compact proof band, immediately after the hero and before service triage.
 3. Five homepage triage cards.
-4. Method / deliverables / decision-auditability section.
-5. Deeper proof, cases, visual examples, or category-specific examples.
-6. Final WhatsApp CTA.
+4. Decision-first deliverables section.
+5. Client visualization platform differentiator.
+6. **Como garantimos confiança técnica** method section.
+7. Anonymized proof snippets by service cluster.
+8. Hiring-objection FAQ.
+9. Final WhatsApp CTA.
 
 The compact proof band should be visually light: logos/names only, no per-item relationship labels.
 
@@ -89,6 +92,56 @@ The five homepage cards are:
 4. **Volumetria e Medição** — terraplenagem, corte/aterro, estoque, medição recorrente e disputa contratual.
 5. **Monitoramento e Inteligência Geográfica** — ambiental/ESG, energia, agro, inspeção de ativos, due diligence e gêmeo digital.
 
+### Deliverables, platform, and method
+
+After the triage cards, the homepage should explain what the visitor receives before explaining how BLK produces it. Use decision-first deliverable groups rather than a raw list of file formats.
+
+Deliverable groups:
+
+1. **Base para projeto e obra** — DXF, curvas de nível, ortofoto, MDT/MDS, seções e referências para arquitetura/engenharia.
+2. **Base para regularização e aprovação** — planta, memorial, cadastro técnico, peças para SIGEF/CAR/REURB/prefeitura conforme escopo.
+3. **Base para medição e auditoria** — volumes, comparativos entre datas, relatórios, evidência visual e rastreabilidade.
+4. **Base visual para alinhamento** — modelos 3D, nuvens de pontos, ortomosaicos, visualizações e materiais que ajudam não técnicos a entenderem o cenário.
+
+After the deliverable groups, highlight the visualization platform as a differentiator:
+
+- **Visualização sem software técnico:** ortofotos, nuvens de pontos, modelos 3D e evidências ficam organizados em uma plataforma de visualização para que cliente, engenharia, jurídico e diretoria consigam entender o mesmo cenário sem instalar softwares pesados.
+- Do not emphasize the access-window duration on the homepage; the value is easy visualization and organized delivery.
+
+Method section title: **Como garantimos confiança técnica**.
+
+Method steps:
+
+1. **Entendemos a decisão:** objetivo, área, prazo, órgão e uso final.
+2. **Planejamos a captura:** drone, GNSS, pontos de controle, checkpoints, acesso e clima.
+3. **Capturamos com rastreabilidade:** campo documentado e operação alinhada às regras de aerolevantamento.
+4. **Processamos e validamos:** checagens, PEC-PCD, consistência dos produtos e relatório de qualidade.
+5. **Entregamos conforme normas e uso final:** arquivos, relatório e visualizações orientados por ABNT NBR 13133, INCRA/SIGEF e exigências do órgão ou cliente.
+
+Technical-trust copy rules:
+
+- Use standards-forward language. Name ABNT NBR 13133, INCRA/SIGEF, PEC-PCD, Ministério da Defesa/SisCLATEN, and aerolevantamento rules where they strengthen trust.
+- Avoid repeating "quando aplicável" in public copy. Scope standards through the service, use case, or approval body instead.
+- Add a light trust badge near the method section: **Empresa cadastrada no Ministério da Defesa para aerolevantamento**.
+- Add a fuller FAQ explanation that aerolevantamento and drone topography require a registered entity so products support formal technical and legal use.
+- Frame the drone-topography advantage as **more dense detail with validated accuracy**, not as a blanket claim that drone survey is more precise than traditional topography.
+- Suggested copy: **Mais detalhe, menos interpolação:** a topografia com drone gera uma leitura densa do terreno, com ortofotos e modelos em escala centimétrica. A BLK combina captura aérea, GNSS, pontos de controle, checkpoints e PEC-PCD para entregar superfície, medições e evidências com precisão validada.
+
+Closing order:
+
+1. **Exemplos de uso / resultados:** anonymized proof snippets tied to the five service clusters.
+2. **Dúvidas comuns antes de contratar:** buyer-level FAQ.
+3. Final **Falar com especialista** CTA.
+
+Homepage FAQ topics:
+
+1. **Quanto custa um levantamento ou mapeamento?** Explain that price depends on area, access, deliverables, urgency, and required norm/approval body.
+2. **Em quanto tempo recebo os arquivos?** Explain typical ranges: simpler jobs around 5 days, medium around 7 days, complex around 10+ days, confirmed after scope.
+3. **Preciso saber exatamente qual serviço contratar?** No; the visitor can send location/objective and BLK helps identify the right path.
+4. **Consigo abrir e entender os arquivos sem software técnico?** Yes; BLK provides organized visualization for orthoimages, 3D/point-cloud outputs, and evidence.
+5. **A entrega serve para aprovação, regularização ou auditoria?** It depends on scope, but BLK aligns deliverables with the intended use, norms, and required body.
+6. **Topografia com drone precisa de empresa cadastrada no Ministério da Defesa?** Yes; aerolevantamento and drone-topography products should come from a registered entity so they can support formal technical and legal use.
+
 ### Cluster detail pages
 
 Each **Ver detalhes** route should lead to a full-depth cluster detail page, not a placeholder or shallow page. Suggested routes:
@@ -105,11 +158,12 @@ Each cluster detail page should use a standard structure:
 2. Who it is for / not for.
 3. Main services inside the cluster.
 4. Deliverables and file outputs.
-5. Method: drone, GNSS/control points, QC, and workflow where relevant.
-6. Proof/examples/case links.
-7. Typical inputs needed from the client.
-8. FAQ.
-9. WhatsApp CTA with cluster-specific prefilled message.
+5. Visualization platform and organized delivery value.
+6. Method: drone, GNSS/control points, checkpoints, PEC-PCD, QC, standards, and workflow.
+7. Proof/examples/case links.
+8. Typical inputs needed from the client.
+9. FAQ.
+10. WhatsApp CTA with cluster-specific prefilled message.
 
 
 ## Progress
@@ -176,6 +230,18 @@ Each cluster detail page should use a standard structure:
 
 - Decision: Use five full-depth homepage service clusters with card-based matching.
   Rationale: The homepage should show the breadth of BLK's work without becoming a full catalog; each card opens a low-friction WhatsApp path and offers a "Ver detalhes" route to a full cluster page.
+  Date/Author: 2026-05-19 / planning session
+
+- Decision: Present deliverables before method on the homepage.
+  Rationale: Buyers need to understand the outputs and decisions BLK supports before they care about the capture workflow; technical file formats remain supporting detail.
+  Date/Author: 2026-05-19 / planning session
+
+- Decision: Treat the client visualization platform as a standard delivery differentiator.
+  Rationale: BLK deliverables often require heavy technical software, so an organized online visualization surface makes orthoimages, point clouds, 3D content, and evidence usable by non-technical stakeholders.
+  Date/Author: 2026-05-19 / planning session
+
+- Decision: Use standards-forward technical confidence copy.
+  Rationale: Standards, checkpoints, PEC-PCD, Ministry of Defense registration, and aerolevantamento rules are meaningful trust signals, but public copy should sound confident rather than caveated.
   Date/Author: 2026-05-19 / planning session
 
 ## Outcomes & Retrospective
