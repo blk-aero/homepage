@@ -82,7 +82,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           <button
             data-collapse-toggle="main-nav-menu"
             type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 text-gray-700 md:hidden dark:border-gray-700 dark:text-gray-100"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-300 md:hidden"
             aria-controls="main-nav-menu"
             aria-expanded="false"
           >
@@ -93,7 +93,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           </button>
         </div>
         <div id="main-nav-menu" class="order-3 hidden w-full md:order-2 md:block md:w-auto">
-          <ul class="mt-2 flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-3 text-sm md:mt-0 md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0 dark:border-gray-700 dark:bg-gray-900 md:dark:bg-transparent">
+          <ul class="mt-2 flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-3 text-sm text-gray-700 md:mt-0 md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0">
             {navLinks.map((link) => {
               const external = /^https?:\/\//.test(link.href);
               return (

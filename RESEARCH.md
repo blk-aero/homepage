@@ -105,6 +105,75 @@ Application here:
 - Keep all key copy, headings, images, links, metadata, and schema visible in Astro-generated HTML.
 - Ensure `robots.txt` and `sitemap.xml` are real files/routes, not SPA fallbacks.
 
+### Ranqia
+
+Reference pages:
+
+- `https://www.ranqia.ai/`
+- `https://www.ranqia.ai/robots.txt`
+- `https://www.ranqia.ai/sitemap.xml`
+- `https://www.ranqia.ai/llms.txt`
+
+Observed pattern on 2026-05-19:
+
+- Strong conventional SEO metadata: title, description, canonical, robots meta, Open Graph, Twitter card, locale, and `hreflang`.
+- Structured data includes `Organization`, `WebSite`, and `FAQPage`.
+- FAQ content is present both in visible page content and JSON-LD.
+- `robots.txt` references the sitemap and `llms.txt`, and explicitly names AI crawlers.
+- `llms.txt` gives a concise machine-readable summary of brand positioning, services, market context, people, FAQs, and canonical links.
+- Sitemap includes `lastmod`, `changefreq`, `priority`, and alternate language links.
+- Brand/entity signals are clear: `sameAs`, LinkedIn/GitHub references, people, `knowsAbout`, and market/domain vocabulary.
+
+Learning:
+
+Ranqia is a useful reference for GEO/AEO execution because it combines standard SEO hygiene with machine-readable AI context. The most transferable pattern is not the exact design or copy, but the layered retrieval surface: normal page metadata, structured data, sitemap freshness, crawler instructions, and a dedicated `llms.txt` file.
+
+The `robots.txt` should not be copied verbatim. The reviewed file had both managed crawler restrictions and later manual allow rules for some of the same AI crawlers. For this project, use a clean policy that clearly states which crawlers are allowed and links to `llms.txt`.
+
+Application here:
+
+- Expand `SeoHead.astro` with robots meta, OG image, Twitter card metadata, locale, and optional `hreflang`.
+- Add `/llms.txt` with BLK Aero context: services, service areas, trust facts, canonical URLs, contact path, and FAQ-style answers.
+- Improve `robots.txt` with sitemap and `llms.txt` references plus an explicit, non-conflicting AI crawler policy.
+- Expand schema generation to include linked `Organization`/`LocalBusiness`, `WebSite`, `WebPage`, `Service`, `FAQPage`, `BreadcrumbList`, `Person`/`ProfilePage`, and `Article` where relevant.
+- Wire service and city `updated_at` into visible "Ultima atualizacao" text and JSON-LD `dateModified`.
+- Emit service `faqs` and city `local_faqs` as visible FAQ content and `FAQPage` JSON-LD.
+- Emit service `mentions` as `Thing` entities with `sameAs` URLs.
+- Add `speakable` selectors for BLUF and spec sections so answer engines can reliably extract concise summaries.
+- Treat `/sobre` as an entity verification page, not just an about page: visible trust data plus Person schema linked to Organization.
+
+### Hosting Platform Learning (Free + Reliable + Dev Branch Testing)
+
+Date: 2026-05-19
+
+Context:
+
+- The site is currently hosted on GitHub Pages, which works for `main` deployment but does not provide first-class dev branch preview flows for remote QA.
+- The goal is high reliability with a free-tier option and easy branch/PR preview URLs.
+
+Decision:
+
+- Prefer **Cloudflare Pages** as the primary hosting option for this Astro static site.
+
+Why:
+
+- Native branch and PR preview deployments are a strong fit for remote testing of `dev` and feature branches.
+- Static sites benefit from Cloudflare's globally distributed edge delivery model.
+- Free plan is generally practical for static workloads; key operational cap is monthly build volume, not static request count.
+
+Tradeoff comparison:
+
+- **Cloudflare Pages**: best balance for free + reliable static delivery + branch previews.
+- **Vercel**: excellent preview workflow, but hobby-tier limits can be tighter for frequent CI/deploy usage.
+- **Render**: viable, but free-tier constraints and operational model are usually less favorable for this static-site use case.
+- **GitHub Pages**: stable for simple production publishing, but weaker for branch preview-based QA workflows.
+
+Application here:
+
+- Keep production delivery on a static-first platform with branch preview support.
+- Use branch preview URLs as part of PR QA checklists before merge.
+- If free-tier constraints become a bottleneck later (build volume/concurrency), reassess Vercel or paid Cloudflare options based on observed deployment frequency.
+
 ### Implementation Principles for This Site
 
 1. Use Astro static rendering for SEO-critical pages.
@@ -114,3 +183,4 @@ Application here:
 5. Treat city/service page scale carefully. Publish fewer stronger pages before many thin pages.
 6. Prefer proof-rich local content over keyword stuffing.
 7. Keep reference-inspired visual polish, but avoid hiding the actual content behind client-side rendering.
+8. Build a machine-readable AI discovery layer with `llms.txt`, clear crawler policy, and schema that links entities by stable `@id` values.
