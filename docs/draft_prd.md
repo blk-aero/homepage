@@ -43,6 +43,74 @@ Build a high-performance, low-friction landing experience that maximizes Google 
 - **Fallback capture for “researching” visitors (Ads):** on priority service/service+city pages, include a secondary CTA to an offer page (lead magnet) when the user is not ready to start a WhatsApp chat.
 - **Interactive engagement signal:** include a lightweight on-page interactive element (Service Matcher / Quick Calculator) on priority landing pages to increase dwell time and reduce bounce; track interactions in GTM/GA4.
 
+## Homepage Direction
+
+The homepage is an **authority + triage homepage**, not a single-service landing page. It must quickly explain BLK's promise, show credibility, and let visitors self-select a service cluster or contact a specialist with minimal friction.
+
+### Hero
+
+- H1: **Do terreno real à decisão segura e auditável**
+- Subheadline: **A BLK transforma áreas, obras e ativos físicos em mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho, destravar aprovações e tornar decisões técnicas claras para todos os envolvidos.**
+- Primary CTA: **Falar com especialista** with a WhatsApp icon/logo.
+- The CTA opens WhatsApp and uses a lightly qualified prefilled message that asks for location, approximate area/perimeter, objective, desired deadline, and required deliverables without forcing an on-site form.
+- Do not use the lead magnet as the hero secondary CTA. Keep lead magnets lower on the page or on detail/service pages for researching visitors.
+
+### Homepage order
+
+1. Hero with the primary specialist CTA.
+2. Compact proof band, immediately after the hero and before service triage.
+3. Five homepage triage cards.
+4. Method / deliverables / decision-auditability section.
+5. Deeper proof, cases, visual examples, or category-specific examples.
+6. Final WhatsApp CTA.
+
+The compact proof band should be visually light: logos/names only, no per-item relationship labels.
+
+Proof groups:
+
+- **Credenciais e Associações:** ACONVAP, Enredes, Ministério da Defesa, CREA-SP, BR-UTM/DECEA.
+- **Clientes e Projetos Atendidos:** SN Saneamento, Sabesp, Construtora Oliveira Roxo, Sahyoun Properties, Polimix Ambiental, Six Engenharia, Macaw Studio, Sergio Porto, Montante, URBAM, SJC Mobilidade.
+
+### Triage cards
+
+The homepage uses card-based matching for the current phase instead of a separate ServiceMatcher or calculator. Each card has:
+
+- A concise buyer-problem title.
+- A short list of service examples.
+- Primary action: **Falar com especialista** with WhatsApp icon/logo.
+- Secondary action: **Ver detalhes**.
+- A path-specific WhatsApp prefilled message for the primary action.
+
+The five homepage cards are:
+
+1. **Projeto e Obra** — levantamento planialtimétrico, as-built, base para arquitetura, engenharia e BIM.
+2. **Regularização Rural** — georreferenciamento, CAR, INCRA/SIGEF, documentação de imóvel rural.
+3. **Regularização Urbana** — REURB, loteamentos, cadastro técnico, base cadastral para prefeitura.
+4. **Volumetria e Medição** — terraplenagem, corte/aterro, estoque, medição recorrente e disputa contratual.
+5. **Monitoramento e Inteligência Geográfica** — ambiental/ESG, energia, agro, inspeção de ativos, due diligence e gêmeo digital.
+
+### Cluster detail pages
+
+Each **Ver detalhes** route should lead to a full-depth cluster detail page, not a placeholder or shallow page. Suggested routes:
+
+- `/servicos/projeto-e-obra/`
+- `/servicos/regularizacao-rural/`
+- `/servicos/regularizacao-urbana/`
+- `/servicos/volumetria-e-medicao/`
+- `/servicos/monitoramento-e-inteligencia-geografica/`
+
+Each cluster detail page should use a standard structure:
+
+1. BLUF: what problem the cluster solves.
+2. Who it is for / not for.
+3. Main services inside the cluster.
+4. Deliverables and file outputs.
+5. Method: drone, GNSS/control points, QC, and workflow where relevant.
+6. Proof/examples/case links.
+7. Typical inputs needed from the client.
+8. FAQ.
+9. WhatsApp CTA with cluster-specific prefilled message.
+
 
 ## Progress
 
@@ -93,6 +161,22 @@ Build a high-performance, low-friction landing experience that maximizes Google 
 - Decision: Keep copy intentionally simple (EF I / Grade 3–5 style) and avoid generic marketing language.
   Rationale: Simple copy reduces cognitive friction and improves scanability on mobile; it also supports ad-to-page relevancy.
   Date/Author: 2026-02-11 / ExecPlan author
+
+- Decision: Treat the homepage as an authority + triage homepage with WhatsApp-first contact.
+  Rationale: Service and service+city pages can handle exact-match SEO/ad intent, while the homepage should build trust, route visitors by problem cluster, and minimize first-contact friction.
+  Date/Author: 2026-05-19 / planning session
+
+- Decision: Use "Falar com especialista" as the primary homepage CTA with a WhatsApp icon/logo.
+  Rationale: The copy emphasizes expert help instead of the channel, while the icon makes the WhatsApp destination clear.
+  Date/Author: 2026-05-19 / planning session
+
+- Decision: Use a compact proof band after the hero and before homepage triage cards.
+  Rationale: The PRD calls for trust/proof near CTAs, but the first screen still needs fast clarity and service routing without a large proof wall.
+  Date/Author: 2026-05-19 / planning session
+
+- Decision: Use five full-depth homepage service clusters with card-based matching.
+  Rationale: The homepage should show the breadth of BLK's work without becoming a full catalog; each card opens a low-friction WhatsApp path and offers a "Ver detalhes" route to a full cluster page.
+  Date/Author: 2026-05-19 / planning session
 
 ## Outcomes & Retrospective
 
