@@ -181,7 +181,6 @@ Do:
 - use monospace only for coordinates, dimensions, timestamps, QC values, numeric tables, file formats, and measurement readouts
 
 Avoid:
-- Poppins in future page guidance
 - Inter as the default UI font
 - decorative or editorial type
 - negative letter spacing
