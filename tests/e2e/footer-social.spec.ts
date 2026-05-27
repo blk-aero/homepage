@@ -13,7 +13,7 @@ test("footer shows BLK contact and trust details without template social links",
   await expect(footer.getByRole("link", { name: "YouTube" })).toHaveAttribute("href", "https://www.youtube.com/@blk-aero");
   await expect(footer.getByRole("link", { name: "Facebook" })).toHaveAttribute("href", "https://www.facebook.com/people/BLK-Aerolevantamento/61564931315622/");
   await expect(footer.getByRole("link", { name: "Instagram" })).toHaveAttribute("href", "https://www.instagram.com/blk.aero/");
-  await expect(footer).toContainText(/© \d{4} BLK Aero\. Todos os direitos reservados\./);
+  await expect(footer).toContainText(/© \d{4} BLK Gestão Empresarial Ltda\. \(CNPJ: 37\.814\.104-0001\/40\)\. Todos os direitos reservados\./);
 
   await expect(footer).not.toContainText("Legal");
   await expect(footer).not.toContainText("Sobre a BLK");

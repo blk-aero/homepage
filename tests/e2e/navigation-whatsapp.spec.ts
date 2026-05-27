@@ -6,7 +6,10 @@ test("header contact links to whatsapp instead of tel", async ({ page }) => {
   const contact = page.getByTestId("nav-whatsapp-cta");
   await expect(contact).toBeVisible();
   await expect(contact).toContainText("WhatsApp");
-  await expect(contact.locator("svg")).toBeVisible();
+  const icon = contact.locator("svg");
+  await expect(icon).toBeVisible();
+  await expect(icon.locator("path")).toHaveCount(1);
+  await expect(icon.locator("path")).toHaveAttribute("d", /M17\.472 14\.382c-.297-.149-1\.758-.867-2\.03-.967/);
 
   const href = await contact.getAttribute("href");
   expect(href).toContain("wa.me/");
