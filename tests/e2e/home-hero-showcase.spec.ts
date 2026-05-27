@@ -52,6 +52,25 @@ test("homepage hero uses right-side image and brand strip below", async ({ page 
   expect(await brandImage.getAttribute("class")).toContain("grayscale");
 });
 
+test("homepage stays in light theme when the OS prefers dark mode", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+
+  await expect(page.getByTestId("section-hero")).toBeVisible();
+
+  const bodyBackground = await page.locator("body").evaluate((node) => getComputedStyle(node).backgroundColor);
+  const heroBackground = await page
+    .getByTestId("section-hero")
+    .evaluate((node) => getComputedStyle(node).backgroundColor);
+  const mediaBackground = await page
+    .getByTestId("home-hero-media")
+    .evaluate((node) => getComputedStyle(node).backgroundColor);
+
+  expect(bodyBackground).toBe("oklch(0.985 0.002 247.839)");
+  expect(heroBackground).toBe("rgb(255, 255, 255)");
+  expect(mediaBackground).toBe("oklch(0.985 0.002 247.839)");
+});
+
 test("homepage renders the authority triage section order with canonical hero copy", async ({
   page
 }) => {

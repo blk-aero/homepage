@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-primary-50: #f7fee7;
@@ -19,10 +20,6 @@
 
 :root {
   color-scheme: light;
-}
-
-.dark {
-  color-scheme: dark;
 }
 
 body {
@@ -62,27 +59,4 @@ h6 {
 
 .surface {
   @apply border border-gray-200 bg-white;
-}
-
-.dark {
-  body {
-    @apply bg-gray-950 text-gray-100;
-  }
-
-  .btn-secondary {
-    @apply bg-gray-700 text-white;
-  }
-
-  .btn-secondary:hover,
-  .btn-secondary:focus {
-    @apply bg-gray-600;
-  }
-
-  .pill-accent {
-    @apply bg-primary-900 text-primary-100;
-  }
-
-  .surface {
-    @apply border-gray-800 bg-gray-900;
-  }
 }
