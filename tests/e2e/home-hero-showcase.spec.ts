@@ -179,6 +179,39 @@ test("homepage visualization platform is a separate differentiator after deliver
   expect(platformBox?.y ?? 0).toBeGreaterThan(deliverablesBox?.y ?? 0);
 });
 
+test("homepage lower proof snippets are anonymized and FAQ handles hiring objections", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  const proof = page.getByTestId("section-proof-snippets");
+  for (const cluster of [
+    "Projeto e Obra",
+    "Regularização Rural",
+    "Regularização Urbana",
+    "Volumetria e Medição",
+    "Monitoramento e Inteligência Geográfica"
+  ]) {
+    await expect(proof).toContainText(cluster);
+  }
+  await expect(proof).not.toContainText(
+    /Terras Alpha|Fazenda Itamirim|Colinas de São José|Jambeiro|São José dos Campos landfill/i
+  );
+
+  const faq = page.getByTestId("section-faq");
+  for (const topic of [
+    "preço",
+    "5/7/10 dias",
+    "localização e objetivo",
+    "plataforma de visualização",
+    "aprovação ou auditoria",
+    "entidade registrada"
+  ]) {
+    await expect(faq).toContainText(topic);
+  }
+  await expect(faq).not.toContainText(/a partir de R\$|preço inicial/i);
+});
+
 test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({
   page
 }) => {

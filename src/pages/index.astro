@@ -108,10 +108,26 @@ const { meta } = siteConfig;
 
   <section data-testid="section-proof-snippets" class="surface mt-6 rounded-xl p-6">
     <h2 class="text-2xl font-semibold">{homepageContent.proofSnippets.title}</h2>
+    <div class="mt-5 grid gap-4 md:grid-cols-5">
+      {homepageContent.proofSnippets.snippets.map((snippet) => (
+        <article class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-base font-semibold">{snippet.cluster}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{snippet.text}</p>
+        </article>
+      ))}
+    </div>
   </section>
 
   <section data-testid="section-faq" class="surface mt-6 rounded-xl p-6">
     <h2 class="text-2xl font-semibold">{homepageContent.faq.title}</h2>
+    <div class="mt-5 grid gap-4 md:grid-cols-2">
+      {homepageContent.faq.items.map((item) => (
+        <article class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-base font-semibold">{item.question}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{item.answer}</p>
+        </article>
+      ))}
+    </div>
   </section>
 
   <section data-testid="section-final-cta" class="surface mt-6 rounded-xl p-6">
