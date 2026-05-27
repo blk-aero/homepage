@@ -75,3 +75,32 @@ test("homepage triage card whatsapp CTA includes selected cluster and card locat
     gclid: "abc123"
   });
 });
+
+test("homepage final CTA uses shared whatsapp payload behavior", async ({ page }) => {
+  await page.goto("/?utm_source=google&gclid=abc123");
+
+  const finalCta = page
+    .getByTestId("section-final-cta")
+    .getByRole("link", { name: "Falar com especialista" });
+  await expect(finalCta).toBeVisible();
+
+  const href = decodeURIComponent((await finalCta.getAttribute("href")) || "");
+  expect(href).toContain("CTA: final-cta.");
+  expect(href).toContain("gclid=abc123");
+
+  await finalCta.click();
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find(
+      (event) => event.event === "whatsapp_click" && event.cta_location === "final-cta"
+    );
+  });
+
+  expect(payload).toMatchObject({
+    event: "whatsapp_click",
+    page_path: "/",
+    cta_location: "final-cta",
+    gclid: "abc123"
+  });
+});
