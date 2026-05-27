@@ -249,14 +249,21 @@ test("homepage hero carousel auto-cycles, pauses on hover, and stops after dot c
 }) => {
   await page.goto("/");
 
+  const carouselInterval = 5200;
+  const carouselWait = carouselInterval + 200;
+  await expect(page.getByTestId("home-hero-media")).toHaveAttribute(
+    "data-carousel-interval",
+    String(carouselInterval)
+  );
+
   const activeSlide = page.locator("[data-carousel-slide][aria-hidden='false']");
   await expect(activeSlide).toContainText("Projeto e Obra");
 
-  await page.waitForTimeout(2200);
+  await page.waitForTimeout(carouselWait);
   await expect(activeSlide).toContainText("Regularização Rural");
 
   await page.getByTestId("home-hero-media").hover();
-  await page.waitForTimeout(2200);
+  await page.waitForTimeout(carouselWait);
   await expect(activeSlide).toContainText("Regularização Rural");
 
   await page.mouse.move(0, 0);
@@ -267,7 +274,7 @@ test("homepage hero carousel auto-cycles, pauses on hover, and stops after dot c
     "true"
   );
 
-  await page.waitForTimeout(2200);
+  await page.waitForTimeout(carouselWait);
   await expect(activeSlide).toContainText("Volumetria e Medição");
 });
 
@@ -280,6 +287,6 @@ test("homepage hero carousel does not auto-cycle when reduced motion is requeste
   const activeSlide = page.locator("[data-carousel-slide][aria-hidden='false']");
   await expect(activeSlide).toContainText("Projeto e Obra");
 
-  await page.waitForTimeout(2200);
+  await page.waitForTimeout(5400);
   await expect(activeSlide).toContainText("Projeto e Obra");
 });
