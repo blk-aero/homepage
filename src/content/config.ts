@@ -124,8 +124,6 @@ const site = defineCollection({
     contact: z.object({
       phone_display: z.string(),
       email: z.string().email(),
-      address_city: z.string(),
-      address_state: z.string(),
       trust_certifications: z.string(),
       footer_summary: z.string(),
       whatsapp: z.object({

@@ -20,6 +20,8 @@ describe("global site config", () => {
       "/politica-de-privacidade",
       "Política de privacidade",
       "Legal",
+      "contato@blkaero.com.br",
+      "São José dos Campos",
       "Regularização Rural",
       "Regularização Urbana",
       "Volumetria e Medição",
@@ -36,5 +38,11 @@ describe("global site config", () => {
     expect(config).toContain("https://www.youtube.com/@blk-aero");
     expect(config).toContain("https://www.facebook.com/people/BLK-Aerolevantamento/61564931315622/");
     expect(config).toContain("https://www.instagram.com/blk.aero/");
+  });
+
+  it("uses the current BLK contact email", () => {
+    const config = readFileSync("src/content/site/global.yaml", "utf8");
+
+    expect(config).toContain("email: contato@blk.aero");
   });
 });

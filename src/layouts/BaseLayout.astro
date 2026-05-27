@@ -6,7 +6,7 @@ import AttributionCapture from "../components/AttributionCapture.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
 import GtmHead from "../components/GtmHead.astro";
 import SeoHead from "../components/SeoHead.astro";
-import { buildDefaultWhatsAppUrl, getWhatsAppNumber } from "../lib/contact";
+import { buildDefaultWhatsAppUrl } from "../lib/contact";
 import { getSiteConfig } from "../lib/site-config";
 
 type Props = {
@@ -33,18 +33,15 @@ const footerWhatsAppHref = buildDefaultWhatsAppUrl({
 });
 const navLinks = siteConfig.navigation.primary_links;
 const currentYear = new Date().getFullYear();
-const phoneHref = `tel:+${getWhatsAppNumber()}`;
 const isExternalHref = (href: string) => /^https?:\/\//.test(href);
 const footerColumns = [
   ...siteConfig.footer.link_columns.slice(0, 1),
   {
     title: "Contato",
     links: [
-      { label: siteConfig.contact.phone_display, href: phoneHref },
-      { label: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
-      { label: "WhatsApp", href: footerWhatsAppHref }
-    ],
-    note: `${siteConfig.contact.address_city}, ${siteConfig.contact.address_state}`
+      { label: siteConfig.contact.phone_display, href: footerWhatsAppHref },
+      { label: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` }
+    ]
   },
   ...siteConfig.footer.link_columns.slice(1)
 ];
