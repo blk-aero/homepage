@@ -5,7 +5,8 @@ test("homepage hero uses right-side image and brand strip below", async ({ page 
   await page.goto("/");
 
   const heroCopy = page.getByTestId("home-hero-copy");
-  const heroImage = page.getByTestId("home-hero-image");
+  const activeSlide = page.locator("[data-carousel-slide][aria-hidden='false']");
+  const heroImage = activeSlide.getByTestId("home-hero-image");
   const heroMedia = page.getByTestId("home-hero-media");
   const brandsStrip = page.getByTestId("home-hero-brands");
   const heroHeading = page.locator("[data-testid='home-hero-copy'] h1");
@@ -34,8 +35,13 @@ test("homepage hero uses right-side image and brand strip below", async ({ page 
     ) - 8
   );
 
+  await expect(activeSlide).toContainText("Base visual auditavel");
+  await expect(activeSlide).toContainText("Projeto / obra / compatibilizacao");
+  await expect(activeSlide).toContainText("Terreno real para projetar, alinhar e executar");
+  await expect(activeSlide).toContainText("DXF + curvas");
+
   const heroSrc = await heroImage.getAttribute("src");
-  expect(heroSrc).toContain("cover-drone-mountain-bw");
+  expect(heroSrc).toContain("blk-hero-e-projeto-obra");
 
   const brandLink = page.getByRole("link", { name: /aconvap/i });
   await expect(brandLink).toBeVisible();
@@ -226,7 +232,7 @@ test("homepage hero renders five no-arrow cluster carousel slides with labeled d
   ];
 
   for (const name of clusterNames) {
-    await expect(page.getByTestId("home-hero-carousel").getByText(name)).toHaveCount(1);
+    await expect(page.getByTestId("home-hero-slide").filter({ hasText: name })).toHaveCount(1);
     await expect(page.getByRole("button", { name: `Mostrar ${name}` })).toBeVisible();
   }
 

@@ -20,13 +20,88 @@ export const homepageContent = {
     subheadline:
       "A BLK transforma áreas, obras e ativos físicos em mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho, destravar aprovações e tornar decisões técnicas claras para todos os envolvidos.",
     primaryCtaLabel: "Falar com especialista",
-    slides: homepageClusters.map((cluster) => ({
-      title: cluster.title,
-      tag: "Solução BLK",
-      description: cluster.summary,
-      metric: "Base auditável",
-      alt: `Visual representativo de ${cluster.title}`
-    }))
+    slides: [
+      {
+        title: "Projeto e Obra",
+        imageId: "projeto-obra",
+        tag: "Base visual auditavel",
+        panelLabel: "Projeto / obra / compatibilizacao",
+        panelTitle: "Terreno real para projetar, alinhar e executar",
+        description:
+          "Base topografica, leitura 3D e referencias claras para reduzir duvida entre escritorio, campo e obra.",
+        alt: "Terreno tecnico com curvas de nivel, nuvem de pontos e marcadores para projeto e obra",
+        objectPosition: "center 46%",
+        metrics: [
+          ["base", "DXF + curvas"],
+          ["obra", "as built"],
+          ["decisao", "compatibilizacao"]
+        ]
+      },
+      {
+        title: "Regularização Rural",
+        imageId: "regularizacao-rural",
+        tag: "Perimetro defensavel",
+        panelLabel: "Rural / vertices / memoriais",
+        panelTitle: "Limites, relevo e pecas tecnicas em uma base unica",
+        description:
+          "Perimetro, confrontacoes e evidencia visual para conduzir regularizacao com menos retrabalho documental.",
+        alt: "Mapa rural tecnico com curvas de nivel, perimetro e pontos de vertice",
+        objectPosition: "center 50%",
+        metrics: [
+          ["limites", "vertices"],
+          ["pecas", "memorial"],
+          ["base", "SIGEF / CAR"]
+        ]
+      },
+      {
+        title: "Regularização Urbana",
+        imageId: "regularizacao-urbana",
+        tag: "Cadastro compreensivel",
+        panelLabel: "Urbano / lotes / quadras",
+        panelTitle: "Leitura clara de lotes, vias e ocupacao urbana",
+        description:
+          "Mapa, cadastro e evidencia visual para alinhar prefeitura, juridico, engenharia e beneficiarios.",
+        alt: "Mapa urbano tecnico com lotes, quadras, linhas cadastrais e pontos de controle",
+        objectPosition: "center 48%",
+        metrics: [
+          ["cadastro", "lotes"],
+          ["processo", "REURB"],
+          ["alinhamento", "prefeitura"]
+        ]
+      },
+      {
+        title: "Volumetria e Medição",
+        imageId: "volumetria-medicao",
+        tag: "Medicao verificavel",
+        panelLabel: "Volume / corte / aterro",
+        panelTitle: "Volumes e comparativos que podem ser auditados",
+        description:
+          "Superficies, secoes e comparativos para medir estoque, corte, aterro e evolucao de obra com rastreabilidade.",
+        alt: "Analise tecnica de volumetria com curvas de nivel e linhas de medicao",
+        objectPosition: "center 54%",
+        metrics: [
+          ["volume", "corte / aterro"],
+          ["controle", "estoque"],
+          ["prova", "comparativo"]
+        ]
+      },
+      {
+        title: "Monitoramento e Inteligência Geográfica",
+        imageId: "monitoramento-inteligencia",
+        tag: "Mudanca acompanhada",
+        panelLabel: "Monitoramento / historico / alerta",
+        panelTitle: "Evolucao do territorio acompanhada por evidencia",
+        description:
+          "Historico visual, mapas comparativos e indicadores para acompanhar risco, obra, ativos e territorio ao longo do tempo.",
+        alt: "Mapa tecnico de monitoramento com grade, curvas de nivel e camadas geograficas",
+        objectPosition: "center 42%",
+        metrics: [
+          ["tempo", "recorrencia"],
+          ["sinais", "alertas"],
+          ["gestao", "governanca"]
+        ]
+      }
+    ]
   },
   sectionOrder: homepageSectionOrder,
   triageCards: homepageClusters.map((cluster) => ({
