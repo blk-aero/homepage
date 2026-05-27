@@ -27,18 +27,12 @@ navigation:
 
 footer:
   link_columns:
-    - title: Soluções
+    - title: Navegação
       links:
-        - label: Projeto e Obra
+        - label: Cidades
+          href: /cidades/jacarei-sp
+        - label: Soluções
           href: /solucoes/projeto-e-obra
-        - label: Regularização Rural
-          href: /solucoes/regularizacao-rural
-        - label: Regularização Urbana
-          href: /solucoes/regularizacao-urbana
-        - label: Volumetria e Medição
-          href: /solucoes/volumetria-e-medicao
-        - label: Monitoramento e Inteligência Geográfica
-          href: /solucoes/monitoramento-e-inteligencia-geografica
   social_links:
     - label: LinkedIn
       href: https://www.linkedin.com/company/blk-aero

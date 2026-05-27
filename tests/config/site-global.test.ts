@@ -19,7 +19,11 @@ describe("global site config", () => {
       "/sobre",
       "/politica-de-privacidade",
       "Política de privacidade",
-      "Legal"
+      "Legal",
+      "Regularização Rural",
+      "Regularização Urbana",
+      "Volumetria e Medição",
+      "Monitoramento e Inteligência Geográfica"
     ]) {
       expect(config).not.toContain(staleValue);
     }
