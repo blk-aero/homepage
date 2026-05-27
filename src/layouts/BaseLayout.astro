@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import faviconPng from "../assets/brand/favicon.png";
+import footerLogoInline from "../assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg";
 import logoInline from "../assets/brand/logo_inline_grey_halftext_aero_nobackground.svg";
 import AttributionCapture from "../components/AttributionCapture.astro";
 import BrandIcon from "../components/BrandIcon.astro";
@@ -55,6 +56,7 @@ const footerSocialLinks = siteConfig.footer.social_links.map((social) => {
   return { ...social, icon: social.icon };
 });
 const logoInlineSrc = typeof logoInline === "string" ? logoInline : logoInline.src;
+const footerLogoInlineSrc = typeof footerLogoInline === "string" ? footerLogoInline : footerLogoInline.src;
 const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 ---
 
@@ -141,7 +143,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           <div class="mb-8 max-w-sm md:mb-0">
             <a href="/" class="flex items-center">
               <img
-                src={logoInlineSrc}
+                src={footerLogoInlineSrc}
                 alt={siteConfig.meta.brand_name}
                 class="h-8 w-auto"
                 loading="lazy"

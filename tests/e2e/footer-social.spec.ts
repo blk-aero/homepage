@@ -4,6 +4,8 @@ test("footer shows BLK contact and trust details without template social links",
   await page.goto("/");
 
   const footer = page.locator("footer");
+  const footerLogo = footer.getByRole("link", { name: "BLK Aero" }).locator("img");
+  await expect(footerLogo).toHaveAttribute("src", /logo_inline_grey_fulltext_aero_nobackground/);
   await expect(footer.getByRole("link", { name: "contato@blk.aero" })).toHaveAttribute("href", "mailto:contato@blk.aero");
   await expect(footer.getByRole("link", { name: "(12) 98806-2737" })).toHaveAttribute("href", /wa\.me\/5512988062737/);
   await expect(footer).toContainText("Categoria A em Aerolevantamento pelo Ministério da Defesa");
