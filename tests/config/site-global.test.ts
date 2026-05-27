@@ -45,4 +45,12 @@ describe("global site config", () => {
 
     expect(config).toContain("email: contato@blk.aero");
   });
+
+  it("uses solution-first primary navigation", () => {
+    const config = readFileSync("src/content/site/global.yaml", "utf8");
+
+    expect(config).toContain("label: Soluções");
+    expect(config).toContain("href: /solucoes/projeto-e-obra");
+    expect(config).not.toContain("label: Servicos");
+  });
 });

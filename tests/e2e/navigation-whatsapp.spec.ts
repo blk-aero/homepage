@@ -28,7 +28,8 @@ test("mobile menu can be opened to reveal navigation links", async ({ page }) =>
   await openMenu.click();
 
   await expect(menu).toBeVisible();
-  await expect(menu.getByRole("link", { name: /^Servicos$/i })).toBeVisible();
+  await expect(menu.getByRole("link", { name: /^Soluções$/i })).toHaveAttribute("href", "/solucoes/projeto-e-obra");
+  await expect(menu.getByRole("link", { name: /^Servicos$/i })).toHaveCount(0);
 });
 
 test("floating whatsapp action is removed", async ({ page }) => {
