@@ -87,10 +87,11 @@ test("homepage final CTA uses shared whatsapp payload behavior", async ({ page }
     name: "Envie a localização e o objetivo do projeto"
   });
 
-  await expect(finalSection).toHaveClass(/bg-gray-950/);
+  await expect(finalSection).toHaveClass(/bg-gray-50/);
+  await expect(finalSection).toHaveClass(/border-y/);
   await expect(finalSection).toHaveClass(/text-center/);
-  await expect(finalSection).toHaveClass(/py-16/);
-  await expect(finalHeading).toHaveClass(/text-white/);
+  await expect(finalSection).toHaveClass(/py-14/);
+  await expect(finalHeading).toHaveClass(/text-gray-900/);
   await expect(finalCta).toBeVisible();
 
   const sectionBox = await finalSection.boundingBox();
