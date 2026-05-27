@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 @import "tailwindcss";
-@plugin "flowbite/plugin";
-@source "../../node_modules/flowbite";
 
 @theme {
   --color-primary-50: #f7fee7;
