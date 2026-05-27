@@ -31,3 +31,13 @@ for (const route of homepageClusterRoutes) {
     await expect(page.getByTestId("whatsapp-cta")).toBeVisible();
   });
 }
+
+test("homepage exposes release-safe Ver detalhes links for all cluster routes", async ({ page }) => {
+  await page.goto("/");
+
+  for (const route of homepageClusterRoutes) {
+    const link = page.getByRole("link", { name: new RegExp(`Ver detalhes.*${route.title}`, "i") });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute("href", route.path);
+  }
+});
