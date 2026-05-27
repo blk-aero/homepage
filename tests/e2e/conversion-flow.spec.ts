@@ -79,10 +79,34 @@ test("homepage triage card whatsapp CTA includes selected cluster and card locat
 test("homepage final CTA uses shared whatsapp payload behavior", async ({ page }) => {
   await page.goto("/?utm_source=google&gclid=abc123");
 
+  const finalSection = page.getByTestId("section-final-cta");
   const finalCta = page
     .getByTestId("section-final-cta")
     .getByRole("link", { name: "Falar com especialista" });
+  const finalHeading = finalSection.getByRole("heading", {
+    name: "Envie a localização e o objetivo do projeto"
+  });
+
+  await expect(finalSection).toHaveClass(/bg-gray-950/);
+  await expect(finalSection).toHaveClass(/text-center/);
+  await expect(finalSection).toHaveClass(/py-16/);
+  await expect(finalHeading).toHaveClass(/text-white/);
   await expect(finalCta).toBeVisible();
+
+  const sectionBox = await finalSection.boundingBox();
+  const headingBox = await finalHeading.boundingBox();
+  const ctaBox = await finalCta.boundingBox();
+  expect(sectionBox).not.toBeNull();
+  expect(headingBox).not.toBeNull();
+  expect(ctaBox).not.toBeNull();
+  if (sectionBox && headingBox && ctaBox) {
+    const sectionCenter = sectionBox.x + sectionBox.width / 2;
+    const headingCenter = headingBox.x + headingBox.width / 2;
+    const ctaCenter = ctaBox.x + ctaBox.width / 2;
+    expect(Math.abs(sectionCenter - headingCenter)).toBeLessThan(4);
+    expect(Math.abs(sectionCenter - ctaCenter)).toBeLessThan(4);
+    expect(ctaBox.y - (headingBox.y + headingBox.height)).toBeGreaterThanOrEqual(24);
+  }
 
   const href = decodeURIComponent((await finalCta.getAttribute("href")) || "");
   expect(href).toContain("CTA: final-cta.");

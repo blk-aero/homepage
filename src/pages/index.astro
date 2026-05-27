@@ -130,14 +130,16 @@ const { meta } = siteConfig;
     </div>
   </section>
 
-  <section data-testid="section-final-cta" class="surface mt-6 rounded-xl p-6">
-    <h2 class="text-2xl font-semibold">{homepageContent.finalCta.title}</h2>
-    <div class="mt-4">
-      <WhatsAppCTA
-        label={homepageContent.hero.primaryCtaLabel}
-        ctaLocation="final-cta"
-        className="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
-      />
+  <section data-testid="section-final-cta" class="relative left-1/2 mt-10 w-screen -translate-x-1/2 bg-gray-950 px-4 py-16 text-center text-white md:py-20">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-semibold leading-tight text-white md:text-4xl">{homepageContent.finalCta.title}</h2>
+      <div class="mt-8 flex justify-center">
+        <WhatsAppCTA
+          label={homepageContent.hero.primaryCtaLabel}
+          ctaLocation="final-cta"
+          className="btn-primary inline-flex rounded-lg px-6 py-3 text-sm font-semibold"
+        />
+      </div>
     </div>
   </section>
 </BaseLayout>
