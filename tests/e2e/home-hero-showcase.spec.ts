@@ -120,6 +120,29 @@ test("compact proof band shows the accepted proof groups without relationship la
   await expect(proofBand).not.toContainText(/cliente direto|parceiro|fornecedor/i);
 });
 
+test("homepage triage cards show five clusters with examples and detail actions", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  const cards = page.getByTestId("section-triage-cards");
+  const expectedCards = [
+    ["Projeto e Obra", "as-built"],
+    ["Regularização Rural", "SIGEF"],
+    ["Regularização Urbana", "REURB"],
+    ["Volumetria e Medição", "terraplenagem"],
+    ["Monitoramento e Inteligência Geográfica", "due diligence"]
+  ];
+
+  for (const [title, example] of expectedCards) {
+    const card = cards.locator("article").filter({ has: page.getByRole("heading", { name: title }) });
+    await expect(card).toBeVisible();
+    await expect(card).toContainText(example);
+    await expect(card.getByRole("link", { name: "Falar com especialista" })).toBeVisible();
+    await expect(card.getByRole("link", { name: `Ver detalhes: ${title}` })).toBeVisible();
+  }
+});
+
 test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({
   page
 }) => {
