@@ -33,3 +33,38 @@ npm run dev -- --host 127.0.0.1 --port 4321
 - Footer contact/social changes: run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.
 - Accessibility-sensitive UI changes: run `npm run test:e2e -- tests/e2e/accessibility-smoke.spec.ts`.
 - Release-sensitive changes: run `npm run build`, `npm run test`, relevant e2e scopes, and `npm run check:links` with a preview or dev server running.
+
+## Local Development via Docker & Colima
+
+To test the application locally without installing Node/npm or packages directly on the host machine, you can spin up the application in a Docker container.
+
+### Prerequisites
+- [Colima](https://github.com/abiosoft/colima) (for macOS container runtime) or Docker Desktop installed.
+
+### Setup and Execution
+
+1. **Start Colima** (if not already running):
+   ```bash
+   colima start
+   ```
+
+2. **Spin Up the Container**:
+   Run the following command in the repository root directory:
+   ```bash
+   docker compose up --build
+   ```
+   This will:
+   - Build a container using the local `Dockerfile` (running Node 20).
+   - Install all required dependencies within the container sandbox.
+   - Mount the local workspace volume (excluding host `node_modules` to avoid conflict).
+   - Start the Astro development server at `http://localhost:4321` with hot-reloading enabled.
+
+3. **Verify the App**:
+   Navigate to `http://localhost:4321` on your host machine to interact with the running site.
+
+4. **Shutdown the Environment**:
+   To stop the server and remove the container, run:
+   ```bash
+   docker compose down
+   ```
+

@@ -1,0 +1,21 @@
+# ==========================================================
+# LOCAL DEVELOPMENT DOCKER COMPOSE CONFIGURATION
+# Strictly for local environment execution.
+# ==========================================================
+
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: homepage-dev
+    ports:
+      - "4321:4321"
+    volumes:
+      - .:/app
+      # Prevent the container's node_modules from being overwritten by local host files
+      - /app/node_modules
+    environment:
+      - HOST=0.0.0.0
+      - NODE_ENV=development

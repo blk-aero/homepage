@@ -8,6 +8,7 @@ Astro marketing site for BLK Aero, currently focused on the homepage PRD plus te
 - Keep edits scoped to the requested change and do not edit generated artifacts (`dist`, `.astro`) unless explicitly requested.
 - Keep this site vanilla Astro + Tailwind v4 + Flowbite: prefer installed Flowbite ESM/CSS integration over CDN scripts, frontend framework integrations, adapters, or heavy Vite plugins unless explicitly requested.
 - Do not claim completion without running relevant verification and reporting the exact commands and outcomes.
+- For local development without installing dependencies on the host machine, you can run the site in a Docker container (see [Testing and verification](docs/agents/testing.md#local-development-via-docker--colima)).
 
 ## Task Guides
 

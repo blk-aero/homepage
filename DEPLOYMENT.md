@@ -1,5 +1,8 @@
 # Deployment (GitHub Pages)
 
+> [!NOTE]
+> This document details production build and deployment settings to GitHub Pages. For local testing and development using Docker & Colima, see [Testing and verification](docs/agents/testing.md#local-development-via-docker--colima).
+
 ## Build settings
 
 - Build command: `npm run build`
