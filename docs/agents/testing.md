@@ -70,15 +70,27 @@ To test the application locally without installing Node/npm or packages directly
 
 ### Important Notes for Testing
 
-* **Running E2E Tests / Link Checks:**
-  Because the base development container uses a minimal Node image (`node:20-alpine`) without Playwright system dependencies or browser binaries installed, running Playwright E2E tests (`npm run test:e2e`) directly inside the container is not supported.
-  - To run E2E tests or link checks, keep the Docker container running as a local dev server, and execute the test command from your host machine:
-    ```bash
-    npm run test:e2e
-    # or
-    npm run check:links
-    ```
-  - Alternatively, you can run them using a Playwright-capable container (like `mcr.microsoft.com/playwright`).
+* **Running Tests & Verification inside the Container:**
+  Since the container already has all packages installed, you can run unit/integration tests and link checks directly inside the running container without installing anything on your host machine:
+  ```bash
+  # Run unit/integration tests (Vitest)
+  docker compose exec web npm run test
+
+  # Run link checking tool
+  docker compose exec web npm run check:links
+  ```
+
+* **Running Playwright E2E Tests:**
+  The development container runs on a minimal Alpine image (`node:20-alpine`) which does not contain the system dependencies or browser binaries required by Playwright.
+  - To run Playwright E2E tests (`npm run test:e2e`), you must have Node/npm and dependencies installed locally on your host machine (via `npm install`). You can then run `npm run test:e2e` from your host, which will target the running container at `http://localhost:4321`.
+  - Alternatively, E2E tests can be run containerized using a dedicated Playwright Docker image (e.g., `mcr.microsoft.com/playwright`).
+
+* **Updating Dependencies (Anonymous Volume Caching):**
+  If `package.json` dependencies are updated, Docker Compose may reuse the existing anonymous `node_modules` volume from a previous run, causing version mismatches. To force a clean install and rebuild, reset the volumes:
+  ```bash
+  docker compose down -v
+  docker compose up --build
+  ```
 
 * **Hot-Reloading (File Watching) on macOS:**
   If you notice that editing files locally does not trigger hot-reloading inside the container, check your Colima mount driver. Colima using `sshfs` might delay or swallow file events. For optimal hot-reloading, start Colima using `virtiofs` (default on newer versions):
