@@ -1,37 +1,23 @@
-# Dependencies
+# Dependencies and build output
 node_modules/
-
-# Astro build output
 dist/
 .astro/
 
-# Test and coverage output
+# Test output
 coverage/
 playwright-report/
 test-results/
 
-# Local environment files
+# Local environment
 .env
 .env.*
 !.env.example
-.venv/
-venv/
-env/
 
 # Logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 
-# OS and editor files
+# OS and local scratch
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Local tooling and scratch space
 .codex/
 .worktrees/
 tmp/
-*.tmp

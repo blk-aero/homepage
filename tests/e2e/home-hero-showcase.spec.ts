@@ -251,7 +251,7 @@ test("homepage hero carousel auto-cycles, pauses on hover, and stops after dot c
 
   const carouselInterval = 5200;
   const carouselWait = carouselInterval + 200;
-  await expect(page.getByTestId("home-hero-media")).toHaveAttribute(
+  await expect(page.getByTestId("home-hero-carousel")).toHaveAttribute(
     "data-carousel-interval",
     String(carouselInterval)
   );

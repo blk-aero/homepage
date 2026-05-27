@@ -205,20 +205,10 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 
     <ConsentBanner />
     <AttributionCapture />
-    <script is:inline>
-      document.querySelectorAll("[data-collapse-toggle]").forEach((trigger) => {
-        if (!(trigger instanceof HTMLElement)) return;
-        const targetId = trigger.dataset.collapseToggle;
-        if (!targetId) return;
-        const target = document.getElementById(targetId);
-        if (!target) return;
+    <script>
+      import { initCollapses } from "flowbite/lib/esm/components/collapse";
 
-        trigger.addEventListener("click", (event) => {
-          event.preventDefault();
-          const hidden = target.classList.toggle("hidden");
-          trigger.setAttribute("aria-expanded", String(!hidden));
-        });
-      });
+      initCollapses();
     </script>
   </body>
 </html>
