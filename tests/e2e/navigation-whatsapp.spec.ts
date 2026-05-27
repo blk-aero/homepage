@@ -19,7 +19,7 @@ test("header contact links to whatsapp instead of tel", async ({ page }) => {
 test("header uses vanilla Flowbite navbar spacing and logo size", async ({ page }) => {
   await page.goto("/");
 
-  const nav = page.getByRole("navigation", { name: "Navegacao principal" });
+  const nav = page.getByRole("navigation", { name: "Navegação principal" });
   const logo = nav.getByRole("link", { name: "BLK Aero" }).locator("img");
   const menu = page.locator("#main-nav-menu ul");
   const mobileMenuButton = nav.locator('button[aria-controls="main-nav-menu"]');
@@ -47,7 +47,9 @@ test("mobile menu can be opened to reveal navigation links", async ({ page }) =>
   await openMenu.click();
 
   await expect(menu).toBeVisible();
-  await expect(menu.getByRole("link", { name: /^Soluções$/i })).toHaveAttribute("href", "/solucoes/projeto-e-obra");
+  await expect(menu.getByRole("link", { name: /^Soluções$/i })).toHaveAttribute("href", "/solucoes");
+  await expect(menu.getByRole("link", { name: /^Cidades$/i })).toHaveAttribute("href", "/cidades");
+  await expect(menu.getByRole("link", { name: /^Blog$/i })).toHaveAttribute("href", "/blog");
   await expect(menu.getByRole("link", { name: /^Servicos$/i })).toHaveCount(0);
 });
 

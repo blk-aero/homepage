@@ -26,8 +26,8 @@ test("homepage hero uses right-side image carousel", async ({ page }) => {
   expect((copyBox?.x ?? 0) + 20).toBeLessThan(mediaBox?.x ?? 0);
   expect((headingBox?.x ?? 0) + (headingBox?.width ?? 0)).toBeLessThanOrEqual((mediaBox?.x ?? 0) - 4);
 
-  await expect(activeSlide).toContainText("Base visual auditavel");
-  await expect(activeSlide).toContainText("Projeto / obra / compatibilizacao");
+  await expect(activeSlide).toContainText("Base visual auditável");
+  await expect(activeSlide).toContainText("Projeto / obra / compatibilização");
   await expect(activeSlide).toContainText("Terreno real para projetar, alinhar e executar");
   await expect(activeSlide).toContainText("DXF + curvas");
 

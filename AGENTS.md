@@ -1,6 +1,6 @@
 # AGENTS
 
-Astro marketing site for BLK Aero, with content-driven service, city, blog, and case-study routes.
+Astro marketing site for BLK Aero, currently focused on the homepage PRD plus temporary support pages for Soluções, Cidades, Blog, and the five homepage detail paths.
 
 ## Always Apply
 

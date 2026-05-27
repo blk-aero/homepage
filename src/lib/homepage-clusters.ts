@@ -16,19 +16,19 @@ export const homepageClusters: HomepageCluster[] = [
     slug: "regularizacao-rural",
     title: "Regularização Rural",
     detailPath: "/solucoes/regularizacao-rural",
-    summary: "Apoio tecnico para INCRA, SIGEF, CAR e documentacao rural."
+    summary: "Apoio técnico para INCRA, SIGEF, CAR e documentação rural."
   },
   {
     slug: "regularizacao-urbana",
     title: "Regularização Urbana",
     detailPath: "/solucoes/regularizacao-urbana",
-    summary: "Bases geoespaciais para REURB, loteamentos, cadastro tecnico e aprovacao municipal."
+    summary: "Bases geoespaciais para REURB, loteamentos, cadastro técnico e aprovação municipal."
   },
   {
     slug: "volumetria-e-medicao",
     title: "Volumetria e Medição",
     detailPath: "/solucoes/volumetria-e-medicao",
-    summary: "Medições, volumes, auditoria de terraplenagem e evidencias contratuais."
+    summary: "Medições, volumes, auditoria de terraplenagem e evidências contratuais."
   },
   {
     slug: "monitoramento-e-inteligencia-geografica",

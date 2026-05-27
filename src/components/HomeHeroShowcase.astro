@@ -1,16 +1,15 @@
 ---
-import heroMonitoramentoInteligencia from "../assets/homepage/hero/blk-hero-e-monitoramento-inteligencia.png";
-import heroProjetoObra from "../assets/homepage/hero/blk-hero-e-projeto-obra.png";
-import heroRegularizacaoRural from "../assets/homepage/hero/blk-hero-e-regularizacao-rural.png";
-import heroRegularizacaoUrbana from "../assets/homepage/hero/blk-hero-e-regularizacao-urbana.png";
-import heroVolumetriaMedicao from "../assets/homepage/hero/blk-hero-e-volumetria-medicao.png";
+import heroMonitoramentoInteligencia from "../assets/homepage/hero/blk-hero-e-monitoramento-inteligencia.webp";
+import heroProjetoObra from "../assets/homepage/hero/blk-hero-e-projeto-obra.webp";
+import heroRegularizacaoRural from "../assets/homepage/hero/blk-hero-e-regularizacao-rural.webp";
+import heroRegularizacaoUrbana from "../assets/homepage/hero/blk-hero-e-regularizacao-urbana.webp";
+import heroVolumetriaMedicao from "../assets/homepage/hero/blk-hero-e-volumetria-medicao.webp";
 import WhatsAppCTA from "./WhatsAppCTA.astro";
 
 type Props = {
   h1: string;
   subheadline: string;
   primaryCtaLabel: string;
-  primaryCtaHref: string;
   slides?: {
     title: string;
     imageId: string;
@@ -50,7 +49,7 @@ const heroImages: Record<string, string> = {
   <div data-testid="home-hero-main" class="grid gap-8 border-b border-gray-200 p-6 md:p-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:p-10 dark:border-gray-800">
     <div data-testid="home-hero-copy" class="min-w-0">
       <div class="mb-4 inline-flex rounded-full bg-lime-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-lime-900">
-        Cinco caminhos, uma base tecnica
+        Cinco caminhos, uma base técnica
       </div>
       <h1 class="text-3xl font-bold leading-tight md:text-5xl">{h1}</h1>
       <p id="summary" class="mt-5 text-base leading-7 text-gray-600 md:text-lg dark:text-gray-300">{subheadline}</p>
@@ -134,7 +133,7 @@ const heroImages: Record<string, string> = {
           <div
             class="absolute left-4 top-12 z-20 flex translate-x-0 items-center gap-2 sm:left-1/2 sm:top-4 sm:-translate-x-1/2"
             role="tablist"
-            aria-label="Servicos principais"
+            aria-label="Serviços principais"
           >
             {slides.map((slide, index) => (
               <button
@@ -163,6 +162,8 @@ const heroImages: Record<string, string> = {
 </section>
 
 <script>
+  import { createHeroCarousel } from "../lib/homepage-carousel";
+
   const ACTIVE_DOT_CLASSES = ["w-7", "border-lime-500", "bg-lime-500"];
   const INACTIVE_DOT_CLASSES = ["w-2.5", "border-gray-300", "bg-white/85"];
 
@@ -173,23 +174,20 @@ const heroImages: Record<string, string> = {
     const dots = Array.from(root.querySelectorAll("[data-carousel-dot]"));
     const intervalMs = Number(root.dataset.carouselInterval || "2000");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let current = 0;
-    let paused = false;
-    let stopped = reducedMotion;
+    const carousel = createHeroCarousel({ slideCount: slides.length, reducedMotion });
     let timer = 0;
 
     function render(index) {
-      current = index;
       slides.forEach((slide, slideIndex) => {
         if (!(slide instanceof HTMLElement)) return;
-        const active = slideIndex === current;
+        const active = slideIndex === index;
         slide.hidden = !active;
         slide.setAttribute("aria-hidden", active ? "false" : "true");
         slide.setAttribute("data-active", active ? "true" : "false");
         slide.classList.toggle("hidden", !active);
       });
       dots.forEach((dot, dotIndex) => {
-        const active = dotIndex === current;
+        const active = dotIndex === index;
         dot.setAttribute("aria-pressed", active ? "true" : "false");
         ACTIVE_DOT_CLASSES.forEach((className) => dot.classList.toggle(className, active));
         INACTIVE_DOT_CLASSES.forEach((className) => dot.classList.toggle(className, !active));
@@ -197,38 +195,36 @@ const heroImages: Record<string, string> = {
     }
 
     function advance() {
-      if (stopped || paused || slides.length === 0) return;
-      render((current + 1) % slides.length);
+      render(carousel.advance());
     }
 
     function start() {
-      if (stopped || timer || slides.length < 2) return;
+      if (!carousel.autoCycling() || timer || slides.length < 2) return;
       timer = window.setInterval(advance, intervalMs);
     }
 
     dots.forEach((dot) => {
       dot.addEventListener("click", () => {
-        stopped = true;
         window.clearInterval(timer);
         timer = 0;
-        render(Number((dot as HTMLElement).dataset.slideIndex || "0"));
+        render(carousel.select(Number((dot as HTMLElement).dataset.slideIndex || "0")));
       });
     });
 
     root.addEventListener("mouseenter", () => {
-      paused = true;
+      carousel.pause();
     });
     root.addEventListener("mouseleave", () => {
-      paused = false;
+      carousel.resume();
     });
     root.addEventListener("focusin", () => {
-      paused = true;
+      carousel.pause();
     });
     root.addEventListener("focusout", () => {
-      paused = false;
+      carousel.resume();
     });
 
-    render(0);
+    render(carousel.current());
     start();
   });
 </script>

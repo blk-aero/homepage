@@ -25,31 +25,28 @@ Run:
 ```bash
 npm run test:e2e -- /Users/lupion/Documents/homepage/tests/e2e/home-hero-showcase.spec.ts
 npm run test:e2e -- /Users/lupion/Documents/homepage/tests/e2e/navigation-whatsapp.spec.ts
-npm run test:e2e -- /Users/lupion/Documents/homepage/tests/e2e/prd-parity.spec.ts
 ```
 
 Pass criteria:
 
-- Homepage hero renders with the expected media and brand strip.
+- Homepage hero renders with the expected media, no-arrow carousel, proof band, triage cards, deliverables, platform, method, FAQ, and final CTA.
 - Mobile navigation opens and reveals links.
-- Primary UI parity blocks render on service and `/sobre` pages.
+- Navigation links point to the temporary `/solucoes`, `/cidades`, and `/blog` pages.
 
-## Rollout Control and Dynamic Routes
+## Current Route Surface
 
 Run:
 
 ```bash
-npm run test -- /Users/lupion/Documents/homepage/tests/lib/rollout.test.ts
-npm run test -- /Users/lupion/Documents/homepage/tests/lib/routes.test.ts
+npm run test -- /Users/lupion/Documents/homepage/tests/config/current-surface.test.ts
 npm run test:e2e -- /Users/lupion/Documents/homepage/tests/e2e/routing.spec.ts
 ```
 
 Pass criteria:
 
-- Active service routes return `200`.
-- Active city routes return `200`.
-- Inactive routes return `404`.
-- Service+city pair generation respects `data/rollout-control.json`.
+- `/`, `/solucoes`, `/cidades`, `/blog`, and the five `/solucoes/<cluster>` temporary support routes are available.
+- Removed legacy service, city, blog-post, case, and offer routes return `404`.
+- Old generated-page support files are not present in the active source tree.
 
 ## WhatsApp Attribution and Conversion Event
 
@@ -72,7 +69,7 @@ npm run dev -- --host 127.0.0.1 --port 4321
 2. Open:
 
 ```text
-http://127.0.0.1:4321/servicos/georreferenciamento-de-imovel-rural/jacarei-sp?utm_source=google&utm_medium=cpc&utm_campaign=qa&gclid=qa123
+http://127.0.0.1:4321/blog?utm_source=google&utm_medium=cpc&utm_campaign=qa&gclid=qa123
 ```
 
 3. Navigate to another internal page without query parameters.
@@ -85,11 +82,11 @@ window.dataLayer.filter((event) => event.event === "whatsapp_click").at(-1)
 
 Pass criteria:
 
-- The `wa.me` URL contains the service, city, and attribution values.
+- The `wa.me` URL contains CTA location and attribution values.
 - Attribution survives internal navigation.
-- The `whatsapp_click` event contains `service`, `city`, `page_path`, and available `utm_*`/`gclid` fields.
+- The `whatsapp_click` event contains `page_path`, CTA location, and available `utm_*`/`gclid` fields.
 
-## Robots, Sitemap, IndexNow, and Deployment Artifacts
+## Robots, Sitemap, and Deployment Artifacts
 
 Run:
 
@@ -106,8 +103,6 @@ Then open:
 Also inspect:
 
 - `/Users/lupion/Documents/homepage/DEPLOYMENT.md`
-- `/Users/lupion/Documents/homepage/scripts/indexnow.mjs`
-- `/Users/lupion/Documents/homepage/tests/lib/indexnow.test.ts`
 
 Pass criteria:
 
@@ -116,7 +111,6 @@ Pass criteria:
 - `robots.txt` references the sitemap.
 - `sitemap-index.xml` returns `200`.
 - Deployment docs list build command, output directory, and relevant environment variables.
-- IndexNow payload test passes.
 
 ## Full Regression Gate
 
@@ -148,6 +142,6 @@ Record these in the release notes or PR comment:
 - Current commit: `git rev-parse --short HEAD`
 - Exact command names and pass/fail result.
 - Any failing test names and error snippets.
-- Screenshot of one service+city page.
+- Screenshot of the homepage and one temporary support page.
 - Screenshot or copied text from `/robots.txt`.
 - One copied `whatsapp_click` payload from DevTools.

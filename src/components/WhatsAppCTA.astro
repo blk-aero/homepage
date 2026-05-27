@@ -1,6 +1,7 @@
 ---
 import { buildWhatsAppUrl } from "../lib/whatsapp";
 import { getWhatsAppNumber } from "../lib/contact";
+import BrandIcon from "./BrandIcon.astro";
 
 type Props = {
   service?: string | null;
@@ -61,7 +62,12 @@ const href = buildWhatsAppUrl(number, {
   target="_blank"
   rel="noopener noreferrer"
 >
-  {label}
+  <span class="inline-flex items-center justify-center gap-2">
+    <span aria-hidden="true" class="inline-flex h-4 w-4">
+      <BrandIcon name="whatsapp" class="h-4 w-4" />
+    </span>
+    <span>{label}</span>
+  </span>
 </a>
 
 <script is:inline>

@@ -6,8 +6,8 @@ describe("datalayer", () => {
     const push = vi.fn();
     (globalThis as any).window = { dataLayer: { push } };
 
-    pushEvent({ event: "click_to_call", page_path: "/servicos/x" });
+    pushEvent({ event: "click_to_call", page_path: "/solucoes" });
 
-    expect(push).toHaveBeenCalledWith({ event: "click_to_call", page_path: "/servicos/x" });
+    expect(push).toHaveBeenCalledWith({ event: "click_to_call", page_path: "/solucoes" });
   });
 });

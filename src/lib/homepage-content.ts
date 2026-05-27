@@ -24,44 +24,44 @@ export const homepageContent = {
       {
         title: "Projeto e Obra",
         imageId: "projeto-obra",
-        tag: "Base visual auditavel",
-        panelLabel: "Projeto / obra / compatibilizacao",
+        tag: "Base visual auditável",
+        panelLabel: "Projeto / obra / compatibilização",
         panelTitle: "Terreno real para projetar, alinhar e executar",
         description:
-          "Base topografica, leitura 3D e referencias claras para reduzir duvida entre escritorio, campo e obra.",
-        alt: "Terreno tecnico com curvas de nivel, nuvem de pontos e marcadores para projeto e obra",
+          "Base topográfica, leitura 3D e referências claras para reduzir dúvida entre escritório, campo e obra.",
+        alt: "Terreno técnico com curvas de nível, nuvem de pontos e marcadores para projeto e obra",
         objectPosition: "center 46%",
         metrics: [
           ["base", "DXF + curvas"],
           ["obra", "as built"],
-          ["decisao", "compatibilizacao"]
+          ["decisão", "compatibilização"]
         ]
       },
       {
         title: "Regularização Rural",
         imageId: "regularizacao-rural",
-        tag: "Perimetro defensavel",
-        panelLabel: "Rural / vertices / memoriais",
-        panelTitle: "Limites, relevo e pecas tecnicas em uma base unica",
+        tag: "Perímetro defensável",
+        panelLabel: "Rural / vértices / memoriais",
+        panelTitle: "Limites, relevo e peças técnicas em uma base única",
         description:
-          "Perimetro, confrontacoes e evidencia visual para conduzir regularizacao com menos retrabalho documental.",
-        alt: "Mapa rural tecnico com curvas de nivel, perimetro e pontos de vertice",
+          "Perímetro, confrontações e evidência visual para conduzir regularização com menos retrabalho documental.",
+        alt: "Mapa rural técnico com curvas de nível, perímetro e pontos de vértice",
         objectPosition: "center 50%",
         metrics: [
-          ["limites", "vertices"],
-          ["pecas", "memorial"],
+          ["limites", "vértices"],
+          ["peças", "memorial"],
           ["base", "SIGEF / CAR"]
         ]
       },
       {
         title: "Regularização Urbana",
         imageId: "regularizacao-urbana",
-        tag: "Cadastro compreensivel",
+        tag: "Cadastro compreensível",
         panelLabel: "Urbano / lotes / quadras",
-        panelTitle: "Leitura clara de lotes, vias e ocupacao urbana",
+        panelTitle: "Leitura clara de lotes, vias e ocupação urbana",
         description:
-          "Mapa, cadastro e evidencia visual para alinhar prefeitura, juridico, engenharia e beneficiarios.",
-        alt: "Mapa urbano tecnico com lotes, quadras, linhas cadastrais e pontos de controle",
+          "Mapa, cadastro e evidência visual para alinhar prefeitura, jurídico, engenharia e beneficiários.",
+        alt: "Mapa urbano técnico com lotes, quadras, linhas cadastrais e pontos de controle",
         objectPosition: "center 48%",
         metrics: [
           ["cadastro", "lotes"],
@@ -72,12 +72,12 @@ export const homepageContent = {
       {
         title: "Volumetria e Medição",
         imageId: "volumetria-medicao",
-        tag: "Medicao verificavel",
+        tag: "Medição verificável",
         panelLabel: "Volume / corte / aterro",
         panelTitle: "Volumes e comparativos que podem ser auditados",
         description:
-          "Superficies, secoes e comparativos para medir estoque, corte, aterro e evolucao de obra com rastreabilidade.",
-        alt: "Analise tecnica de volumetria com curvas de nivel e linhas de medicao",
+          "Superfícies, seções e comparativos para medir estoque, corte, aterro e evolução de obra com rastreabilidade.",
+        alt: "Análise técnica de volumetria com curvas de nível e linhas de medição",
         objectPosition: "center 54%",
         metrics: [
           ["volume", "corte / aterro"],
@@ -88,17 +88,17 @@ export const homepageContent = {
       {
         title: "Monitoramento e Inteligência Geográfica",
         imageId: "monitoramento-inteligencia",
-        tag: "Mudanca acompanhada",
-        panelLabel: "Monitoramento / historico / alerta",
-        panelTitle: "Evolucao do territorio acompanhada por evidencia",
+        tag: "Mudança acompanhada",
+        panelLabel: "Monitoramento / histórico / alerta",
+        panelTitle: "Evolução do território acompanhada por evidência",
         description:
-          "Historico visual, mapas comparativos e indicadores para acompanhar risco, obra, ativos e territorio ao longo do tempo.",
-        alt: "Mapa tecnico de monitoramento com grade, curvas de nivel e camadas geograficas",
+          "Histórico visual, mapas comparativos e indicadores para acompanhar risco, obra, ativos e território ao longo do tempo.",
+        alt: "Mapa técnico de monitoramento com grade, curvas de nível e camadas geográficas",
         objectPosition: "center 42%",
         metrics: [
-          ["tempo", "recorrencia"],
+          ["tempo", "recorrência"],
           ["sinais", "alertas"],
-          ["gestao", "governanca"]
+          ["gestão", "governança"]
         ]
       }
     ]

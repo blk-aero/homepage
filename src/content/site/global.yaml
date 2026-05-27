@@ -1,7 +1,7 @@
 meta:
   brand_name: BLK Aero
   language_code: pt-BR
-  default_description: BLK Aero transforma captura de campo em base geoespacial auditavel para decisão técnica.
+  default_description: BLK Aero transforma captura de campo em base geoespacial auditável para decisão técnica.
   home_title: BLK Aero - Do terreno real à decisão segura e auditável
   home_description: Mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho e apoiar decisões técnicas.
 
@@ -17,20 +17,22 @@ contact:
 navigation:
   primary_links:
     - label: Soluções
-      href: /solucoes/projeto-e-obra
+      href: /solucoes
     - label: Cidades
-      href: /cidades/jacarei-sp
+      href: /cidades
     - label: Blog
-      href: /blog/post-1
+      href: /blog
 
 footer:
   link_columns:
     - title: Navegação
       links:
-        - label: Cidades
-          href: /cidades/jacarei-sp
         - label: Soluções
-          href: /solucoes/projeto-e-obra
+          href: /solucoes
+        - label: Cidades
+          href: /cidades
+        - label: Blog
+          href: /blog
   social_links:
     - label: LinkedIn
       href: https://www.linkedin.com/company/blk-aero

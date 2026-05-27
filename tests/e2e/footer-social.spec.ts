@@ -9,8 +9,14 @@ test("footer shows BLK contact and trust details without template social links",
   await expect(footer.getByRole("link", { name: "contato@blk.aero" })).toHaveAttribute("href", "mailto:contato@blk.aero");
   await expect(footer.getByRole("link", { name: "(12) 98806-2737" })).toHaveAttribute("href", /wa\.me\/5512988062737/);
   await expect(footer).toContainText("Categoria A em Aerolevantamento pelo Ministério da Defesa");
-  await expect(footer.getByRole("link", { name: "Cidades" })).toHaveAttribute("href", "/cidades/jacarei-sp");
-  await expect(footer.getByRole("link", { name: "Soluções" })).toHaveAttribute("href", "/solucoes/projeto-e-obra");
+  const footerLinks = footer
+    .getByRole("heading", { name: "Navegação" })
+    .locator("xpath=following-sibling::ul[1]")
+    .getByRole("link");
+  await expect(footerLinks).toHaveText(["Soluções", "Cidades", "Blog"]);
+  await expect(footer.getByRole("link", { name: "Soluções" })).toHaveAttribute("href", "/solucoes");
+  await expect(footer.getByRole("link", { name: "Cidades" })).toHaveAttribute("href", "/cidades");
+  await expect(footer.getByRole("link", { name: "Blog" })).toHaveAttribute("href", "/blog");
   await expect(footer.getByRole("link", { name: "LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/company/blk-aero");
   await expect(footer.getByRole("link", { name: "YouTube" })).toHaveAttribute("href", "https://www.youtube.com/@blk-aero");
   await expect(footer.getByRole("link", { name: "Facebook" })).toHaveAttribute("href", "https://www.facebook.com/people/BLK-Aerolevantamento/61564931315622/");

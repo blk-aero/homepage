@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import WhatsAppCTA from "../../components/WhatsAppCTA.astro";
 import { homepageClusters } from "../../lib/homepage-clusters";
 
 export function getStaticPaths() {
@@ -15,25 +14,9 @@ const { cluster } = Astro.props;
 
 <BaseLayout
   title={`${cluster.title} - BLK Aero`}
-  description={`${cluster.summary} Pagina temporaria de detalhe da solucao BLK Aero.`}
+  description="Página temporária da solução BLK Aero."
 >
-  <main class="mx-auto max-w-4xl px-4 py-16">
-    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-gray-600 dark:text-gray-400">
-      Pagina temporaria
-    </p>
-    <h1 class="mt-3 text-4xl font-bold">{cluster.title}</h1>
-    <p class="bluf-text mt-5 text-lg">{cluster.summary}</p>
-    <p class="mt-4 text-gray-700 dark:text-gray-300">
-      Esta rota confirma o caminho de detalhe do cluster para a nova homepage. O conteudo completo
-      da pagina de solucao sera aprofundado em um PRD separado.
-    </p>
-    <div class="mt-8">
-      <WhatsAppCTA
-        label="Falar com especialista"
-        selectedCluster={cluster.title}
-        ctaLocation={`cluster-placeholder-${cluster.slug}`}
-        className="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
-      />
-    </div>
-  </main>
+  <section class="surface rounded-lg p-6 text-center">
+    <h1 class="text-3xl font-bold">Em Construção</h1>
+  </section>
 </BaseLayout>

@@ -24,6 +24,10 @@ _Avoid_: primary hero CTA, forced lead capture
 The secondary route for visitors who want to inspect a triage card's service scope before contacting BLK.
 _Avoid_: primary card click, hidden research path
 
+**Temporary Support Page**:
+A intentionally simple page that keeps homepage navigation and detail links release-safe while the full destination content is not yet in scope.
+_Avoid_: full cluster detail page, generated service page, legacy content page
+
 **Cluster Detail Page**:
 A full-depth detail page for one homepage service cluster that explains the buyer problem, common BLK services, deliverables, proof, and next contact path.
 _Avoid_: single narrow service page, placeholder page, shallow secondary page
@@ -56,7 +60,7 @@ _Avoid_: direct client, partner
 A homepage proof group for named organizations connected to BLK deliveries, including both direct and indirect project relationships.
 _Avoid_: per-item relationship clutter, overexplained logo section
 
-**Credenciais e Associacoes**:
+**Credenciais e Associações**:
 A homepage proof group for memberships, associations, professional registrations, and operational credentials.
 _Avoid_: client list, endorsement claim
 
@@ -72,19 +76,19 @@ _Avoid_: client, membership, endorsement
 The homepage path for topographic, as-built, architecture, engineering, construction, and BIM-adjacent needs.
 _Avoid_: obras only, architecture only
 
-**Regularizacao Rural**:
+**Regularização Rural**:
 The homepage path for rural property regularization, georeferencing, CAR, INCRA, SIGEF, and rural documentation.
 _Avoid_: all regularization, generic rural
 
-**Regularizacao Urbana**:
+**Regularização Urbana**:
 The homepage path for REURB, subdivisions, cadastral base, municipal approval support, and urban land regularization.
 _Avoid_: all regularization, generic city services
 
-**Volumetria e Medicao**:
+**Volumetria e Medição**:
 The homepage path for earthwork viability, cut/fill, stockpiles, recurring measurement, and contract evidence.
 _Avoid_: only volumetry, only construction tracking
 
-**Monitoramento e Inteligencia Geografica**:
+**Monitoramento e Inteligência Geográfica**:
 The homepage path for advanced or strategic BLK capabilities such as environmental/ESG, energy, agro, asset inspection, due diligence, and digital twins.
 _Avoid_: miscellaneous services, innovation bucket
 
@@ -172,11 +176,11 @@ _Avoid_: raw file-format list, jargon-first output list
 The deliverable group for design and construction decisions, including terrain bases, orthophotos, contours, models, sections, and CAD/GIS files.
 _Avoid_: generic project files
 
-**Base para Regularizacao e Aprovacao**:
+**Base para Regularização e Aprovação**:
 The deliverable group for legal, cadastral, rural, urban, and municipal approval decisions.
 _Avoid_: paperwork only, map only
 
-**Base para Medicao e Auditoria**:
+**Base para Medição e Auditoria**:
 The deliverable group for volumes, progress evidence, date comparisons, reporting, and contractual or financial verification.
 _Avoid_: simple volume number
 
@@ -231,13 +235,14 @@ _Avoid_: vague defense badge, generic drone license
 - A **Homepage Triage Card** primarily supports **WhatsApp First Contact** and secondarily exposes a **Detail Path**.
 - The homepage uses **Card-Based Matching** for the current phase instead of a separate Service Matcher or calculator.
 - A **Researching Visitor Offer** belongs below the initial hero and triage flow, not as the primary homepage hero action.
-- A **Detail Path** from a **Homepage Triage Card** leads to a **Cluster Detail Page**.
-- The current **Homepage Triage Cards** are **Projeto e Obra**, **Regularizacao Rural**, **Regularizacao Urbana**, **Volumetria e Medicao**, and **Monitoramento e Inteligencia Geografica**.
+- A **Detail Path** from a **Homepage Triage Card** can lead to a **Temporary Support Page** in the current phase and later to a **Cluster Detail Page**.
+- A **Temporary Support Page** is not a **Cluster Detail Page** and should not pretend to contain full service-cluster content.
+- The current **Homepage Triage Cards** are **Projeto e Obra**, **Regularização Rural**, **Regularização Urbana**, **Volumetria e Medição**, and **Monitoramento e Inteligência Geográfica**.
 - **Served Client Proof** supports the **Authority + Triage Homepage** by making prior service visible before visitors decide whether to contact BLK.
 - The homepage should place a **Compact Proof Band** after the hero and before the **Homepage Triage Cards**.
 - **Served Client Proof** can combine **Named Proof** and **Category Proof** when both are truthful.
 - **Named Proof** can distinguish **Direct Client Proof**, **Indirect Client Proof**, **Membership Proof**, and **Operational Credential Proof** in the data model without requiring per-item labels in the homepage UI.
-- **Served Client Proof** should use two simple homepage groups: **Credenciais e Associacoes** and **Clientes e Projetos Atendidos**.
+- **Served Client Proof** should use two simple homepage groups: **Credenciais e Associações** and **Clientes e Projetos Atendidos**.
 - **Clientes e Projetos Atendidos** can contain both **Direct Client Proof** and **Indirect Client Proof**.
 - A **Service Landing Page** may have many **Service + City Pages**.
 - A **Service + City Page** must add local context to a **Service Landing Page** rather than only changing the city name.
@@ -253,7 +258,7 @@ _Avoid_: vague defense badge, generic drone license
 - **Accessible Visual Evidence** makes an **Auditable Geospatial Base** easier for non-technical stakeholders to understand and use in decisions.
 - The homepage uses **Deliverables First** before explaining the **Trustworthy Method**.
 - **Deliverables First** should use **Decision-First Deliverable Groups** rather than a raw list of file formats.
-- The homepage **Decision-First Deliverable Groups** are **Base para Projeto e Obra**, **Base para Regularizacao e Aprovacao**, **Base para Medicao e Auditoria**, and **Base Visual para Alinhamento**.
+- The homepage **Decision-First Deliverable Groups** are **Base para Projeto e Obra**, **Base para Regularização e Aprovação**, **Base para Medição e Auditoria**, and **Base Visual para Alinhamento**.
 - The **Trustworthy Method** should mention **Verification Checkpoints**, **PEC-PCD Quality Check**, **Norm-Based Delivery**, and **Aerolevantamento Compliance** where applicable.
 - The homepage and cluster pages use **Standards-Forward Copy** for ABNT NBR 13133, INCRA/SIGEF, PEC-PCD, and aerolevantamento references.
 - For aerolevantamento and drone topography, BLK should communicate **Defense-Registered Aerolevantamento** as a credibility and formal-acceptance requirement.
@@ -276,3 +281,4 @@ _Avoid_: vague defense badge, generic drone license
 
 - "Homepage" was used as both a brand page and a single-service landing page - resolved: this project uses an **Authority + Triage Homepage**.
 - "Contact CTA" could mean a form, phone, email, or WhatsApp - resolved: the primary low-friction path is **WhatsApp First Contact**.
+- "Detail page" was used for both release-safe placeholders and full service-cluster content - resolved: the current phase uses **Temporary Support Pages**; future full destinations are **Cluster Detail Pages**.

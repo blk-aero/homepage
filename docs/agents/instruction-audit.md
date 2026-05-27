@@ -2,7 +2,7 @@
 
 ## Contradictions Found
 
-- `AGENTS.md` referenced `docs/runbooks/weekly-rollout-qa.md`, but `docs/runbooks` is absent in this checkout. Kept the rollout expectations in `docs/agents/repo-workflows.md` as a TODO instead of preserving a broken link.
+- `AGENTS.md` referenced `docs/runbooks/weekly-rollout-qa.md`, but `docs/runbooks` is absent in this checkout. The current active guides focus on the homepage PRD surface instead of the old rollout workflow.
 
 ## Essentials Kept in Root
 
@@ -17,7 +17,7 @@
 - Repository map: `docs/agents/repository-map.md`.
 - Command list and testing matrix: `docs/agents/testing-verification.md`.
 - Cloudflare deployment checks: `docs/agents/deployment-release.md`.
-- Discovery, content/SEO, and rollout workflows: `docs/agents/repo-workflows.md`.
+- Discovery, current-surface, and future-expansion workflows: `docs/agents/repo-workflows.md`.
 
 ## Flagged for Deletion or Avoidance
 
@@ -28,5 +28,5 @@
 ## Suggested Docs Structure
 
 - `docs/agents/`: AI-agent operating guidance.
-- `docs/runbooks/`: operational procedures such as weekly rollout QA, if restored.
-- `docs/prd/` or `docs/product/`: product planning material now represented by `docs/draft_prd.md`, if more PRDs are added.
+- `docs/runbooks/`: operational procedures if restored.
+- `docs/prd/` or `docs/product/`: product planning material if more active PRDs are added.

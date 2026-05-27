@@ -22,10 +22,11 @@ describe("global site config", () => {
       "Legal",
       "contato@blkaero.com.br",
       "São José dos Campos",
-      "Regularização Rural",
-      "Regularização Urbana",
-      "Volumetria e Medição",
-      "Monitoramento e Inteligência Geográfica"
+      "/servicos/",
+      "/cases/",
+      "/ofertas/",
+      "/blog/post-1",
+      "/cidades/jacarei-sp"
     ]) {
       expect(config).not.toContain(staleValue);
     }
@@ -50,7 +51,11 @@ describe("global site config", () => {
     const config = readFileSync("src/content/site/global.yaml", "utf8");
 
     expect(config).toContain("label: Soluções");
-    expect(config).toContain("href: /solucoes/projeto-e-obra");
+    expect(config).toContain("href: /solucoes");
+    expect(config).toContain("label: Cidades");
+    expect(config).toContain("href: /cidades");
+    expect(config).toContain("label: Blog");
+    expect(config).toContain("href: /blog");
     expect(config).not.toContain("label: Servicos");
   });
 });

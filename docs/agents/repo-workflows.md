@@ -10,10 +10,10 @@
 - For page/content changes, verify route rendering and CTA presence.
 - For schema/SEO changes, verify metadata outputs and crawl artifacts (`/robots.txt`, sitemap).
 
-## Rollout or Market-Expansion Changes
+## Future Expansion Changes
 
-TODO: The previous root `AGENTS.md` referenced `docs/runbooks/weekly-rollout-qa.md`, but that file is not present in this checkout. Until the runbook exists, use these preserved expectations as a checklist and note the missing runbook in completion reports:
+Future service, city, blog, case, or offer work should start from a new approved PRD or an explicitly restored archived plan. Do not reintroduce generated routes, content collections, or rollout controls as incidental cleanup.
 
-- Confirm non-placeholder content quality for new cities/services.
-- Verify local neighborhoods/FAQ and service BLUF/specs/CTA/trust blocks.
+- Confirm the active route contract before adding pages.
+- Add focused tests before restoring content collections or dynamic routes.
 - Execute `npm run build`, `npm run test`, targeted routing e2e, and link checks.

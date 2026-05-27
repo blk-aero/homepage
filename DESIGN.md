@@ -14,10 +14,9 @@ Project dependencies and references:
 - Tailwind CSS `^4.1.18`, used as the native utility system: https://tailwindcss.com/docs
 
 Repo-owned brand assets:
-- Canonical square logo: `src/assets/brand/logo_square_color_fulltext_aero_nobackground.svg`
-- Navigation logo: `src/assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg`
+- Header logo: `src/assets/brand/logo_inline_grey_halftext_aero_nobackground.svg`
+- Footer logo: `src/assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg`
 - Favicon: `src/assets/brand/favicon.png`
-- Static/public logo copies: `static/images/logos/`
 
 If this file conflicts with older design notes or page drafts, follow this file.
 
@@ -44,7 +43,7 @@ Default message:
 - Real-world capture, QC, and documentation for decisions that need to hold up.
 
 Primary operating regions:
-- State of Sao Paulo
+- State of São Paulo
 - southern Minas Gerais
 - southern Rio de Janeiro
 
@@ -57,14 +56,14 @@ Primary proof points:
 - traceability for legal, engineering, construction, environmental, and financial workflows
 
 Preferred business language:
-- decision auditavel
-- base geoespacial auditavel
-- reducao de risco
-- reducao de retrabalho
-- aceleracao de cronograma
+- decisão auditável
+- base geoespacial auditável
+- redução de risco
+- redução de retrabalho
+- aceleração de cronograma
 - rastreabilidade
 - controle de qualidade
-- evidencia tecnica
+- evidência técnica
 - single source of truth
 
 Avoid:
@@ -202,10 +201,9 @@ Current repo note:
 Use the SVG logo as the canonical source. Preserve its geometry, colors, proportions, clear space, and square outer frame.
 
 Repo asset roles:
-- `src/assets/brand/logo_square_color_fulltext_aero_nobackground.svg`: canonical square mark for brand anchors, compact layouts, and logo-reference checks.
-- `src/assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg`: navigation/header mark.
+- `src/assets/brand/logo_inline_grey_halftext_aero_nobackground.svg`: header mark.
+- `src/assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg`: footer mark.
 - `src/assets/brand/favicon.png`: favicon and touch icon.
-- `static/images/logos/`: public/static copies when a page or config needs a path from `static/images`.
 
 Do:
 - use the canonical SVG when possible
@@ -507,16 +505,16 @@ Recommended page structure:
 - CTA: ask for location, area, objective, deadline, or perimeter.
 
 CTA language should be concrete:
-- "Enviar localizacao e area para escopo"
-- "Pedir prazo e entregaveis"
-- "Enviar perimetro para volumetria"
+- "Enviar localização e área para escopo"
+- "Pedir prazo e entregáveis"
+- "Enviar perímetro para volumetria"
 - "Validar requisitos do projeto"
-- "Solicitar proposta tecnica"
+- "Solicitar proposta técnica"
 
 Avoid vague CTAs:
 - "Saiba mais"
-- "Conheca nossas solucoes"
-- "Transforme seu negocio"
+- "Conheça nossas soluções"
+- "Transforme seu negócio"
 
 ## Content Voice
 
@@ -535,14 +533,14 @@ Sentence pattern:
 - direct buyer value
 
 Good:
-- "Entregamos DXF, curvas de nivel, ortomosaico e relatorio de precisao para reduzir retrabalho no projeto."
-- "A volumetria compara superficies e quantifica corte/aterro antes da decisao de compra ou execucao."
-- "O monitoramento recorrente cria historico auditavel para medicao, contrato e governanca."
+- "Entregamos DXF, curvas de nível, ortomosaico e relatório de precisão para reduzir retrabalho no projeto."
+- "A volumetria compara superfícies e quantifica corte/aterro antes da decisão de compra ou execução."
+- "O monitoramento recorrente cria histórico auditável para medição, contrato e governança."
 
 Bad:
 - "Tecnologia de ponta para transformar seu futuro."
-- "Imagens incriveis com drones."
-- "Solucoes inovadoras para todos os segmentos."
+- "Imagens incríveis com drones."
+- "Soluções inovadoras para todos os segmentos."
 
 ## Asset Acceptance Checklist
 
