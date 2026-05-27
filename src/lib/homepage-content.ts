@@ -88,7 +88,39 @@ export const homepageContent = {
     ]
   },
   technicalConfidence: {
-    title: "Como garantimos confiança técnica"
+    title: "Como garantimos confiança técnica",
+    framing:
+      "Mais detalhe, menos interpolação: a captura aérea gera uma base densa, e a precisão é validada com GNSS, pontos de controle, checkpoints e PEC-PCD conforme o uso final.",
+    trustBadge: {
+      label: "Categoria A em Aerolevantamento pelo Ministério da Defesa",
+      href: "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento"
+    },
+    steps: [
+      {
+        title: "Entender a decisão",
+        description: "Mapeamos o objetivo, o órgão envolvido, o prazo e o uso técnico esperado."
+      },
+      {
+        title: "Planejar a captura",
+        description:
+          "Definimos voo, GNSS, pontos de controle e checkpoints conforme escala, relevo e norma aplicável."
+      },
+      {
+        title: "Capturar com rastreabilidade",
+        description:
+          "Registramos campo, imagens e bases para manter evidência auditável da origem dos dados."
+      },
+      {
+        title: "Processar e validar",
+        description:
+          "Conferimos consistência, PEC-PCD, ABNT NBR 13133, INCRA/SIGEF e requisitos técnicos do escopo."
+      },
+      {
+        title: "Entregar conforme normas e uso final",
+        description:
+          "Organizamos peças, mapas e modelos com atenção a Ministério da Defesa/SisCLATEN e regras de aerolevantamento quando o uso formal exige."
+      }
+    ]
   },
   proofSnippets: {
     title: "Padrões reais de trabalho, apresentados sem expor clientes"

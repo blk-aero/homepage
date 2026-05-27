@@ -85,6 +85,25 @@ const { meta } = siteConfig;
 
   <section data-testid="section-technical-confidence" class="surface mt-6 rounded-xl p-6">
     <h2 class="text-2xl font-semibold">{homepageContent.technicalConfidence.title}</h2>
+    <p class="mt-3 text-gray-700 dark:text-gray-300">
+      {homepageContent.technicalConfidence.framing}
+    </p>
+    <a
+      class="mt-4 inline-flex rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold dark:border-gray-700"
+      href={homepageContent.technicalConfidence.trustBadge.href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {homepageContent.technicalConfidence.trustBadge.label}
+    </a>
+    <ol class="mt-5 grid gap-4 md:grid-cols-5">
+      {homepageContent.technicalConfidence.steps.map((step) => (
+        <li class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-base font-semibold">{step.title}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{step.description}</p>
+        </li>
+      ))}
+    </ol>
   </section>
 
   <section data-testid="section-proof-snippets" class="surface mt-6 rounded-xl p-6">
