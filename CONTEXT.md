@@ -228,6 +228,18 @@ _Avoid_: informal drone mapping, unregistered aerolevantamento
 The public-facing credential wording for BLK's Ministry of Defense aerolevantamento standing.
 _Avoid_: vague defense badge, generic drone license
 
+**Searchable Coverage Index**:
+The index page /cidades that lists all active cities and neighborhoods with a client-side search box to filter their location.
+_Avoid_: static city directory, heavy search interface
+
+**Lead Capture Offer**:
+A content collection offer page where users submit contact details to GTM and Pipedream before receiving their downloadable asset.
+_Avoid_: gated form without consent, direct download link
+
+**First-Touch Attribution**:
+The session storage strategy that captures and preserves original campaign parameters (UTM and gclid) across pages without overwriting them.
+_Avoid_: last-touch attribution, parameter overwriting
+
 ## Relationships
 
 - An **Authority + Triage Homepage** routes visitors through a small set of **Homepage Triage Cards** or directly to **WhatsApp First Contact**.
@@ -271,6 +283,9 @@ _Avoid_: vague defense badge, generic drone license
 - The **Client Visualization Platform** appears as a highlighted differentiator after the homepage **Decision-First Deliverable Groups**, not as one of the deliverable groups.
 - After the **Technical Confidence Method**, the homepage should show **Use-Case Proof Snippets**, then **Hiring Objection FAQ**, then a final **Primary Specialist CTA**.
 - Homepage **Use-Case Proof Snippets** should use **Anonymized Cluster Proof**; named cases belong on dedicated case pages.
+- A **Searchable Coverage Index** lists all active cities and their neighborhoods, letting users find their location before navigating to a **Service + City Page**.
+- A **Lead Capture Offer** captures client info with GTM and Pipedream only when Consent Mode v2 is granted, serving as a **Researching Visitor Offer**.
+- **First-Touch Attribution** stores campaign data to qualify the **Lightly Qualified WhatsApp Message** even if the visitor views other pages first.
 
 ## Example dialogue
 
