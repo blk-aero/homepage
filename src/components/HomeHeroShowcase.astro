@@ -141,3 +141,76 @@ const aconvapLogoSrc = typeof aconvapLogo === "string" ? aconvapLogo : aconvapLo
     </div>
   </div>
 </section>
+
+<script>
+  const ACTIVE_DOT_CLASSES = ["bg-gray-950", "dark:bg-white"];
+  const INACTIVE_DOT_CLASSES = ["bg-gray-300", "dark:bg-gray-700"];
+
+  document.querySelectorAll("[data-testid='home-hero-media'][data-carousel-interval]").forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+
+    const slides = Array.from(root.querySelectorAll("[data-carousel-slide]"));
+    const dots = Array.from(root.querySelectorAll("[data-carousel-dot]"));
+    const intervalMs = Number(root.dataset.carouselInterval || "2000");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let current = 0;
+    let paused = false;
+    let stopped = reducedMotion;
+    let timer = 0;
+
+    function render(index) {
+      current = index;
+      slides.forEach((slide, slideIndex) => {
+        const active = slideIndex === current;
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        slide.setAttribute("data-active", active ? "true" : "false");
+        slide.classList.toggle("opacity-100", active);
+        slide.classList.toggle("opacity-0", !active);
+        slide.classList.toggle("pointer-events-none", !active);
+      });
+      dots.forEach((dot, dotIndex) => {
+        const active = dotIndex === current;
+        dot.setAttribute("aria-pressed", active ? "true" : "false");
+        dot.classList.toggle(ACTIVE_DOT_CLASSES[0], active);
+        dot.classList.toggle(ACTIVE_DOT_CLASSES[1], active);
+        dot.classList.toggle(INACTIVE_DOT_CLASSES[0], !active);
+        dot.classList.toggle(INACTIVE_DOT_CLASSES[1], !active);
+      });
+    }
+
+    function advance() {
+      if (stopped || paused || slides.length === 0) return;
+      render((current + 1) % slides.length);
+    }
+
+    function start() {
+      if (stopped || timer || slides.length < 2) return;
+      timer = window.setInterval(advance, intervalMs);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        stopped = true;
+        window.clearInterval(timer);
+        timer = 0;
+        render(Number((dot as HTMLElement).dataset.slideIndex || "0"));
+      });
+    });
+
+    root.addEventListener("mouseenter", () => {
+      paused = true;
+    });
+    root.addEventListener("mouseleave", () => {
+      paused = false;
+    });
+    root.addEventListener("focusin", () => {
+      paused = true;
+    });
+    root.addEventListener("focusout", () => {
+      paused = false;
+    });
+
+    render(0);
+    start();
+  });
+</script>

@@ -109,3 +109,43 @@ test("homepage hero renders five no-arrow cluster carousel slides with labeled d
   await expect(page.getByRole("button", { name: /anterior|previous/i })).toHaveCount(0);
   await expect(page.getByRole("button", { name: /proximo|próximo|next/i })).toHaveCount(0);
 });
+
+test("homepage hero carousel auto-cycles, pauses on hover, and stops after dot click", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  const activeSlide = page.locator("[data-carousel-slide][aria-hidden='false']");
+  await expect(activeSlide).toContainText("Projeto e Obra");
+
+  await page.waitForTimeout(2200);
+  await expect(activeSlide).toContainText("Regularização Rural");
+
+  await page.getByTestId("home-hero-media").hover();
+  await page.waitForTimeout(2200);
+  await expect(activeSlide).toContainText("Regularização Rural");
+
+  await page.mouse.move(0, 0);
+  await page.getByRole("button", { name: "Mostrar Volumetria e Medição" }).click();
+  await expect(activeSlide).toContainText("Volumetria e Medição");
+  await expect(page.getByRole("button", { name: "Mostrar Volumetria e Medição" })).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+
+  await page.waitForTimeout(2200);
+  await expect(activeSlide).toContainText("Volumetria e Medição");
+});
+
+test("homepage hero carousel does not auto-cycle when reduced motion is requested", async ({
+  page
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  const activeSlide = page.locator("[data-carousel-slide][aria-hidden='false']");
+  await expect(activeSlide).toContainText("Projeto e Obra");
+
+  await page.waitForTimeout(2200);
+  await expect(activeSlide).toContainText("Projeto e Obra");
+});
