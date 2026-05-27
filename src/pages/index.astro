@@ -59,6 +59,14 @@ const { meta } = siteConfig;
 
   <section data-testid="section-deliverables" class="surface mt-6 rounded-xl p-6">
     <h2 class="text-2xl font-semibold">{homepageContent.deliverables.title}</h2>
+    <div class="mt-5 grid gap-4 md:grid-cols-4">
+      {homepageContent.deliverables.groups.map((group) => (
+        <article class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-lg font-semibold">{group.title}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{group.description}</p>
+        </article>
+      ))}
+    </div>
   </section>
 
   <section data-testid="section-visualization-platform" class="surface mt-6 rounded-xl p-6">

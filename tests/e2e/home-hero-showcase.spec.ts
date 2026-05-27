@@ -143,6 +143,22 @@ test("homepage triage cards show five clusters with examples and detail actions"
   }
 });
 
+test("homepage deliverables are grouped around buyer decisions", async ({ page }) => {
+  await page.goto("/");
+
+  const deliverables = page.getByTestId("section-deliverables");
+  for (const group of [
+    "Base para Projeto e Obra",
+    "Base para Regularização e Aprovação",
+    "Base para Medição e Auditoria",
+    "Base Visual para Alinhamento"
+  ]) {
+    await expect(deliverables.getByRole("heading", { name: group })).toBeVisible();
+  }
+
+  await expect(deliverables).toContainText(/decisão|aprovação|auditoria|alinhamento/i);
+});
+
 test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({
   page
 }) => {

@@ -53,7 +53,29 @@ export const homepageContent = {
     ]
   },
   deliverables: {
-    title: "Bases para decidir com segurança"
+    title: "Bases para decidir com segurança",
+    groups: [
+      {
+        title: "Base para Projeto e Obra",
+        description:
+          "Levantamentos, as-built e bases visuais para orientar decisões de arquitetura, engenharia e obra."
+      },
+      {
+        title: "Base para Regularização e Aprovação",
+        description:
+          "Peças e evidências para apoiar processos rurais, urbanos, cadastrais, legais e municipais."
+      },
+      {
+        title: "Base para Medição e Auditoria",
+        description:
+          "Medições, volumes e registros comparáveis para auditoria, pagamento e controle de avanço."
+      },
+      {
+        title: "Base Visual para Alinhamento",
+        description:
+          "Mapas, modelos e evidências para alinhar gestão, engenharia, jurídico, clientes e contratados."
+      }
+    ]
   },
   visualizationPlatform: {
     title: "Plataforma visual para alinhar todos os envolvidos"
