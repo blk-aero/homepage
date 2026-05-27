@@ -71,6 +71,16 @@ const { meta } = siteConfig;
 
   <section data-testid="section-visualization-platform" class="surface mt-6 rounded-xl p-6">
     <h2 class="text-2xl font-semibold">{homepageContent.visualizationPlatform.title}</h2>
+    <p class="mt-3 text-gray-700 dark:text-gray-300">
+      {homepageContent.visualizationPlatform.description}
+    </p>
+    <ul class="mt-5 grid gap-3 md:grid-cols-3">
+      {homepageContent.visualizationPlatform.highlights.map((highlight) => (
+        <li class="rounded-lg border border-gray-200 p-4 text-sm font-semibold dark:border-gray-800">
+          {highlight}
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section data-testid="section-technical-confidence" class="surface mt-6 rounded-xl p-6">

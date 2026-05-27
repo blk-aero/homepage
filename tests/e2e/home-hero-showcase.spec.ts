@@ -159,6 +159,26 @@ test("homepage deliverables are grouped around buyer decisions", async ({ page }
   await expect(deliverables).toContainText(/decisão|aprovação|auditoria|alinhamento/i);
 });
 
+test("homepage visualization platform is a separate differentiator after deliverables", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  const deliverables = page.getByTestId("section-deliverables");
+  const platform = page.getByTestId("section-visualization-platform");
+  await expect(platform).toBeVisible();
+  await expect(platform).toContainText("orthoimages");
+  await expect(platform).toContainText("nuvens de pontos");
+  await expect(platform).toContainText("modelos 3D");
+  await expect(platform).toContainText("evidências");
+  await expect(platform).toContainText(/sem instalar|software especializado|hardware/i);
+  await expect(page.locator("body")).not.toContainText(/20 dias|vinte dias/i);
+
+  const deliverablesBox = await deliverables.boundingBox();
+  const platformBox = await platform.boundingBox();
+  expect(platformBox?.y ?? 0).toBeGreaterThan(deliverablesBox?.y ?? 0);
+});
+
 test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({
   page
 }) => {

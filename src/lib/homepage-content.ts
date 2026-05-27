@@ -78,7 +78,14 @@ export const homepageContent = {
     ]
   },
   visualizationPlatform: {
-    title: "Plataforma visual para alinhar todos os envolvidos"
+    title: "Plataforma visual para alinhar todos os envolvidos",
+    description:
+      "orthoimages, nuvens de pontos, modelos 3D e evidências ficam organizados em um ambiente visual para engenharia, jurídico, gestão, clientes e contratados discutirem a mesma base sem instalar software especializado ou depender de hardware pesado.",
+    highlights: [
+      "Inspeção visual de áreas, obras e ativos",
+      "Evidências reunidas no mesmo contexto espacial",
+      "Acesso mais claro para stakeholders não técnicos"
+    ]
   },
   technicalConfidence: {
     title: "Como garantimos confiança técnica"
