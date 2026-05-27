@@ -10,6 +10,13 @@ test("inactive route returns 404", async ({ page }) => {
   expect(response?.status()).toBe(404);
 });
 
+for (const path of ["/sobre", "/politica-de-privacidade"]) {
+  test(`${path} route is removed`, async ({ page }) => {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(404);
+  });
+}
+
 const homepageClusterRoutes = [
   { path: "/solucoes/projeto-e-obra", title: "Projeto e Obra" },
   { path: "/solucoes/regularizacao-rural", title: "Regularização Rural" },

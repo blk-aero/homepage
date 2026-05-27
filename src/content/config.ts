@@ -116,29 +116,18 @@ const site = defineCollection({
   schema: z.object({
     meta: z.object({
       brand_name: z.string(),
-      legal_name: z.string(),
       language_code: z.string(),
       default_description: z.string(),
       home_title: z.string(),
-      home_description: z.string(),
-      about_title: z.string(),
-      about_description: z.string()
+      home_description: z.string()
     }),
     contact: z.object({
       phone_display: z.string(),
       email: z.string().email(),
-      cnpj: z.string().optional(),
       address_city: z.string(),
       address_state: z.string(),
-      address_country: z.string(),
-      trust_title: z.string(),
       trust_certifications: z.string(),
-      about_certifications: z.string(),
-      privacy_label: z.string(),
-      privacy_path: z.string(),
       footer_summary: z.string(),
-      about_intro: z.string(),
-      about_trust_title: z.string(),
       whatsapp: z.object({
         nav_intro: z.string(),
         footer_intro: z.string()

@@ -8,7 +8,6 @@ test("footer shows BLK contact and trust details without template social links",
   await expect(footer.getByRole("link", { name: "(12) 98806-2737" })).toHaveAttribute("href", "tel:+5512988062737");
   await expect(footer).toContainText("São José dos Campos, SP");
   await expect(footer).toContainText("Categoria A em Aerolevantamento pelo Ministério da Defesa");
-  await expect(footer.getByRole("link", { name: "Política de privacidade" })).toHaveAttribute("href", "/politica-de-privacidade");
   await expect(footer.getByRole("link", { name: "WhatsApp" })).toHaveAttribute("href", /wa\.me/);
   await expect(footer.getByRole("link", { name: "Projeto e Obra" })).toHaveAttribute("href", "/solucoes/projeto-e-obra");
   await expect(footer.getByRole("link", { name: "LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/company/blk-aero");
@@ -17,6 +16,9 @@ test("footer shows BLK contact and trust details without template social links",
   await expect(footer.getByRole("link", { name: "Instagram" })).toHaveAttribute("href", "https://www.instagram.com/blk.aero/");
   await expect(footer).toContainText(/© \d{4} BLK Aero\. Todos os direitos reservados\./);
 
+  await expect(footer).not.toContainText("Legal");
+  await expect(footer).not.toContainText("Sobre a BLK");
+  await expect(footer).not.toContainText("Política de privacidade");
   await expect(footer).not.toContainText("Follow Us");
   await expect(footer).not.toContainText("GitHub");
   await expect(footer).not.toContainText("Dribbble");

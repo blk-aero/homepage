@@ -15,7 +15,11 @@ describe("global site config", () => {
       "Bitbucket",
       "Great power comes",
       "Lorem ipsum",
-      "00.000.000/0001-00"
+      "00.000.000/0001-00",
+      "/sobre",
+      "/politica-de-privacidade",
+      "Política de privacidade",
+      "Legal"
     ]) {
       expect(config).not.toContain(staleValue);
     }

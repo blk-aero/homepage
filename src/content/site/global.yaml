@@ -1,27 +1,17 @@
 meta:
   brand_name: BLK Aero
-  legal_name: BLK Aero
   language_code: pt-BR
   default_description: BLK Aero transforma captura de campo em base geoespacial auditavel para decisão técnica.
   home_title: BLK Aero - Do terreno real à decisão segura e auditável
   home_description: Mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho e apoiar decisões técnicas.
-  about_title: Sobre a BLK Aero
-  about_description: Operação técnica focada em bases geoespaciais auditáveis para engenharia, regularização, medição e monitoramento.
 
 contact:
   phone_display: "(12) 98806-2737"
   email: contato@blkaero.com.br
   address_city: São José dos Campos
   address_state: SP
-  address_country: BR
-  trust_title: Confiança técnica
   trust_certifications: Categoria A em Aerolevantamento pelo Ministério da Defesa
-  about_certifications: Categoria A em Aerolevantamento pelo Ministério da Defesa, pontos de controle e rotina de qualidade interna
-  privacy_label: Política de privacidade
-  privacy_path: /politica-de-privacidade
   footer_summary: Do terreno real à decisão segura e auditável.
-  about_intro: Somos uma operação técnica focada em transformar captura de campo em mapas, medições, peças técnicas e modelos 3D que apoiam decisões auditáveis.
-  about_trust_title: Dados de confiança
   whatsapp:
     nav_intro: "Olá! Quero falar com um especialista da BLK Aero."
     footer_intro: "Olá! Quero atendimento da BLK Aero para avaliar um projeto."
@@ -32,8 +22,6 @@ navigation:
       href: /servicos/georreferenciamento-de-imovel-rural
     - label: Cidades
       href: /cidades/jacarei-sp
-    - label: Sobre
-      href: /sobre
     - label: Blog
       href: /blog/post-1
 
@@ -51,12 +39,6 @@ footer:
           href: /solucoes/volumetria-e-medicao
         - label: Monitoramento e Inteligência Geográfica
           href: /solucoes/monitoramento-e-inteligencia-geografica
-    - title: Legal
-      links:
-        - label: Sobre a BLK
-          href: /sobre
-        - label: Política de privacidade
-          href: /politica-de-privacidade
   social_links:
     - label: LinkedIn
       href: https://www.linkedin.com/company/blk-aero
