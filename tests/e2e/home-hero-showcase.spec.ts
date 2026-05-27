@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("homepage hero uses right-side image and brand strip below", async ({ page }) => {
+test("homepage hero uses right-side image carousel", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
 
@@ -8,32 +8,23 @@ test("homepage hero uses right-side image and brand strip below", async ({ page 
   const activeSlide = page.locator("[data-carousel-slide][aria-hidden='false']");
   const heroImage = activeSlide.getByTestId("home-hero-image");
   const heroMedia = page.getByTestId("home-hero-media");
-  const brandsStrip = page.getByTestId("home-hero-brands");
   const heroHeading = page.locator("[data-testid='home-hero-copy'] h1");
 
   await expect(heroCopy).toBeVisible();
   await expect(heroImage).toBeVisible();
   await expect(heroMedia).toBeVisible();
-  await expect(brandsStrip).toBeVisible();
+  await expect(page.getByTestId("home-hero-brands")).toHaveCount(0);
   await expect(heroHeading).toBeVisible();
 
   const copyBox = await heroCopy.boundingBox();
   const mediaBox = await heroMedia.boundingBox();
-  const brandsBox = await brandsStrip.boundingBox();
   const headingBox = await heroHeading.boundingBox();
 
   expect(copyBox).toBeTruthy();
   expect(mediaBox).toBeTruthy();
-  expect(brandsBox).toBeTruthy();
   expect(headingBox).toBeTruthy();
   expect((copyBox?.x ?? 0) + 20).toBeLessThan(mediaBox?.x ?? 0);
   expect((headingBox?.x ?? 0) + (headingBox?.width ?? 0)).toBeLessThanOrEqual((mediaBox?.x ?? 0) - 4);
-  expect(brandsBox?.y ?? 0).toBeGreaterThan(
-    Math.max(
-      (copyBox?.y ?? 0) + (copyBox?.height ?? 0),
-      (mediaBox?.y ?? 0) + (mediaBox?.height ?? 0)
-    ) - 8
-  );
 
   await expect(activeSlide).toContainText("Base visual auditavel");
   await expect(activeSlide).toContainText("Projeto / obra / compatibilizacao");
@@ -42,14 +33,6 @@ test("homepage hero uses right-side image and brand strip below", async ({ page 
 
   const heroSrc = await heroImage.getAttribute("src");
   expect(heroSrc).toContain("blk-hero-e-projeto-obra");
-
-  const brandLink = page.getByRole("link", { name: /aconvap/i });
-  await expect(brandLink).toBeVisible();
-  await expect(brandLink).toHaveAttribute("href", "https://aconvap.com.br/");
-
-  const brandImage = page.getByTestId("brand-aconvap");
-  await expect(brandImage).toBeVisible();
-  expect(await brandImage.getAttribute("class")).toContain("grayscale");
 });
 
 test("homepage stays in light theme when the OS prefers dark mode", async ({ page }) => {

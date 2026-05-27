@@ -1,5 +1,4 @@
 ---
-import aconvapLogo from "../assets/brand/aconvap.png";
 import heroMonitoramentoInteligencia from "../assets/homepage/hero/blk-hero-e-monitoramento-inteligencia.png";
 import heroProjetoObra from "../assets/homepage/hero/blk-hero-e-projeto-obra.png";
 import heroRegularizacaoRural from "../assets/homepage/hero/blk-hero-e-regularizacao-rural.png";
@@ -37,7 +36,6 @@ const {
 } = Astro.props as Props;
 
 const secondaryExternal = secondaryCtaHref ? /^https?:\/\//.test(secondaryCtaHref) : false;
-const aconvapLogoSrc = typeof aconvapLogo === "string" ? aconvapLogo : aconvapLogo.src;
 const imageSrc = (image: string | { src: string }) => (typeof image === "string" ? image : image.src);
 const heroImages: Record<string, string> = {
   "projeto-obra": imageSrc(heroProjetoObra),
@@ -162,27 +160,6 @@ const heroImages: Record<string, string> = {
     </div>
   </div>
 
-  <div data-testid="home-hero-brands" class="px-6 py-6 md:px-8">
-    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-600 dark:text-gray-400">Parcerias de campo</p>
-    <div class="mt-4 flex flex-wrap items-center gap-10">
-      <a
-        class="inline-flex transition hover:-translate-y-0.5"
-        href="https://aconvap.com.br/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="ACONVAP"
-      >
-        <img
-          data-testid="brand-aconvap"
-          src={aconvapLogoSrc}
-          alt="ACONVAP"
-          class="h-8 w-auto grayscale opacity-70 transition hover:opacity-90"
-          loading="lazy"
-          decoding="async"
-        />
-      </a>
-    </div>
-  </div>
 </section>
 
 <script>
