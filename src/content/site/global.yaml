@@ -138,7 +138,7 @@ legacy_hugo:
     # preloader: true
     navbarlogo:
     # Logo (from static/images/logos/___)
-      image: logos/logo_inline_grey_fulltext_aero_nobackground.svg
+      image: logos/logo_inline_grey_halftext_aero_nobackground.svg
       link: /
       # Default width/height. Uncomment if you need to change
       # width: 112
