@@ -1,12 +1,27 @@
 ---
-import aconvapLogo from "../assets/brand/aconvap.png";
-import heroCover from "../assets/brand/cover-drone-mountain-bw.webp";
+import heroMonitoramentoInteligencia from "../assets/homepage/hero/blk-hero-e-monitoramento-inteligencia.png";
+import heroProjetoObra from "../assets/homepage/hero/blk-hero-e-projeto-obra.png";
+import heroRegularizacaoRural from "../assets/homepage/hero/blk-hero-e-regularizacao-rural.png";
+import heroRegularizacaoUrbana from "../assets/homepage/hero/blk-hero-e-regularizacao-urbana.png";
+import heroVolumetriaMedicao from "../assets/homepage/hero/blk-hero-e-volumetria-medicao.png";
+import WhatsAppCTA from "./WhatsAppCTA.astro";
 
 type Props = {
   h1: string;
   subheadline: string;
   primaryCtaLabel: string;
   primaryCtaHref: string;
+  slides?: {
+    title: string;
+    imageId: string;
+    tag: string;
+    panelLabel: string;
+    panelTitle: string;
+    description: string;
+    alt: string;
+    objectPosition: string;
+    metrics: [string, string][];
+  }[];
   secondaryCtaLabel?: string | null;
   secondaryCtaHref?: string | null;
 };
@@ -15,33 +30,37 @@ const {
   h1,
   subheadline,
   primaryCtaLabel,
-  primaryCtaHref,
+  slides = [],
   secondaryCtaLabel = null,
   secondaryCtaHref = null
 } = Astro.props as Props;
 
-const primaryExternal = /^https?:\/\//.test(primaryCtaHref);
 const secondaryExternal = secondaryCtaHref ? /^https?:\/\//.test(secondaryCtaHref) : false;
-const heroCoverSrc = typeof heroCover === "string" ? heroCover : heroCover.src;
-const aconvapLogoSrc = typeof aconvapLogo === "string" ? aconvapLogo : aconvapLogo.src;
+const imageSrc = (image: string | { src: string }) => (typeof image === "string" ? image : image.src);
+const heroImages: Record<string, string> = {
+  "projeto-obra": imageSrc(heroProjetoObra),
+  "regularizacao-rural": imageSrc(heroRegularizacaoRural),
+  "regularizacao-urbana": imageSrc(heroRegularizacaoUrbana),
+  "volumetria-medicao": imageSrc(heroVolumetriaMedicao),
+  "monitoramento-inteligencia": imageSrc(heroMonitoramentoInteligencia)
+};
 ---
 
-<section class="surface overflow-hidden rounded-2xl">
-  <div data-testid="home-hero-main" class="grid gap-0 border-b border-gray-200 md:grid-cols-[minmax(0,1.22fr)_minmax(0,1fr)] dark:border-gray-800">
-    <div data-testid="home-hero-copy" class="min-w-0 p-6 md:p-8">
-      <div class="mb-2 inline-flex rounded-full px-3 py-1 text-xs font-semibold pill-accent">Decisao auditavel</div>
+<section data-testid="section-hero" class="surface overflow-hidden rounded-lg">
+  <div data-testid="home-hero-main" class="grid gap-8 border-b border-gray-200 p-6 md:p-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:p-10 dark:border-gray-800">
+    <div data-testid="home-hero-copy" class="min-w-0">
+      <div class="mb-4 inline-flex rounded-full bg-lime-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-lime-900">
+        Cinco caminhos, uma base tecnica
+      </div>
       <h1 class="text-3xl font-bold leading-tight md:text-5xl">{h1}</h1>
-      <p id="summary" class="bluf-text mt-4 text-base md:text-lg">{subheadline}</p>
+      <p id="summary" class="mt-5 text-base leading-7 text-gray-600 md:text-lg dark:text-gray-300">{subheadline}</p>
 
-      <div class="mt-6 flex flex-wrap items-center gap-3">
-        <a
-          class="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
-          href={primaryCtaHref}
-          target={primaryExternal ? "_blank" : undefined}
-          rel={primaryExternal ? "noopener noreferrer" : undefined}
-        >
-          {primaryCtaLabel}
-        </a>
+      <div class="mt-7 flex flex-wrap items-center gap-3">
+        <WhatsAppCTA
+          label={primaryCtaLabel}
+          ctaLocation="home-hero"
+          className="btn-primary inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold"
+        />
         {secondaryCtaLabel && secondaryCtaHref && (
           <a
             class="btn-secondary rounded-lg px-5 py-3 text-sm font-semibold"
@@ -55,38 +74,161 @@ const aconvapLogoSrc = typeof aconvapLogo === "string" ? aconvapLogo : aconvapLo
       </div>
     </div>
 
-    <div data-testid="home-hero-media" class="relative min-h-72 border-t border-gray-200 md:min-h-full md:border-t-0 md:border-l dark:border-gray-800">
-      <img
-        data-testid="home-hero-image"
-        src={heroCoverSrc}
-        alt="Operacao de drone em area montanhosa"
-        class="h-full w-full object-cover object-center grayscale contrast-110"
-        loading="eager"
-        decoding="async"
-      />
-      <div class="absolute inset-0 bg-gradient-to-tr from-black/35 via-black/20 to-transparent"></div>
+    <div
+      data-testid="home-hero-media"
+      data-carousel-interval="5200"
+      class="min-w-0 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-950"
+    >
+      <div
+        data-testid="home-hero-carousel"
+        class="rounded-lg border border-gray-300 bg-white p-4 dark:border-gray-800 dark:bg-gray-900"
+      >
+        <div class="relative">
+          {slides.map((slide, index) => (
+            <article
+              data-testid="home-hero-slide"
+              data-carousel-slide
+              data-active={index === 0 ? "true" : "false"}
+              class:list={[
+                "cluster-carousel-slide duration-700 ease-in-out",
+                index === 0 ? "" : "hidden"
+              ]}
+              aria-hidden={index === 0 ? "false" : "true"}
+              hidden={index !== 0}
+            >
+              <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+                <img
+                  data-testid="home-hero-image"
+                  class="h-[390px] w-full object-cover"
+                  src={heroImages[slide.imageId]}
+                  alt={slide.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  style={`object-position: ${slide.objectPosition};`}
+                />
+                <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0)_38%,rgba(255,255,255,0.94)_100%)] dark:bg-[linear-gradient(180deg,rgba(3,7,18,0.04)_0%,rgba(3,7,18,0)_36%,rgba(3,7,18,0.92)_100%)]"></div>
+                <div class="absolute left-4 top-4 rounded-full border border-lime-300 bg-white/90 px-3 py-1 font-mono text-xs font-semibold uppercase tracking-wide text-lime-900">
+                  {slide.tag}
+                </div>
+                <div class="absolute inset-x-0 bottom-0 p-4">
+                  <p class="text-sm font-semibold text-lime-800 dark:text-lime-300">{slide.title}</p>
+                  <p class="font-mono text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">{slide.panelLabel}</p>
+                  <h2 class="mt-1 text-lg font-semibold leading-snug text-gray-950 md:text-xl dark:text-white">
+                    {slide.panelTitle}
+                  </h2>
+                  <p class="mt-2 max-w-2xl text-sm leading-6 text-gray-600 dark:text-gray-300">{slide.description}</p>
+                </div>
+              </div>
+
+              <div class="mt-4 grid gap-3 text-sm md:grid-cols-3">
+                {slide.metrics.map(([label, value]) => (
+                  <div class="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950">
+                    <p class="font-mono text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">{label}</p>
+                    <p class="mt-1 font-semibold text-gray-900 dark:text-gray-100">{value}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+
+          <div
+            class="absolute left-4 top-12 z-20 flex translate-x-0 items-center gap-2 sm:left-1/2 sm:top-4 sm:-translate-x-1/2"
+            role="tablist"
+            aria-label="Servicos principais"
+          >
+            {slides.map((slide, index) => (
+              <button
+                type="button"
+                data-carousel-dot
+                data-slide-index={index}
+                aria-label={`Mostrar ${slide.title}`}
+                aria-pressed={index === 0 ? "true" : "false"}
+                title={slide.title}
+                class:list={[
+                  "h-2.5 rounded-full border transition focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2",
+                  index === 0
+                    ? "w-7 border-lime-500 bg-lime-500"
+                    : "w-2.5 border-gray-300 bg-white/85 hover:bg-white"
+                ]}
+              >
+                <span class="sr-only">{slide.title}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div data-testid="home-hero-brands" class="px-6 py-6 md:px-8">
-    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-gray-600 dark:text-gray-400">Parcerias de campo</p>
-    <div class="mt-4 flex flex-wrap items-center gap-10">
-      <a
-        class="inline-flex transition hover:-translate-y-0.5"
-        href="https://aconvap.com.br/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="ACONVAP"
-      >
-        <img
-          data-testid="brand-aconvap"
-          src={aconvapLogoSrc}
-          alt="ACONVAP"
-          class="h-8 w-auto grayscale opacity-70 transition hover:opacity-90"
-          loading="lazy"
-          decoding="async"
-        />
-      </a>
-    </div>
-  </div>
 </section>
+
+<script>
+  const ACTIVE_DOT_CLASSES = ["w-7", "border-lime-500", "bg-lime-500"];
+  const INACTIVE_DOT_CLASSES = ["w-2.5", "border-gray-300", "bg-white/85"];
+
+  document.querySelectorAll("[data-testid='home-hero-media'][data-carousel-interval]").forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+
+    const slides = Array.from(root.querySelectorAll("[data-carousel-slide]"));
+    const dots = Array.from(root.querySelectorAll("[data-carousel-dot]"));
+    const intervalMs = Number(root.dataset.carouselInterval || "2000");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let current = 0;
+    let paused = false;
+    let stopped = reducedMotion;
+    let timer = 0;
+
+    function render(index) {
+      current = index;
+      slides.forEach((slide, slideIndex) => {
+        if (!(slide instanceof HTMLElement)) return;
+        const active = slideIndex === current;
+        slide.hidden = !active;
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        slide.setAttribute("data-active", active ? "true" : "false");
+        slide.classList.toggle("hidden", !active);
+      });
+      dots.forEach((dot, dotIndex) => {
+        const active = dotIndex === current;
+        dot.setAttribute("aria-pressed", active ? "true" : "false");
+        ACTIVE_DOT_CLASSES.forEach((className) => dot.classList.toggle(className, active));
+        INACTIVE_DOT_CLASSES.forEach((className) => dot.classList.toggle(className, !active));
+      });
+    }
+
+    function advance() {
+      if (stopped || paused || slides.length === 0) return;
+      render((current + 1) % slides.length);
+    }
+
+    function start() {
+      if (stopped || timer || slides.length < 2) return;
+      timer = window.setInterval(advance, intervalMs);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        stopped = true;
+        window.clearInterval(timer);
+        timer = 0;
+        render(Number((dot as HTMLElement).dataset.slideIndex || "0"));
+      });
+    });
+
+    root.addEventListener("mouseenter", () => {
+      paused = true;
+    });
+    root.addEventListener("mouseleave", () => {
+      paused = false;
+    });
+    root.addEventListener("focusin", () => {
+      paused = true;
+    });
+    root.addEventListener("focusout", () => {
+      paused = false;
+    });
+
+    render(0);
+    start();
+  });
+</script>

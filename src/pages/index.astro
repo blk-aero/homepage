@@ -1,36 +1,145 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HomeHeroShowcase from "../components/HomeHeroShowcase.astro";
-import LeadMagnetCta from "../components/LeadMagnetCta.astro";
+import WhatsAppCTA from "../components/WhatsAppCTA.astro";
 import { getSiteConfig } from "../lib/site-config";
+import { homepageContent } from "../lib/homepage-content";
 
 const siteConfig = await getSiteConfig();
-const { home, meta } = siteConfig;
+const { meta } = siteConfig;
 ---
 
 <BaseLayout title={meta.home_title} description={meta.home_description}>
   <HomeHeroShowcase
-    h1={home.hero.h1}
-    subheadline={home.hero.subheadline}
-    primaryCtaLabel={home.hero.primary_cta_label}
-    primaryCtaHref={home.hero.primary_cta_href}
-    secondaryCtaLabel={home.hero.secondary_cta_label}
-    secondaryCtaHref={home.hero.secondary_cta_href}
+    h1={homepageContent.hero.title}
+    subheadline={homepageContent.hero.subheadline}
+    primaryCtaLabel={homepageContent.hero.primaryCtaLabel}
+    primaryCtaHref="/"
+    slides={homepageContent.hero.slides}
   />
 
-  <section class="mt-6 grid gap-4 md:grid-cols-3">
-    {home.service_cards.map((card) => (
-      <a class="surface rounded-xl p-4" href={card.href}>
+  <section data-testid="section-compact-proof" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-xl font-semibold">{homepageContent.proofBand.credentialsTitle}</h2>
+    <ul class="mt-3 flex flex-wrap gap-2 text-sm text-gray-700 dark:text-gray-300">
+      {homepageContent.proofBand.credentials.map((item) => (
+        <li class="rounded-md border border-gray-200 px-3 py-1 grayscale dark:border-gray-800">
+          {item}
+        </li>
+      ))}
+    </ul>
+    <h3 class="mt-5 text-lg font-semibold">{homepageContent.proofBand.clientProjectsTitle}</h3>
+    <ul class="mt-3 flex flex-wrap gap-2 text-sm text-gray-700 dark:text-gray-300">
+      {homepageContent.proofBand.clientProjects.map((item) => (
+        <li class="rounded-md border border-gray-200 px-3 py-1 grayscale dark:border-gray-800">
+          {item}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section data-testid="section-triage-cards" class="mt-6 grid gap-4 md:grid-cols-5">
+    {homepageContent.triageCards.map((card) => (
+      <article class="surface rounded-xl p-4">
         <h2 class="text-lg font-semibold">{card.title}</h2>
-        <p class="mt-2 text-sm">{card.description}</p>
-      </a>
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{card.summary}</p>
+        <div class="mt-4 flex flex-col gap-2">
+          <WhatsAppCTA
+            label={homepageContent.hero.primaryCtaLabel}
+            selectedCluster={card.title}
+            ctaLocation={`triage-card-${card.detailPath.split("/").pop()}`}
+            className="btn-primary rounded-lg px-4 py-2 text-center text-sm font-semibold"
+          />
+          <a class="btn-secondary rounded-lg px-4 py-2 text-center text-sm font-semibold" href={card.detailPath}>
+            Ver detalhes: {card.title}
+          </a>
+        </div>
+      </article>
     ))}
   </section>
 
-  <LeadMagnetCta
-    title={home.lead_magnet.title}
-    description={home.lead_magnet.description}
-    href={home.lead_magnet.href}
-    label={home.lead_magnet.label}
-  />
+  <section data-testid="section-deliverables" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.deliverables.title}</h2>
+    <div class="mt-5 grid gap-4 md:grid-cols-4">
+      {homepageContent.deliverables.groups.map((group) => (
+        <article class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-lg font-semibold">{group.title}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{group.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section data-testid="section-visualization-platform" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.visualizationPlatform.title}</h2>
+    <p class="mt-3 text-gray-700 dark:text-gray-300">
+      {homepageContent.visualizationPlatform.description}
+    </p>
+    <ul class="mt-5 grid gap-3 md:grid-cols-3">
+      {homepageContent.visualizationPlatform.highlights.map((highlight) => (
+        <li class="rounded-lg border border-gray-200 p-4 text-sm font-semibold dark:border-gray-800">
+          {highlight}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section data-testid="section-technical-confidence" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.technicalConfidence.title}</h2>
+    <p class="mt-3 text-gray-700 dark:text-gray-300">
+      {homepageContent.technicalConfidence.framing}
+    </p>
+    <a
+      class="mt-4 inline-flex rounded-md border border-gray-300 px-3 py-2 text-sm font-semibold dark:border-gray-700"
+      href={homepageContent.technicalConfidence.trustBadge.href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {homepageContent.technicalConfidence.trustBadge.label}
+    </a>
+    <ol class="mt-5 grid gap-4 md:grid-cols-5">
+      {homepageContent.technicalConfidence.steps.map((step) => (
+        <li class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-base font-semibold">{step.title}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{step.description}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section data-testid="section-proof-snippets" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.proofSnippets.title}</h2>
+    <div class="mt-5 grid gap-4 md:grid-cols-5">
+      {homepageContent.proofSnippets.snippets.map((snippet) => (
+        <article class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-base font-semibold">{snippet.cluster}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{snippet.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section data-testid="section-faq" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.faq.title}</h2>
+    <div class="mt-5 grid gap-4 md:grid-cols-2">
+      {homepageContent.faq.items.map((item) => (
+        <article class="rounded-lg border border-gray-200 p-4 dark:border-gray-800">
+          <h3 class="text-base font-semibold">{item.question}</h3>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section data-testid="section-final-cta" class="relative left-1/2 mt-10 w-screen -translate-x-1/2 border-y border-gray-200 bg-gray-50 px-4 py-14 text-center md:py-16">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-3xl font-semibold leading-tight text-gray-900 md:text-4xl">{homepageContent.finalCta.title}</h2>
+      <div class="mt-8 flex justify-center">
+        <WhatsAppCTA
+          label={homepageContent.hero.primaryCtaLabel}
+          ctaLocation="final-cta"
+          className="btn-primary inline-flex rounded-lg px-6 py-3 text-sm font-semibold"
+        />
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -7,3 +7,43 @@ test("primary pages expose headings and actionable CTA", async ({ page }) => {
   await page.goto("/servicos/georreferenciamento-de-imovel-rural");
   await expect(page.getByTestId("whatsapp-cta")).toBeVisible();
 });
+
+test("homepage method section exposes technical confidence signals and trust badge", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  const method = page.getByTestId("section-technical-confidence");
+  await expect(
+    method.getByRole("heading", { name: "Como garantimos confiança técnica" })
+  ).toBeVisible();
+
+  for (const step of [
+    "Entender a decisão",
+    "Planejar a captura",
+    "Capturar com rastreabilidade",
+    "Processar e validar",
+    "Entregar conforme normas e uso final"
+  ]) {
+    await expect(method).toContainText(step);
+  }
+
+  for (const signal of [
+    "GNSS",
+    "pontos de controle",
+    "checkpoints",
+    "PEC-PCD",
+    "ABNT NBR 13133",
+    "INCRA/SIGEF",
+    "Ministério da Defesa/SisCLATEN"
+  ]) {
+    await expect(method).toContainText(signal);
+  }
+
+  await expect(method).toContainText("Mais detalhe, menos interpolação");
+  const badge = method.getByRole("link", {
+    name: "Categoria A em Aerolevantamento pelo Ministério da Defesa"
+  });
+  await expect(badge).toBeVisible();
+  await expect(badge).toHaveAttribute("href", /gov\.br|defesa/i);
+});

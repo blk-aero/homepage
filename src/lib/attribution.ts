@@ -27,3 +27,10 @@ export function parseAttributionParams(search: string): Attribution {
 
   return result;
 }
+
+export function mergeFirstTouchAttribution(
+  stored: Attribution = {},
+  current: Attribution = {}
+): Attribution {
+  return { ...current, ...stored };
+}

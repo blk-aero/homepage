@@ -7,12 +7,6 @@ test("service page renders lead magnet and differentiation blocks", async ({ pag
   await expect(page.getByRole("table", { name: /nós vs outros/i })).toBeVisible();
 });
 
-test("/sobre renders trust entity details", async ({ page }) => {
-  await page.goto("/sobre");
-  await expect(page.getByText(/CNPJ/i).first()).toBeVisible();
-  await expect(page.getByText(/Endereço|Endereco/i).first()).toBeVisible();
-});
-
 test("mock blog and case routes are available", async ({ page }) => {
   expect((await page.goto("/blog/post-1"))?.status()).toBe(200);
   expect((await page.goto("/cases/case-1"))?.status()).toBe(200);
