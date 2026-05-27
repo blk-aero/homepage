@@ -112,6 +112,18 @@ _Avoid_: generic topography headline, single-service headline
 The canonical homepage support copy: "A BLK transforma áreas, obras e ativos físicos em mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho, destravar aprovações e tornar decisões técnicas claras para todos os envolvidos."
 _Avoid_: generic speed claim, technical-only benefit
 
+**Hero Service Cluster Carousel**:
+The selected homepage hero visual model: a quiet right-side carousel that cycles through the five homepage service clusters without arrow controls.
+_Avoid_: static drone photo, text-heavy tab panel, service grid in the hero
+
+**Appealing Motion With Silent Accessibility**:
+The production carousel behavior that keeps movement for normal users while silently reducing motion for users who request reduced motion.
+_Avoid_: visible pause/play clutter, ignoring reduced-motion preferences
+
+**Quiet Technical Hero Visual**:
+A restrained hero visual that uses imagery, a small tag, a title, short explanation, compact metrics, and minimal controls to communicate technical evidence.
+_Avoid_: top explanatory header inside the visual panel, crowded mobile controls, heavy carousel chrome
+
 **Lightly Qualified WhatsApp Message**:
 A prefilled WhatsApp message that asks for the minimum useful project context without blocking the chat.
 _Avoid_: generic greeting, required lead form
@@ -208,6 +220,10 @@ _Avoid_: drone flight only, informal aerial mapping
 Aerolevantamento work carried out by an entity registered with the Brazilian Ministry of Defense/SisCLATEN so aerial-survey products can support formal technical and legal use.
 _Avoid_: informal drone mapping, unregistered aerolevantamento
 
+**Categoria A em Aerolevantamento**:
+The public-facing credential wording for BLK's Ministry of Defense aerolevantamento standing.
+_Avoid_: vague defense badge, generic drone license
+
 ## Relationships
 
 - An **Authority + Triage Homepage** routes visitors through a small set of **Homepage Triage Cards** or directly to **WhatsApp First Contact**.
@@ -230,6 +246,8 @@ _Avoid_: informal drone mapping, unregistered aerolevantamento
 - The **Primary Specialist CTA** should be used consistently on the hero and homepage triage cards while the card context customizes the WhatsApp prefilled message.
 - The **Authority + Triage Homepage** uses the **Homepage Hero Promise** as its primary headline.
 - The **Authority + Triage Homepage** uses the **Homepage Hero Subheadline** beneath the primary headline.
+- The homepage hero uses a **Hero Service Cluster Carousel** with a **Quiet Technical Hero Visual** to introduce the five main service paths without turning the first viewport into a services grid.
+- The **Hero Service Cluster Carousel** uses **Appealing Motion With Silent Accessibility**: auto-cycle for normal users, pause on hover/focus, stop after dot click, respect reduced-motion preferences, and avoid visible pause/play controls unless testing requires them.
 - A **Lightly Qualified WhatsApp Message** supports **WhatsApp First Contact** by requesting location, area, objective, deadline, and required deliverables inside the chat itself.
 - An **Auditable Geospatial Base** is the core evidence package behind BLK service offers.
 - **Accessible Visual Evidence** makes an **Auditable Geospatial Base** easier for non-technical stakeholders to understand and use in decisions.
@@ -239,6 +257,7 @@ _Avoid_: informal drone mapping, unregistered aerolevantamento
 - The **Trustworthy Method** should mention **Verification Checkpoints**, **PEC-PCD Quality Check**, **Norm-Based Delivery**, and **Aerolevantamento Compliance** where applicable.
 - The homepage and cluster pages use **Standards-Forward Copy** for ABNT NBR 13133, INCRA/SIGEF, PEC-PCD, and aerolevantamento references.
 - For aerolevantamento and drone topography, BLK should communicate **Defense-Registered Aerolevantamento** as a credibility and formal-acceptance requirement.
+- The homepage trust badge should use **Categoria A em Aerolevantamento** wording.
 - BLK should communicate the drone-topography advantage as **Dense Detail with Validated Accuracy**, not as a blanket claim that drone survey is more precise than traditional topography.
 - The homepage names the **Technical Confidence Method** section as "Como garantimos confiança técnica".
 - **Defense-Registered Aerolevantamento** should appear as a light trust badge near the **Technical Confidence Method** and as a fuller explanation in the **Hiring Objection FAQ**.

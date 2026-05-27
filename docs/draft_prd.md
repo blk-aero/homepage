@@ -55,6 +55,23 @@ The homepage is an **authority + triage homepage**, not a single-service landing
 - The CTA opens WhatsApp and uses a lightly qualified prefilled message that asks for location, approximate area/perimeter, objective, desired deadline, and required deliverables without forcing an on-site form.
 - Do not use the lead magnet as the hero secondary CTA. Keep lead magnets lower on the page or on detail/service pages for researching visitors.
 
+Hero visual direction:
+
+- Use the selected `variant=F` prototype direction: **Carousel sem setas**.
+- The left side keeps the approved homepage copy, primary CTA, and restrained proof metrics.
+- The right side is a quiet technical carousel for the five homepage service clusters: Projeto e Obra, Regularização Rural, Regularização Urbana, Volumetria e Medição, and Monitoramento e Inteligência Geográfica.
+- The right panel should use imagery, a small tag, a title, a short explanation, compact metrics, and default-style clickable dot indicators.
+- Do not show carousel arrow buttons in the hero visual.
+- Do not show a top explanatory header inside the right panel.
+- Do not show text-heavy numbered bottom tabs.
+- Do not make the hero feel like a specific "Dossiê Técnico" page; it should communicate the broader BLK homepage promise.
+- Production carousel behavior:
+  - Auto-cycle every `2000ms` for normal users.
+  - Pause on hover/focus.
+  - Stop auto-cycling after a dot click.
+  - Respect `prefers-reduced-motion` silently by disabling auto-cycle for users who request reduced motion.
+  - Do not add a visible pause/play control unless testing forces it.
+
 ### Homepage order
 
 1. Hero with the primary specialist CTA.
@@ -73,6 +90,14 @@ Proof groups:
 
 - **Credenciais e Associações:** ACONVAP, Enredes, Ministério da Defesa, CREA-SP, BR-UTM/DECEA.
 - **Clientes e Projetos Atendidos:** SN Saneamento, Sabesp, Construtora Oliveira Roxo, Sahyoun Properties, Polimix Ambiental, Six Engenharia, Macaw Studio, Sergio Porto, Montante, URBAM, SJC Mobilidade.
+- Proof group order: show **Credenciais e Associações** first, then **Clientes e Projetos Atendidos**.
+
+Logo asset guidance:
+
+- Store original received logo files under `src/assets/homepage/proof-logos/source/`.
+- Store normalized monochrome site-ready logo files under `src/assets/homepage/proof-logos/mono/`.
+- Prefer SVG for normalized logos. If a logo only exists as raster, export a clean PNG/WebP with transparent background at a consistent visual height.
+- The homepage proof component should use normalized monochrome assets, not mixed original files.
 
 ### Triage cards
 
@@ -122,7 +147,7 @@ Technical-trust copy rules:
 
 - Use standards-forward language. Name ABNT NBR 13133, INCRA/SIGEF, PEC-PCD, Ministério da Defesa/SisCLATEN, and aerolevantamento rules where they strengthen trust.
 - Avoid repeating "quando aplicável" in public copy. Scope standards through the service, use case, or approval body instead.
-- Add a light trust badge near the method section: **Empresa cadastrada no Ministério da Defesa para aerolevantamento**.
+- Add a light trust badge near the method section: **Categoria A em Aerolevantamento pelo Ministério da Defesa**, linking to `https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento`.
 - Add a fuller FAQ explanation that aerolevantamento and drone topography require a registered entity so products support formal technical and legal use.
 - Frame the drone-topography advantage as **more dense detail with validated accuracy**, not as a blanket claim that drone survey is more precise than traditional topography.
 - Suggested copy: **Mais detalhe, menos interpolação:** a topografia com drone gera uma leitura densa do terreno, com ortofotos e modelos em escala centimétrica. A BLK combina captura aérea, GNSS, pontos de controle, checkpoints e PEC-PCD para entregar superfície, medições e evidências com precisão validada.
@@ -141,6 +166,33 @@ Homepage FAQ topics:
 4. **Consigo abrir e entender os arquivos sem software técnico?** Yes; BLK provides organized visualization for orthoimages, 3D/point-cloud outputs, and evidence.
 5. **A entrega serve para aprovação, regularização ou auditoria?** It depends on scope, but BLK aligns deliverables with the intended use, norms, and required body.
 6. **Topografia com drone precisa de empresa cadastrada no Ministério da Defesa?** Yes; aerolevantamento and drone-topography products should come from a registered entity so they can support formal technical and legal use.
+
+FAQ copy rules:
+
+- Keep answers short, usually 2-4 sentences.
+- Keep homepage pricing generic; do not use starting-price anchors on the homepage.
+- Use the 5/7/10-day delivery range as an initial reference, confirmed after scope.
+
+Use-case proof snippets should be anonymized on the homepage but grounded in real project patterns:
+
+1. **Projeto e Obra:** terreno no Condomínio Terras Alpha, em São José dos Campos.
+2. **Regularização Rural:** Fazenda Itamirim, em Jacareí-SP, from chacara subdivision through INCRA and CAR regularization.
+3. **Regularização Urbana:** Bairro Colinas de São José, em São José dos Campos.
+4. **Volumetria e Medição:** industrial-land viability project in Jambeiro, near Rodovia dos Tamoios.
+5. **Monitoramento e Inteligência Geográfica:** São José dos Campos landfill monitoring with asset tracking and useful-life forecast.
+
+These examples should be written as short cluster proof cards, not full named case studies.
+
+Platform visual asset guidance:
+
+- Store source screenshots under `src/assets/homepage/platform/source/`.
+- Store cropped, public-safe, site-ready screenshots under `src/assets/homepage/platform/`.
+- Use descriptive filenames such as `client-visualization-platform-orthophoto-point-cloud.webp`.
+- Prefer showing the platform as a real deliverable surface when public-safe; otherwise use a sanitized screenshot or mockup based on the real layout.
+
+WhatsApp prefilled message fields:
+
+- Include location, approximate area/perimeter, objective, desired deadline, and desired deliverable/output type.
 
 ### Cluster detail pages
 
