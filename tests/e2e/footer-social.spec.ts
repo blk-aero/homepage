@@ -5,12 +5,17 @@ test("footer shows BLK contact and trust details without template social links",
 
   const footer = page.locator("footer");
   await expect(footer.getByRole("link", { name: "contato@blkaero.com.br" })).toHaveAttribute("href", "mailto:contato@blkaero.com.br");
-  await expect(footer).toContainText("(12) 98806-2737");
-  await expect(footer).toContainText("Sao Jose dos Campos, SP");
-  await expect(footer).toContainText("Confianca tecnica");
-  await expect(footer).toContainText("Categoria A em Aerolevantamento pelo Ministerio da Defesa");
-  await expect(footer.getByRole("link", { name: "Politica de privacidade" })).toHaveAttribute("href", "/politica-de-privacidade");
+  await expect(footer.getByRole("link", { name: "(12) 98806-2737" })).toHaveAttribute("href", "tel:+5512988062737");
+  await expect(footer).toContainText("São José dos Campos, SP");
+  await expect(footer).toContainText("Categoria A em Aerolevantamento pelo Ministério da Defesa");
+  await expect(footer.getByRole("link", { name: "Política de privacidade" })).toHaveAttribute("href", "/politica-de-privacidade");
   await expect(footer.getByRole("link", { name: "WhatsApp" })).toHaveAttribute("href", /wa\.me/);
+  await expect(footer.getByRole("link", { name: "Projeto e Obra" })).toHaveAttribute("href", "/solucoes/projeto-e-obra");
+  await expect(footer.getByRole("link", { name: "LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/company/blk-aero");
+  await expect(footer.getByRole("link", { name: "YouTube" })).toHaveAttribute("href", "https://www.youtube.com/@blk-aero");
+  await expect(footer.getByRole("link", { name: "Facebook" })).toHaveAttribute("href", "https://www.facebook.com/people/BLK-Aerolevantamento/61564931315622/");
+  await expect(footer.getByRole("link", { name: "Instagram" })).toHaveAttribute("href", "https://www.instagram.com/blk.aero/");
+  await expect(footer).toContainText(/© \d{4} BLK Aero\. Todos os direitos reservados\./);
 
   await expect(footer).not.toContainText("Follow Us");
   await expect(footer).not.toContainText("GitHub");

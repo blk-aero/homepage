@@ -5,6 +5,22 @@ const navLink = z.object({
   href: z.string()
 });
 
+const footerLink = z.object({
+  label: z.string(),
+  href: z.string()
+});
+
+const footerLinkColumn = z.object({
+  title: z.string(),
+  links: z.array(footerLink).min(1)
+});
+
+const footerSocialLink = z.object({
+  label: z.string(),
+  href: z.string().url(),
+  icon: z.enum(["linkedin", "youtube", "facebook", "instagram"])
+});
+
 const services = defineCollection({
   type: "content",
   schema: z.object({
@@ -130,6 +146,10 @@ const site = defineCollection({
     }),
     navigation: z.object({
       primary_links: z.array(navLink).min(1)
+    }),
+    footer: z.object({
+      link_columns: z.array(footerLinkColumn).min(1),
+      social_links: z.array(footerSocialLink).min(1)
     })
   })
 });

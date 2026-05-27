@@ -6,7 +6,7 @@ import AttributionCapture from "../components/AttributionCapture.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
 import GtmHead from "../components/GtmHead.astro";
 import SeoHead from "../components/SeoHead.astro";
-import { buildDefaultWhatsAppUrl } from "../lib/contact";
+import { buildDefaultWhatsAppUrl, getWhatsAppNumber } from "../lib/contact";
 import { getSiteConfig } from "../lib/site-config";
 
 type Props = {
@@ -32,6 +32,48 @@ const footerWhatsAppHref = buildDefaultWhatsAppUrl({
   intro: siteConfig.contact.whatsapp.footer_intro
 });
 const navLinks = siteConfig.navigation.primary_links;
+const currentYear = new Date().getFullYear();
+const phoneHref = `tel:+${getWhatsAppNumber()}`;
+const isExternalHref = (href: string) => /^https?:\/\//.test(href);
+const footerColumns = [
+  ...siteConfig.footer.link_columns.slice(0, 1),
+  {
+    title: "Contato",
+    links: [
+      { label: siteConfig.contact.phone_display, href: phoneHref },
+      { label: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
+      { label: "WhatsApp", href: footerWhatsAppHref }
+    ],
+    note: `${siteConfig.contact.address_city}, ${siteConfig.contact.address_state}`
+  },
+  ...siteConfig.footer.link_columns.slice(1)
+];
+const socialIcons: Record<string, { viewBox: string; paths: string[] }> = {
+  linkedin: {
+    viewBox: "0 0 24 24",
+    paths: [
+      "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.369-1.852 3.602 0 4.267 2.37 4.267 5.455v6.288zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+    ]
+  },
+  youtube: {
+    viewBox: "0 0 24 24",
+    paths: [
+      "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+    ]
+  },
+  facebook: {
+    viewBox: "0 0 24 24",
+    paths: [
+      "M22.675 0h-21.35C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.797.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.324-.593 1.324-1.326V1.326C24 .593 23.407 0 22.675 0z"
+    ]
+  },
+  instagram: {
+    viewBox: "0 0 24 24",
+    paths: [
+      "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"
+    ]
+  }
+};
 const logoInlineSrc = typeof logoInline === "string" ? logoInline : logoInline.src;
 const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 ---
@@ -116,34 +158,75 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
       <slot />
     </main>
 
-    <footer class="surface mt-12">
-      <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 md:grid-cols-3">
-        <div>
-          <img
-            src={logoInlineSrc}
-            alt={siteConfig.meta.brand_name}
-            class="mb-2 h-7 w-auto"
-            loading="lazy"
-            decoding="async"
-          />
-          <p class="text-sm">{siteConfig.contact.footer_summary}</p>
-        </div>
-        <div>
-          <h2 class="mb-2 text-base font-semibold">{siteConfig.contact.trust_title}</h2>
-          {siteConfig.contact.cnpj && <p class="text-sm">CNPJ: {siteConfig.contact.cnpj}</p>}
-          <p class="text-sm">Endereco: {siteConfig.contact.address_city}, {siteConfig.contact.address_state}</p>
-          <p class="text-sm">Certificacoes: {siteConfig.contact.trust_certifications}</p>
-        </div>
-        <div>
-          <h2 class="mb-2 text-base font-semibold">Contato</h2>
-          <p class="text-sm">{siteConfig.contact.phone_display}</p>
-          <p class="text-sm"><a class="underline" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a></p>
-          <p class="text-sm">
-            <a class="underline" href={footerWhatsAppHref} target="_blank" rel="noopener noreferrer">
-              WhatsApp
+    <footer class="mt-12 border-t border-gray-200 bg-gray-50">
+      <div class="mx-auto w-full max-w-6xl px-4 py-8 lg:py-10">
+        <div class="gap-10 md:flex md:justify-between">
+          <div class="mb-8 max-w-sm md:mb-0">
+            <a href="/" class="flex items-center">
+              <img
+                src={logoInlineSrc}
+                alt={siteConfig.meta.brand_name}
+                class="h-8 w-auto"
+                loading="lazy"
+                decoding="async"
+              />
             </a>
-          </p>
-          <p class="text-sm"><a class="underline" href={siteConfig.contact.privacy_path}>{siteConfig.contact.privacy_label}</a></p>
+            <p class="mt-4 text-sm leading-6 text-gray-600">{siteConfig.contact.footer_summary}</p>
+            <p class="mt-3 text-xs leading-5 text-gray-500">{siteConfig.contact.trust_certifications}</p>
+          </div>
+          <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
+            {footerColumns.map((column) => (
+              <div>
+                <h2 class="mb-5 text-sm font-semibold uppercase tracking-wide text-gray-900">{column.title}</h2>
+                <ul class="space-y-3 text-sm font-medium text-gray-600">
+                  {column.links.map((link) => {
+                    const external = isExternalHref(link.href);
+                    return (
+                      <li>
+                        <a
+                          class="hover:text-gray-950 hover:underline"
+                          href={link.href}
+                          target={external ? "_blank" : undefined}
+                          rel={external ? "noopener noreferrer" : undefined}
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+                {"note" in column && <p class="mt-4 text-sm text-gray-500">{column.note}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+        <hr class="my-6 border-gray-200 lg:my-8" />
+        <div class="sm:flex sm:items-center sm:justify-between">
+          <span class="text-sm text-gray-600 sm:text-center">
+            © {currentYear} <a href="/" class="hover:underline">BLK Aero</a>. Todos os direitos reservados.
+          </span>
+          <div class="mt-4 flex sm:mt-0 sm:justify-center">
+            {siteConfig.footer.social_links.map((social) => {
+              const icon = socialIcons[social.icon];
+              return (
+                <a
+                  href={social.href}
+                  class="ml-5 text-gray-500 first:ml-0 hover:text-gray-950"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  title={social.label}
+                >
+                  <svg class="h-5 w-5" aria-hidden="true" viewBox={icon.viewBox} fill="currentColor">
+                    {icon.paths.map((path) => (
+                      <path d={path}></path>
+                    ))}
+                  </svg>
+                  <span class="sr-only">{social.label}</span>
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
     </footer>

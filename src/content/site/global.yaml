@@ -2,29 +2,29 @@ meta:
   brand_name: BLK Aero
   legal_name: BLK Aero
   language_code: pt-BR
-  default_description: BLK Aero transforma captura de campo em base geoespacial auditavel para decisao tecnica.
-  home_title: BLK Aero - Do terreno real a decisao segura e auditavel
-  home_description: Mapas, medicoes, pecas tecnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho e apoiar decisoes tecnicas.
+  default_description: BLK Aero transforma captura de campo em base geoespacial auditavel para decisão técnica.
+  home_title: BLK Aero - Do terreno real à decisão segura e auditável
+  home_description: Mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho e apoiar decisões técnicas.
   about_title: Sobre a BLK Aero
-  about_description: Operacao tecnica focada em bases geoespaciais auditaveis para engenharia, regularizacao, medicao e monitoramento.
+  about_description: Operação técnica focada em bases geoespaciais auditáveis para engenharia, regularização, medição e monitoramento.
 
 contact:
   phone_display: "(12) 98806-2737"
   email: contato@blkaero.com.br
-  address_city: Sao Jose dos Campos
+  address_city: São José dos Campos
   address_state: SP
   address_country: BR
-  trust_title: Confianca tecnica
-  trust_certifications: Categoria A em Aerolevantamento pelo Ministerio da Defesa + fluxo QC interno
-  about_certifications: Categoria A em Aerolevantamento pelo Ministerio da Defesa, pontos de controle e rotina de qualidade interna
-  privacy_label: Politica de privacidade
+  trust_title: Confiança técnica
+  trust_certifications: Categoria A em Aerolevantamento pelo Ministério da Defesa + fluxo QC interno
+  about_certifications: Categoria A em Aerolevantamento pelo Ministério da Defesa, pontos de controle e rotina de qualidade interna
+  privacy_label: Política de privacidade
   privacy_path: /politica-de-privacidade
-  footer_summary: Do terreno real a decisao segura e auditavel.
-  about_intro: Somos uma operacao tecnica focada em transformar captura de campo em mapas, medicoes, pecas tecnicas e modelos 3D que apoiam decisoes auditaveis.
-  about_trust_title: Dados de confianca
+  footer_summary: Do terreno real à decisão segura e auditável.
+  about_intro: Somos uma operação técnica focada em transformar captura de campo em mapas, medições, peças técnicas e modelos 3D que apoiam decisões auditáveis.
+  about_trust_title: Dados de confiança
   whatsapp:
-    nav_intro: "Ola! Quero falar com um especialista da BLK Aero."
-    footer_intro: "Ola! Quero atendimento da BLK Aero para avaliar um projeto."
+    nav_intro: "Olá! Quero falar com um especialista da BLK Aero."
+    footer_intro: "Olá! Quero atendimento da BLK Aero para avaliar um projeto."
 
 navigation:
   primary_links:
@@ -36,3 +36,37 @@ navigation:
       href: /sobre
     - label: Blog
       href: /blog/post-1
+
+footer:
+  link_columns:
+    - title: Soluções
+      links:
+        - label: Projeto e Obra
+          href: /solucoes/projeto-e-obra
+        - label: Regularização Rural
+          href: /solucoes/regularizacao-rural
+        - label: Regularização Urbana
+          href: /solucoes/regularizacao-urbana
+        - label: Volumetria e Medição
+          href: /solucoes/volumetria-e-medicao
+        - label: Monitoramento e Inteligência Geográfica
+          href: /solucoes/monitoramento-e-inteligencia-geografica
+    - title: Legal
+      links:
+        - label: Sobre a BLK
+          href: /sobre
+        - label: Política de privacidade
+          href: /politica-de-privacidade
+  social_links:
+    - label: LinkedIn
+      href: https://www.linkedin.com/company/blk-aero
+      icon: linkedin
+    - label: YouTube
+      href: https://www.youtube.com/@blk-aero
+      icon: youtube
+    - label: Facebook
+      href: https://www.facebook.com/people/BLK-Aerolevantamento/61564931315622/
+      icon: facebook
+    - label: Instagram
+      href: https://www.instagram.com/blk.aero/
+      icon: instagram

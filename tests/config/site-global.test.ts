@@ -20,4 +20,13 @@ describe("global site config", () => {
       expect(config).not.toContain(staleValue);
     }
   });
+
+  it("keeps only real BLK social profiles in footer config", () => {
+    const config = readFileSync("src/content/site/global.yaml", "utf8");
+
+    expect(config).toContain("https://www.linkedin.com/company/blk-aero");
+    expect(config).toContain("https://www.youtube.com/@blk-aero");
+    expect(config).toContain("https://www.facebook.com/people/BLK-Aerolevantamento/61564931315622/");
+    expect(config).toContain("https://www.instagram.com/blk.aero/");
+  });
 });
