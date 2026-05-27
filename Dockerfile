@@ -12,7 +12,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install development and production dependencies
-RUN npm install
+RUN npm ci
 
 # Copy application source
 COPY . .

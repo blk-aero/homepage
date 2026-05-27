@@ -68,3 +68,21 @@ To test the application locally without installing Node/npm or packages directly
    docker compose down
    ```
 
+### Important Notes for Testing
+
+* **Running E2E Tests / Link Checks:**
+  Because the base development container uses a minimal Node image (`node:20-alpine`) without Playwright system dependencies or browser binaries installed, running Playwright E2E tests (`npm run test:e2e`) directly inside the container is not supported.
+  - To run E2E tests or link checks, keep the Docker container running as a local dev server, and execute the test command from your host machine:
+    ```bash
+    npm run test:e2e
+    # or
+    npm run check:links
+    ```
+  - Alternatively, you can run them using a Playwright-capable container (like `mcr.microsoft.com/playwright`).
+
+* **Hot-Reloading (File Watching) on macOS:**
+  If you notice that editing files locally does not trigger hot-reloading inside the container, check your Colima mount driver. Colima using `sshfs` might delay or swallow file events. For optimal hot-reloading, start Colima using `virtiofs` (default on newer versions):
+  ```bash
+  colima start --mount-type virtiofs
+  ```
+
