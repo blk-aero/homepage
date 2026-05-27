@@ -1,6 +1,7 @@
 ---
 import aconvapLogo from "../assets/brand/aconvap.png";
 import heroCover from "../assets/brand/cover-drone-mountain-bw.webp";
+import WhatsAppCTA from "./WhatsAppCTA.astro";
 
 type Props = {
   h1: string;
@@ -15,12 +16,10 @@ const {
   h1,
   subheadline,
   primaryCtaLabel,
-  primaryCtaHref,
   secondaryCtaLabel = null,
   secondaryCtaHref = null
 } = Astro.props as Props;
 
-const primaryExternal = /^https?:\/\//.test(primaryCtaHref);
 const secondaryExternal = secondaryCtaHref ? /^https?:\/\//.test(secondaryCtaHref) : false;
 const heroCoverSrc = typeof heroCover === "string" ? heroCover : heroCover.src;
 const aconvapLogoSrc = typeof aconvapLogo === "string" ? aconvapLogo : aconvapLogo.src;
@@ -34,14 +33,11 @@ const aconvapLogoSrc = typeof aconvapLogo === "string" ? aconvapLogo : aconvapLo
       <p id="summary" class="bluf-text mt-4 text-base md:text-lg">{subheadline}</p>
 
       <div class="mt-6 flex flex-wrap items-center gap-3">
-        <a
-          class="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
-          href={primaryCtaHref}
-          target={primaryExternal ? "_blank" : undefined}
-          rel={primaryExternal ? "noopener noreferrer" : undefined}
-        >
-          {primaryCtaLabel}
-        </a>
+        <WhatsAppCTA
+          label={primaryCtaLabel}
+          ctaLocation="home-hero"
+          className="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
+        />
         {secondaryCtaLabel && secondaryCtaHref && (
           <a
             class="btn-secondary rounded-lg px-5 py-3 text-sm font-semibold"
