@@ -1,46 +1,81 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HomeHeroShowcase from "../components/HomeHeroShowcase.astro";
-import LeadMagnetCta from "../components/LeadMagnetCta.astro";
+import WhatsAppCTA from "../components/WhatsAppCTA.astro";
 import { getSiteConfig } from "../lib/site-config";
-import { homepageClusters } from "../lib/homepage-clusters";
+import { homepageContent } from "../lib/homepage-content";
 
 const siteConfig = await getSiteConfig();
-const { home, meta } = siteConfig;
+const { meta } = siteConfig;
 ---
 
 <BaseLayout title={meta.home_title} description={meta.home_description}>
   <HomeHeroShowcase
-    h1={home.hero.h1}
-    subheadline={home.hero.subheadline}
-    primaryCtaLabel={home.hero.primary_cta_label}
-    primaryCtaHref={home.hero.primary_cta_href}
-    secondaryCtaLabel={home.hero.secondary_cta_label}
-    secondaryCtaHref={home.hero.secondary_cta_href}
+    h1={homepageContent.hero.title}
+    subheadline={homepageContent.hero.subheadline}
+    primaryCtaLabel={homepageContent.hero.primaryCtaLabel}
+    primaryCtaHref="/"
   />
 
-  <section class="mt-6 grid gap-4 md:grid-cols-3">
-    {home.service_cards.map((card) => (
-      <a class="surface rounded-xl p-4" href={card.href}>
+  <section data-testid="section-compact-proof" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-xl font-semibold">{homepageContent.proofBand.credentialsTitle}</h2>
+    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+      ACONVAP, Enredes, Ministério da Defesa, CREA-SP e BR-UTM/DECEA.
+    </p>
+    <h3 class="mt-5 text-lg font-semibold">{homepageContent.proofBand.clientProjectsTitle}</h3>
+    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
+      SN Saneamento, Sabesp, Construtora Oliveira Roxo, URBAM e SJC Mobilidade.
+    </p>
+  </section>
+
+  <section data-testid="section-triage-cards" class="mt-6 grid gap-4 md:grid-cols-5">
+    {homepageContent.triageCards.map((card) => (
+      <article class="surface rounded-xl p-4">
         <h2 class="text-lg font-semibold">{card.title}</h2>
-        <p class="mt-2 text-sm">{card.description}</p>
-      </a>
+        <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{card.summary}</p>
+        <div class="mt-4 flex flex-col gap-2">
+          <WhatsAppCTA
+            label={homepageContent.hero.primaryCtaLabel}
+            selectedCluster={card.title}
+            ctaLocation={`triage-card-${card.detailPath.split("/").pop()}`}
+            className="btn-primary rounded-lg px-4 py-2 text-center text-sm font-semibold"
+          />
+          <a class="btn-secondary rounded-lg px-4 py-2 text-center text-sm font-semibold" href={card.detailPath}>
+            Ver detalhes: {card.title}
+          </a>
+        </div>
+      </article>
     ))}
   </section>
 
-  <section class="mt-6 grid gap-4 md:grid-cols-5" aria-labelledby="cluster-detail-paths">
-    <h2 id="cluster-detail-paths" class="sr-only">Detalhes das soluções</h2>
-    {homepageClusters.map((cluster) => (
-      <a class="surface rounded-xl p-4 text-sm font-semibold" href={cluster.detailPath}>
-        Ver detalhes: {cluster.title}
-      </a>
-    ))}
+  <section data-testid="section-deliverables" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.deliverables.title}</h2>
   </section>
 
-  <LeadMagnetCta
-    title={home.lead_magnet.title}
-    description={home.lead_magnet.description}
-    href={home.lead_magnet.href}
-    label={home.lead_magnet.label}
-  />
+  <section data-testid="section-visualization-platform" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.visualizationPlatform.title}</h2>
+  </section>
+
+  <section data-testid="section-technical-confidence" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.technicalConfidence.title}</h2>
+  </section>
+
+  <section data-testid="section-proof-snippets" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.proofSnippets.title}</h2>
+  </section>
+
+  <section data-testid="section-faq" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.faq.title}</h2>
+  </section>
+
+  <section data-testid="section-final-cta" class="surface mt-6 rounded-xl p-6">
+    <h2 class="text-2xl font-semibold">{homepageContent.finalCta.title}</h2>
+    <div class="mt-4">
+      <WhatsAppCTA
+        label={homepageContent.hero.primaryCtaLabel}
+        ctaLocation="final-cta"
+        className="btn-primary rounded-lg px-5 py-3 text-sm font-semibold"
+      />
+    </div>
+  </section>
 </BaseLayout>

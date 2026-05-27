@@ -45,3 +45,43 @@ test("homepage hero uses right-side image and brand strip below", async ({ page 
   await expect(brandImage).toBeVisible();
   expect(await brandImage.getAttribute("class")).toContain("grayscale");
 });
+
+test("homepage renders the authority triage section order with canonical hero copy", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  await expect(
+    page.getByRole("heading", { name: "Do terreno real à decisão segura e auditável" })
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "A BLK transforma áreas, obras e ativos físicos em mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho, destravar aprovações e tornar decisões técnicas claras para todos os envolvidos."
+    )
+  ).toBeVisible();
+
+  const sectionIds = [
+    "section-hero",
+    "section-compact-proof",
+    "section-triage-cards",
+    "section-deliverables",
+    "section-visualization-platform",
+    "section-technical-confidence",
+    "section-proof-snippets",
+    "section-faq",
+    "section-final-cta"
+  ];
+
+  const boxes = [];
+  for (const sectionId of sectionIds) {
+    const section = page.getByTestId(sectionId);
+    await expect(section).toBeVisible();
+    const box = await section.boundingBox();
+    expect(box).toBeTruthy();
+    boxes.push(box);
+  }
+
+  for (let index = 1; index < boxes.length; index += 1) {
+    expect(boxes[index]?.y ?? 0).toBeGreaterThan(boxes[index - 1]?.y ?? 0);
+  }
+});
