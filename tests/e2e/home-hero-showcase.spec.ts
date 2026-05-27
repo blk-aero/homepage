@@ -85,3 +85,27 @@ test("homepage renders the authority triage section order with canonical hero co
     expect(boxes[index]?.y ?? 0).toBeGreaterThan(boxes[index - 1]?.y ?? 0);
   }
 });
+
+test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  const clusterNames = [
+    "Projeto e Obra",
+    "Regularização Rural",
+    "Regularização Urbana",
+    "Volumetria e Medição",
+    "Monitoramento e Inteligência Geográfica"
+  ];
+
+  for (const name of clusterNames) {
+    await expect(page.getByTestId("home-hero-carousel").getByText(name)).toHaveCount(1);
+    await expect(page.getByRole("button", { name: `Mostrar ${name}` })).toBeVisible();
+  }
+
+  await expect(page.getByTestId("home-hero-slide")).toHaveCount(5);
+
+  await expect(page.getByRole("button", { name: /anterior|previous/i })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /proximo|próximo|next/i })).toHaveCount(0);
+});

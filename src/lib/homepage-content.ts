@@ -19,7 +19,14 @@ export const homepageContent = {
     title: "Do terreno real à decisão segura e auditável",
     subheadline:
       "A BLK transforma áreas, obras e ativos físicos em mapas, medições, peças técnicas e modelos 3D com rastreabilidade visual para reduzir retrabalho, destravar aprovações e tornar decisões técnicas claras para todos os envolvidos.",
-    primaryCtaLabel: "Falar com especialista"
+    primaryCtaLabel: "Falar com especialista",
+    slides: homepageClusters.map((cluster) => ({
+      title: cluster.title,
+      tag: "Solução BLK",
+      description: cluster.summary,
+      metric: "Base auditável",
+      alt: `Visual representativo de ${cluster.title}`
+    }))
   },
   sectionOrder: homepageSectionOrder,
   triageCards: homepageClusters.map((cluster) => ({
