@@ -20,6 +20,6 @@
       existing = {};
     }
 
-    sessionStorage.setItem(storageKey, JSON.stringify({ ...existing, ...current }));
+    sessionStorage.setItem(storageKey, JSON.stringify({ ...current, ...existing }));
   })();
 </script>

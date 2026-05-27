@@ -1,22 +1,17 @@
 # AGENTS
 
-Astro homepage for BLK Aero, with content-driven service/city pages, conversion CTAs, SEO/schema helpers, and Cloudflare Pages deployment.
+Astro marketing site for BLK Aero, currently focused on the homepage PRD plus temporary support pages for Soluções, Cidades, Blog, and the five homepage detail paths.
 
-## Essentials
+## Always Apply
 
-- Generated output: do not edit `dist` or `.astro` unless explicitly requested.
-- Before declaring completion, run relevant verification and report exact commands plus pass/fail results.
+- Do not read `ARCHIVE.md` or `/Archive` unless explicitly asked.
+- Keep edits scoped to the requested change and do not edit generated artifacts (`dist`, `.astro`) unless explicitly requested.
+- Do not claim completion without running relevant verification and reporting the exact commands and outcomes.
 
-## Guides
+## Task Guides
 
-- [Repository map and task routing](docs/agents/repository-map.md)
+- [Repository map](docs/agents/repository-map.md)
 - [Testing and verification](docs/agents/testing.md)
+- [Deployment and release](docs/agents/deployment-release.md)
 - [Git workflow](docs/agents/git-workflow.md)
-- [Deployment and release checks](docs/agents/deployment-release.md)
-- [Instruction audit notes](docs/agents/instruction-audit.md)
-
-## Existing References
-
-- [Design system and content guidance](DESIGN.md)
-- [Weekly rollout QA](docs/runbooks/weekly-rollout-qa.md)
-- [Cloudflare Pages deployment](DEPLOYMENT.md)
+- [Instruction audit](docs/agents/instruction-audit.md)

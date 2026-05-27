@@ -1,18 +1,28 @@
-# Deployment (Cloudflare Pages)
+# Deployment (GitHub Pages)
 
 ## Build settings
+
 - Build command: `npm run build`
 - Output directory: `dist`
 
 ## Environment variables
-- `SITE_URL` (required)
-- `PUBLIC_WHATSAPP_NUMBER` (required)
+
+- `SITE_URL` (optional, defaults to `https://blk.aero` in the GitHub Pages workflow)
+- `PUBLIC_WHATSAPP_NUMBER` (optional, uses the site fallback number when unset)
 - `PUBLIC_GTM_ID` (optional)
-- `INDEXNOW_KEY` (optional, required only if running IndexNow submission)
+
+## GitHub Pages workflow
+
+- Workflow: `.github/workflows/astro.yml`
+- Build action: `withastro/action@v6`
+- Deploy action: `actions/deploy-pages@v5`
+- Custom domain artifact: `public/CNAME`
+- Target URL: root/custom-domain deployment at `https://blk.aero`. Keep Astro `base` unset.
 
 ## Post-deploy checks
+
 1. Open `/robots.txt` and confirm sitemap URL exists.
 2. Open `/sitemap-index.xml` and confirm pages are listed.
-3. Validate key pages (`/`, `/servicos/*`, `/cidades/*`, `/sobre`).
+3. Validate key pages (`/`, `/solucoes`, `/cidades`, `/blog`, `/solucoes/projeto-e-obra`).
 4. Run GTM preview if `PUBLIC_GTM_ID` is enabled.
 5. Run PageSpeed on mobile and desktop for primary landing pages.

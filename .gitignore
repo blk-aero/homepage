@@ -1,40 +1,23 @@
-# Hugo specific
-/public/
-/resources/
-/hugo_stats.json
-
-# Node / Astro
+# Dependencies and build output
 node_modules/
 dist/
 .astro/
+
+# Test output
 coverage/
 playwright-report/
+test-results/
 
-# Virtual environments #
-venv/
-env/
-*.venv
-*.env
+# Local environment
+.env
+.env.*
+!.env.example
 
-# OS generated files
-.DS_Store
-.AppleDouble/
-.LSOverride
-
-# Logs and databases
+# Logs
 *.log
 
-# Unit test
-.pytest_cache/
-
-# Environments
-.env
-.venv
-
-# Other
-__pycache__/
-.ipynb_checkpoints
-*.tmp
-Αrchive/
-tmp/
+# OS and local scratch
+.DS_Store
+.codex/
 .worktrees/
+tmp/

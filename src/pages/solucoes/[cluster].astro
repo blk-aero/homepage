@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { homepageClusters } from "../../lib/homepage-clusters";
+
+export function getStaticPaths() {
+  return homepageClusters.map((cluster) => ({
+    params: { cluster: cluster.slug },
+    props: { cluster }
+  }));
+}
+
+const { cluster } = Astro.props;
+---
+
+<BaseLayout
+  title={`${cluster.title} - BLK Aero`}
+  description="Página temporária da solução BLK Aero."
+>
+  <section class="surface rounded-lg p-6 text-center">
+    <h1 class="text-3xl font-bold">Em Construção</h1>
+  </section>
+</BaseLayout>

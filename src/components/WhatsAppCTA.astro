@@ -1,21 +1,48 @@
 ---
 import { buildWhatsAppUrl } from "../lib/whatsapp";
 import { getWhatsAppNumber } from "../lib/contact";
+import BrandIcon from "./BrandIcon.astro";
 
 type Props = {
   service?: string | null;
   city?: string | null;
+  location?: string | null;
+  approximateAreaOrPerimeter?: string | null;
+  objective?: string | null;
+  deadline?: string | null;
+  desiredDeliverable?: string | null;
+  selectedCluster?: string | null;
+  ctaLocation?: string | null;
   label?: string;
+  className?: string;
 };
 
 const {
   service = null,
   city = null,
-  label = "Chamar no WhatsApp"
+  location = null,
+  approximateAreaOrPerimeter = null,
+  objective = null,
+  deadline = null,
+  desiredDeliverable = null,
+  selectedCluster = null,
+  ctaLocation = null,
+  label = "Chamar no WhatsApp",
+  className = "inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold"
 } = Astro.props as Props;
 
 const number = getWhatsAppNumber();
-const href = buildWhatsAppUrl(number, { service, city });
+const href = buildWhatsAppUrl(number, {
+  service,
+  city,
+  location,
+  approximateAreaOrPerimeter,
+  objective,
+  deadline,
+  desiredDeliverable,
+  selectedCluster,
+  ctaLocation
+});
 ---
 
 <a
@@ -23,12 +50,24 @@ const href = buildWhatsAppUrl(number, { service, city });
   data-whatsapp-number={number}
   data-service={service ?? ""}
   data-city={city ?? ""}
-  class="inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold"
+  data-location={location ?? ""}
+  data-approximate-area-or-perimeter={approximateAreaOrPerimeter ?? ""}
+  data-objective={objective ?? ""}
+  data-deadline={deadline ?? ""}
+  data-desired-deliverable={desiredDeliverable ?? ""}
+  data-selected-cluster={selectedCluster ?? ""}
+  data-cta-location={ctaLocation ?? ""}
+  class={className}
   href={href}
   target="_blank"
   rel="noopener noreferrer"
 >
-  {label}
+  <span class="inline-flex items-center justify-center gap-2">
+    <span aria-hidden="true" class="inline-flex h-4 w-4">
+      <BrandIcon name="whatsapp" class="h-4 w-4" />
+    </span>
+    <span>{label}</span>
+  </span>
 </a>
 
 <script is:inline>
@@ -54,10 +93,21 @@ const href = buildWhatsAppUrl(number, { service, city });
       return out;
     }
 
-    function buildMessage(service, city, attribution) {
+    function append(parts, label, value) {
+      if (value) parts.push(`${label}: ${value}.`);
+    }
+
+    function buildMessage(payload, attribution) {
       const parts = ["Olá! Quero orçamento."];
-      if (service) parts.push(`Serviço: ${service}.`);
-      if (city) parts.push(`Cidade: ${city}.`);
+      append(parts, "Serviço", payload.service);
+      append(parts, "Cidade", payload.city);
+      append(parts, "Localização", payload.location);
+      append(parts, "Área/perímetro aproximado", payload.approximateAreaOrPerimeter);
+      append(parts, "Objetivo", payload.objective);
+      append(parts, "Prazo desejado", payload.deadline);
+      append(parts, "Entrega desejada", payload.desiredDeliverable);
+      append(parts, "Cluster selecionado", payload.selectedCluster);
+      append(parts, "CTA", payload.ctaLocation);
       const pairs = Object.entries(attribution).map(([k, v]) => `${k}=${v}`);
       if (pairs.length) parts.push(pairs.join(" "));
       return parts.join(" ");
@@ -69,22 +119,33 @@ const href = buildWhatsAppUrl(number, { service, city });
       node.dataset.bound = "1";
 
       const number = (node.dataset.whatsappNumber || "").replace(/\D/g, "");
-      const service = node.dataset.service || "";
-      const city = node.dataset.city || "";
-      const attribution = { ...readStored(), ...readCurrentParams() };
+      const payload = {
+        service: node.dataset.service || "",
+        city: node.dataset.city || "",
+        location: node.dataset.location || "",
+        approximateAreaOrPerimeter: node.dataset.approximateAreaOrPerimeter || "",
+        objective: node.dataset.objective || "",
+        deadline: node.dataset.deadline || "",
+        desiredDeliverable: node.dataset.desiredDeliverable || "",
+        selectedCluster: node.dataset.selectedCluster || "",
+        ctaLocation: node.dataset.ctaLocation || ""
+      };
+      const attribution = { ...readCurrentParams(), ...readStored() };
       if (Object.keys(attribution).length > 0) {
         sessionStorage.setItem(storageKey, JSON.stringify(attribution));
       }
 
-      const message = buildMessage(service, city, attribution);
+      const message = buildMessage(payload, attribution);
       node.href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 
       node.addEventListener("click", () => {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: "whatsapp_click",
-          service: service || undefined,
-          city: city || undefined,
+          service: payload.service || undefined,
+          city: payload.city || undefined,
+          selected_cluster: payload.selectedCluster || undefined,
+          cta_location: payload.ctaLocation || undefined,
           page_path: window.location.pathname,
           ...attribution
         });
