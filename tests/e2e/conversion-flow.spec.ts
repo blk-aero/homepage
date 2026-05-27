@@ -39,3 +39,39 @@ test("homepage whatsapp CTA includes CTA location and attribution in URL and cli
     gclid: "abc123"
   });
 });
+
+test("homepage triage card whatsapp CTA includes selected cluster and card location", async ({
+  page
+}) => {
+  await page.goto("/?utm_source=google&gclid=abc123");
+
+  const card = page
+    .getByTestId("section-triage-cards")
+    .locator("article")
+    .filter({ has: page.getByRole("heading", { name: "Regularização Rural" }) });
+  const cta = card.getByRole("link", { name: "Falar com especialista" });
+  await expect(cta).toBeVisible();
+
+  const href = decodeURIComponent((await cta.getAttribute("href")) || "");
+  expect(href).toContain("Cluster selecionado: Regularização Rural.");
+  expect(href).toContain("CTA: triage-card-regularizacao-rural.");
+  expect(href).toContain("gclid=abc123");
+
+  await cta.click();
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find(
+      (event) =>
+        event.event === "whatsapp_click" && event.selected_cluster === "Regularização Rural"
+    );
+  });
+
+  expect(payload).toMatchObject({
+    event: "whatsapp_click",
+    page_path: "/",
+    selected_cluster: "Regularização Rural",
+    cta_location: "triage-card-regularizacao-rural",
+    gclid: "abc123"
+  });
+});
