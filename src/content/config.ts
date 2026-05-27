@@ -5,32 +5,6 @@ const navLink = z.object({
   href: z.string()
 });
 
-const homeServiceCard = z.object({
-  title: z.string(),
-  description: z.string(),
-  href: z.string()
-});
-
-const footerSocialLink = z
-  .object({
-    href: z.string().url(),
-    icon: z.string().optional(),
-    label: z.string().optional()
-  })
-  .refine((value) => Boolean(value.label || value.icon), {
-    message: "footer social link requires label or icon"
-  });
-
-const footerQuickLink = z.object({
-  text: z.string(),
-  href: z.string()
-});
-
-const footerQuickLinksColumn = z.object({
-  title: z.string(),
-  links: z.array(footerQuickLink)
-});
-
 const services = defineCollection({
   type: "content",
   schema: z.object({
@@ -137,7 +111,7 @@ const site = defineCollection({
     contact: z.object({
       phone_display: z.string(),
       email: z.string().email(),
-      cnpj: z.string(),
+      cnpj: z.string().optional(),
       address_city: z.string(),
       address_state: z.string(),
       address_country: z.string(),
@@ -156,34 +130,7 @@ const site = defineCollection({
     }),
     navigation: z.object({
       primary_links: z.array(navLink).min(1)
-    }),
-    home: z.object({
-      hero: z.object({
-        h1: z.string(),
-        subheadline: z.string(),
-        primary_cta_label: z.string(),
-        primary_cta_href: z.string(),
-        secondary_cta_label: z.string(),
-        secondary_cta_href: z.string()
-      }),
-      service_cards: z.array(homeServiceCard).min(1),
-      lead_magnet: z.object({
-        title: z.string(),
-        description: z.string(),
-        href: z.string(),
-        label: z.string()
-      })
-    }),
-    footer: z.object({
-      social_title: z.string(),
-      social_links: z.array(footerSocialLink),
-      quicklinks: z.object({
-        column1: footerQuickLinksColumn,
-        column2: footerQuickLinksColumn,
-        column3: footerQuickLinksColumn
-      })
-    }),
-    legacy_hugo: z.record(z.string(), z.unknown())
+    })
   })
 });
 

@@ -9,7 +9,7 @@ const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: meta.legal_name,
-  taxID: contact.cnpj,
+  ...(contact.cnpj ? { taxID: contact.cnpj } : {}),
   address: {
     "@type": "PostalAddress",
     addressLocality: contact.address_city,
@@ -28,7 +28,7 @@ const organization = {
   <section class="surface mt-6 rounded-2xl p-6">
     <h2 class="text-xl font-semibold">{contact.about_trust_title}</h2>
     <ul class="mt-3 space-y-2 text-sm">
-      <li><strong>CNPJ:</strong> {contact.cnpj}</li>
+      {contact.cnpj && <li><strong>CNPJ:</strong> {contact.cnpj}</li>}
       <li><strong>Endereco:</strong> {contact.address_city}, {contact.address_state}</li>
       <li><strong>Certificacoes:</strong> {contact.about_certifications}</li>
     </ul>

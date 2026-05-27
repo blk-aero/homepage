@@ -9,8 +9,9 @@ test("service page renders lead magnet and differentiation blocks", async ({ pag
 
 test("/sobre renders trust entity details", async ({ page }) => {
   await page.goto("/sobre");
-  await expect(page.getByText(/CNPJ/i).first()).toBeVisible();
   await expect(page.getByText(/Endereço|Endereco/i).first()).toBeVisible();
+  await expect(page.getByText(/Categoria A em Aerolevantamento/i).first()).toBeVisible();
+  await expect(page.getByText("00.000.000/0001-00")).toHaveCount(0);
 });
 
 test("mock blog and case routes are available", async ({ page }) => {
