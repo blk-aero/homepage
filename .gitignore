@@ -19,5 +19,6 @@ test-results/
 # OS and local scratch
 .DS_Store
 .codex/
+.antigravitycli/
 .worktrees/
 tmp/
