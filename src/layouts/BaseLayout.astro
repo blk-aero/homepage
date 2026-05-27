@@ -72,12 +72,12 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
   </head>
   <body class="min-h-screen">
     <header class="surface sticky top-0 z-40">
-      <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3" aria-label="Navegacao principal">
-        <a class="inline-flex items-center" href="/">
+      <nav class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4" aria-label="Navegacao principal">
+        <a class="flex items-center space-x-3 rtl:space-x-reverse" href="/">
           <img
             src={logoInlineSrc}
             alt={siteConfig.meta.brand_name}
-            class="h-8 w-auto md:h-9"
+            class="h-7 w-auto"
             loading="eager"
             decoding="async"
           />
@@ -99,7 +99,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           <button
             data-collapse-toggle="main-nav-menu"
             type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-300 md:hidden"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
             aria-controls="main-nav-menu"
             aria-expanded="false"
           >
@@ -110,13 +110,13 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           </button>
         </div>
         <div id="main-nav-menu" class="order-3 hidden w-full md:order-2 md:block md:w-auto">
-          <ul class="mt-2 flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-3 text-sm text-gray-700 md:mt-0 md:flex-row md:items-center md:gap-5 md:border-0 md:bg-transparent md:p-0">
+          <ul class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 text-sm font-medium text-gray-700 md:mt-0 md:flex-row md:items-center md:space-x-8 md:border-0 md:bg-white md:p-0">
             {navLinks.map((link) => {
               const external = /^https?:\/\//.test(link.href);
               return (
                 <li>
                   <a
-                    class="hover:underline"
+                    class="block rounded-sm px-3 py-2 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:underline"
                     href={link.href}
                     target={external ? "_blank" : undefined}
                     rel={external ? "noopener noreferrer" : undefined}

@@ -16,6 +16,25 @@ test("header contact links to whatsapp instead of tel", async ({ page }) => {
   expect(href).not.toContain("tel:");
 });
 
+test("header uses vanilla Flowbite navbar spacing and logo size", async ({ page }) => {
+  await page.goto("/");
+
+  const nav = page.getByRole("navigation", { name: "Navegacao principal" });
+  const logo = nav.getByRole("link", { name: "BLK Aero" }).locator("img");
+  const menu = page.locator("#main-nav-menu ul");
+  const mobileMenuButton = nav.locator('button[aria-controls="main-nav-menu"]');
+
+  await expect(nav).toHaveClass(/max-w-screen-xl/);
+  await expect(nav).toHaveClass(/p-4/);
+  await expect(logo).toHaveClass(/h-7/);
+  await expect(logo).not.toHaveClass(/h-8/);
+  await expect(logo).not.toHaveClass(/md:h-9/);
+  await expect(menu).toHaveClass(/mt-4/);
+  await expect(menu).toHaveClass(/font-medium/);
+  await expect(menu).toHaveClass(/md:space-x-8/);
+  await expect(mobileMenuButton).toHaveClass(/p-2/);
+});
+
 test("mobile menu can be opened to reveal navigation links", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
