@@ -20,13 +20,21 @@ const { meta } = siteConfig;
 
   <section data-testid="section-compact-proof" class="surface mt-6 rounded-xl p-6">
     <h2 class="text-xl font-semibold">{homepageContent.proofBand.credentialsTitle}</h2>
-    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
-      ACONVAP, Enredes, Ministério da Defesa, CREA-SP e BR-UTM/DECEA.
-    </p>
+    <ul class="mt-3 flex flex-wrap gap-2 text-sm text-gray-700 dark:text-gray-300">
+      {homepageContent.proofBand.credentials.map((item) => (
+        <li class="rounded-md border border-gray-200 px-3 py-1 grayscale dark:border-gray-800">
+          {item}
+        </li>
+      ))}
+    </ul>
     <h3 class="mt-5 text-lg font-semibold">{homepageContent.proofBand.clientProjectsTitle}</h3>
-    <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">
-      SN Saneamento, Sabesp, Construtora Oliveira Roxo, URBAM e SJC Mobilidade.
-    </p>
+    <ul class="mt-3 flex flex-wrap gap-2 text-sm text-gray-700 dark:text-gray-300">
+      {homepageContent.proofBand.clientProjects.map((item) => (
+        <li class="rounded-md border border-gray-200 px-3 py-1 grayscale dark:border-gray-800">
+          {item}
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section data-testid="section-triage-cards" class="mt-6 grid gap-4 md:grid-cols-5">

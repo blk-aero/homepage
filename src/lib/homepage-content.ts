@@ -36,7 +36,21 @@ export const homepageContent = {
   })),
   proofBand: {
     credentialsTitle: "Credenciais e Associações",
-    clientProjectsTitle: "Clientes e Projetos Atendidos"
+    credentials: ["ACONVAP", "Enredes", "Ministério da Defesa", "CREA-SP", "BR-UTM/DECEA"],
+    clientProjectsTitle: "Clientes e Projetos Atendidos",
+    clientProjects: [
+      "SN Saneamento",
+      "Sabesp",
+      "Construtora Oliveira Roxo",
+      "Sahyoun Properties",
+      "Polimix Ambiental",
+      "Six Engenharia",
+      "Macaw Studio",
+      "Sergio Porto",
+      "Montante",
+      "URBAM",
+      "SJC Mobilidade"
+    ]
   },
   deliverables: {
     title: "Bases para decidir com segurança"

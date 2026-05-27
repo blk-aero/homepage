@@ -86,6 +86,40 @@ test("homepage renders the authority triage section order with canonical hero co
   }
 });
 
+test("compact proof band shows the accepted proof groups without relationship labels", async ({
+  page
+}) => {
+  await page.goto("/");
+
+  const proofBand = page.getByTestId("section-compact-proof");
+  await expect(proofBand.getByRole("heading", { name: "Credenciais e Associações" })).toBeVisible();
+  await expect(
+    proofBand.getByRole("heading", { name: "Clientes e Projetos Atendidos" })
+  ).toBeVisible();
+
+  for (const item of ["ACONVAP", "Enredes", "Ministério da Defesa", "CREA-SP", "BR-UTM/DECEA"]) {
+    await expect(proofBand).toContainText(item);
+  }
+
+  for (const item of [
+    "SN Saneamento",
+    "Sabesp",
+    "Construtora Oliveira Roxo",
+    "Sahyoun Properties",
+    "Polimix Ambiental",
+    "Six Engenharia",
+    "Macaw Studio",
+    "Sergio Porto",
+    "Montante",
+    "URBAM",
+    "SJC Mobilidade"
+  ]) {
+    await expect(proofBand).toContainText(item);
+  }
+
+  await expect(proofBand).not.toContainText(/cliente direto|parceiro|fornecedor/i);
+});
+
 test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({
   page
 }) => {
