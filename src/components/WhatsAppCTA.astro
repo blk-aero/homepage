@@ -71,7 +71,7 @@ const href = buildWhatsAppUrl(number, { service, city });
       const number = (node.dataset.whatsappNumber || "").replace(/\D/g, "");
       const service = node.dataset.service || "";
       const city = node.dataset.city || "";
-      const attribution = { ...readStored(), ...readCurrentParams() };
+      const attribution = { ...readCurrentParams(), ...readStored() };
       if (Object.keys(attribution).length > 0) {
         sessionStorage.setItem(storageKey, JSON.stringify(attribution));
       }
