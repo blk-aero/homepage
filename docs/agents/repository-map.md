@@ -7,7 +7,6 @@
 - `src/lib`: shared logic for consent, datalayer, homepage content, site config, WhatsApp, and contact helpers.
 - `src/components`, `src/layouts`, `src/styles`: UI composition and styling.
 - `tests/config`: script and repo-config assertions.
-- `tests/content`: content inventory and structure checks.
 - `tests/lib`: unit tests for shared logic.
 - `tests/e2e`: Playwright checks for routing, conversion flow, accessibility, embeds, and navigation.
 - `.github/workflows/astro.yml`: GitHub Pages deployment workflow.

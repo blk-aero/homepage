@@ -22,9 +22,8 @@ npm run dev -- --host 127.0.0.1 --port 4321
 - Docs-only changes: run `git diff --check`.
 - `src/lib/*` changes: run related unit tests under `tests/lib/*`, then `npm run test`.
 - `src/lib/attribution.ts`: run `npm run test -- tests/lib/attribution.test.ts`.
-- `scripts/indexnow.mjs`: run `npm run test -- tests/lib/indexnow.test.ts`.
 - `package.json` script changes: run `npm run test -- tests/config/package-scripts.test.ts`.
-- `src/content/config.ts` or content inventory changes: run `npm run test -- tests/content/phase1-content-files.test.ts`.
+- `src/content/config.ts` or active route inventory changes: run `npm run test -- tests/config/current-surface.test.ts`.
 - `src/content/site/global.yaml` or `src/lib/site-config.ts`: run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.
 - Route/content changes in `src/pages` or `src/content`: run `npm run test:e2e -- tests/e2e/routing.spec.ts`, relevant behavior specs, and `npm run build`.
 - CTA/navigation/hero behavior changes: run relevant e2e specs, especially `tests/e2e/conversion-flow.spec.ts`, `tests/e2e/navigation-whatsapp.spec.ts`, and `tests/e2e/home-hero-showcase.spec.ts`.
@@ -97,4 +96,3 @@ To test the application locally without installing Node/npm or packages directly
   ```bash
   colima start --mount-type virtiofs
   ```
-
