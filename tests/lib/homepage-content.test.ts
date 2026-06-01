@@ -20,7 +20,7 @@ describe("homepage content model", () => {
       "final-cta"
     ]);
 
-    expect(homepageContent.triageCards.map((card) => [card.title, card.detailPath])).toEqual([
+    expect(homepageContent.triageCards.cards.map((card) => [card.title, card.detailPath])).toEqual([
       ["Projeto e Obra", "/solucoes/projeto-e-obra"],
       ["Regularização Rural", "/solucoes/regularizacao-rural"],
       ["Regularização Urbana", "/solucoes/regularizacao-urbana"],
@@ -29,6 +29,34 @@ describe("homepage content model", () => {
         "Monitoramento e Inteligência Geográfica",
         "/solucoes/monitoramento-e-inteligencia-geografica"
       ]
+    ]);
+  });
+
+  it("exposes the accepted triage and deliverables copy contract", () => {
+    expect(homepageContent.triageCards.heading).toBe(
+      "Escolha a base técnica ideal para o seu projeto"
+    );
+    expect(homepageContent.triageCards.intro).toBe(
+      "Selecione o caminho mais próximo da sua demanda. A BLK ajuda a transformar localização e objetivo em escopo, prazo e entregáveis técnicos."
+    );
+    expect(homepageContent.triageCards.cards.map((card) => card.title)).toEqual([
+      "Projeto e Obra",
+      "Regularização Rural",
+      "Regularização Urbana",
+      "Volumetria e Medição",
+      "Monitoramento e Inteligência Geográfica"
+    ]);
+    for (const card of homepageContent.triageCards.cards) {
+      expect(card.tags).toBeUndefined();
+    }
+
+    expect(homepageContent.deliverables.eyebrow).toBe("O QUE VOCÊ RECEBE");
+    expect(homepageContent.deliverables.title).toBe("Bases técnicas para destravar decisões");
+    expect(homepageContent.deliverables.groups.map((group) => [group.title, group.tags])).toEqual([
+      ["Projeto e Obra", ["DXF", "curvas de nível", "levantamento planialtimétrico", "as-built"]],
+      ["Regularização e Aprovação", ["memorial", "LEPAC", "perímetro", "planta ambiental"]],
+      ["Medição e Auditoria", ["volumetria", "corte / aterro", "comparativos", "relatório"]],
+      ["Alinhamento Visual", ["ortofoto", "nuvem de pontos", "modelo 3D", "MDT"]]
     ]);
   });
 });

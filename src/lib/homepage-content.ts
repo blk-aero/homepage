@@ -104,11 +104,31 @@ export const homepageContent = {
     ]
   },
   sectionOrder: homepageSectionOrder,
-  triageCards: homepageClusters.map((cluster) => ({
-    title: cluster.title,
-    summary: cluster.summary,
-    detailPath: cluster.detailPath
-  })),
+  triageCards: {
+    heading: "Escolha a base técnica ideal para o seu projeto",
+    intro:
+      "Selecione o caminho mais próximo da sua demanda. A BLK ajuda a transformar localização e objetivo em escopo, prazo e entregáveis técnicos.",
+    cards: homepageClusters.map((cluster) => {
+      const summaries: Record<string, string> = {
+        "Projeto e Obra":
+          "Quando a decisão depende de uma base confiável para projetar, compatibilizar ou acompanhar a execução.",
+        "Regularização Rural":
+          "Quando limites, confrontações e peças técnicas precisam sustentar análise documental e geoespacial.",
+        "Regularização Urbana":
+          "Quando cadastro, ocupação, lotes e vias precisam virar uma base clara para aprovação e alinhamento.",
+        "Volumetria e Medição":
+          "Quando volumes, evolução ou medições precisam ser comparáveis, verificáveis e fáceis de auditar.",
+        "Monitoramento e Inteligência Geográfica":
+          "Quando áreas, ativos ou riscos precisam ser acompanhados ao longo do tempo com evidência visual."
+      };
+
+      return {
+        title: cluster.title,
+        summary: summaries[cluster.title],
+        detailPath: cluster.detailPath
+      };
+    })
+  },
   proofBand: {
     credentialsTitle: "Credenciais e Associações",
     credentials: ["ACONVAP", "Enredes", "Ministério da Defesa", "CREA-SP", "BR-UTM/DECEA"],
@@ -128,27 +148,32 @@ export const homepageContent = {
     ]
   },
   deliverables: {
-    title: "Bases para decidir com segurança",
+    eyebrow: "O QUE VOCÊ RECEBE",
+    title: "Bases técnicas para destravar decisões",
     groups: [
       {
-        title: "Base para Projeto e Obra",
+        title: "Projeto e Obra",
         description:
-          "Levantamentos, as-built e bases visuais para orientar decisões de arquitetura, engenharia e obra."
+          "Bases para orientar arquitetura, engenharia, compatibilização e decisões de campo.",
+        tags: ["DXF", "curvas de nível", "levantamento planialtimétrico", "as-built"]
       },
       {
-        title: "Base para Regularização e Aprovação",
+        title: "Regularização e Aprovação",
         description:
-          "Peças e evidências para apoiar processos rurais, urbanos, cadastrais, legais e municipais."
+          "Peças e evidências para apoiar processos rurais, urbanos, cadastrais, legais e municipais.",
+        tags: ["memorial", "LEPAC", "perímetro", "planta ambiental"]
       },
       {
-        title: "Base para Medição e Auditoria",
+        title: "Medição e Auditoria",
         description:
-          "Medições, volumes e registros comparáveis para auditoria, pagamento e controle de avanço."
+          "Medições, volumes e registros comparáveis para auditoria, pagamento e controle de avanço.",
+        tags: ["volumetria", "corte / aterro", "comparativos", "relatório"]
       },
       {
-        title: "Base Visual para Alinhamento",
+        title: "Alinhamento Visual",
         description:
-          "Mapas, modelos e evidências para alinhar gestão, engenharia, jurídico, clientes e contratados."
+          "Mapas, modelos e evidências para alinhar gestão, engenharia, jurídico, clientes e contratados.",
+        tags: ["ortofoto", "nuvem de pontos", "modelo 3D", "MDT"]
       }
     ]
   },
