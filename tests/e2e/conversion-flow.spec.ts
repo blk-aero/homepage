@@ -1,26 +1,78 @@
 import { test, expect } from "@playwright/test";
 
-test("utm survives internal navigation for whatsapp", async ({ page }) => {
+function whatsappTextFromHref(href: string | null): string {
+  return new URL(href || "").searchParams.get("text") || "";
+}
+
+function visibleWhatsAppText(text: string): string {
+  return text.replace(/[\u200E\u00A0\u200B\u200C\u200D\u2800]/g, "");
+}
+
+test("utm survives internal navigation in whatsapp click analytics", async ({ page }) => {
   await page.goto("/blog?utm_source=google&utm_medium=cpc&utm_campaign=teste&gclid=abc123");
 
   await page.goto("/");
 
-  const href = await page.locator('[data-testid="whatsapp-cta"]').first().getAttribute("href");
-  expect(decodeURIComponent(href || "")).toContain("gclid=abc123");
+  const cta = page.locator('[data-testid="whatsapp-cta"]').first();
+  const href = await cta.getAttribute("href");
+  expect(whatsappTextFromHref(href)).not.toContain("gclid");
+
+  await cta.dispatchEvent("click");
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find((event) => event.event === "whatsapp_click");
+  });
+
+  expect(payload).toMatchObject({
+    gclid: "abc123",
+    utm_source: "google"
+  });
 });
 
-test("homepage whatsapp CTA includes CTA location and attribution in URL and click payload", async ({
+test("first-touch attribution wins over later conflicting campaign params", async ({ page }) => {
+  await page.goto("/?utm_source=google&utm_medium=cpc&utm_campaign=home&gclid=first-click");
+  await page.goto(
+    "/?utm_source=linkedin&utm_medium=social&utm_campaign=retargeting&utm_content=later&gclid=second-click"
+  );
+
+  const cta = page.locator('[data-testid="whatsapp-cta"]').first();
+  const text = whatsappTextFromHref(await cta.getAttribute("href"));
+  expect(text).not.toContain("utm_source");
+  expect(text).not.toContain("gclid");
+
+  await cta.dispatchEvent("click");
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find((event) => event.event === "whatsapp_click");
+  });
+
+  expect(payload).toMatchObject({
+    cta_location: "home-hero",
+    whatsapp_greeting_id: "google-cpc-home.home-hero.v1",
+    utm_source: "google",
+    utm_medium: "cpc",
+    utm_campaign: "home",
+    utm_content: "later",
+    gclid: "first-click"
+  });
+});
+
+test("homepage whatsapp CTA keeps message simple while click payload keeps attribution", async ({
   page
 }) => {
-  await page.goto("/?utm_source=google&utm_campaign=home&gclid=abc123");
+  await page.goto("/?utm_source=google&utm_medium=cpc&utm_campaign=home&gclid=abc123");
 
   const cta = page.locator('[data-testid="whatsapp-cta"]').first();
   await expect(cta).toBeVisible();
 
-  const href = decodeURIComponent((await cta.getAttribute("href")) || "");
-  expect(href).toContain("CTA: home-hero.");
-  expect(href).toContain("utm_source=google");
-  expect(href).toContain("gclid=abc123");
+  const text = whatsappTextFromHref(await cta.getAttribute("href"));
+  expect(visibleWhatsAppText(text)).toContain("Oi, quero falar com a BLK.");
+  expect(text).not.toContain("CTA:");
+  expect(text).not.toContain("utm_source");
+  expect(text).not.toContain("gclid");
+  expect(text).not.toContain("orçamento");
 
   await cta.dispatchEvent("click");
 
@@ -48,10 +100,11 @@ test("homepage triage section whatsapp CTA includes section location and attribu
   await expect(cta).toBeVisible();
   await expect(triageSection.locator("article").getByRole("link", { name: "Falar com especialista" })).toHaveCount(0);
 
-  const href = decodeURIComponent((await cta.getAttribute("href")) || "");
-  expect(href).not.toContain("Cluster selecionado:");
-  expect(href).toContain("CTA: triage-section.");
-  expect(href).toContain("gclid=abc123");
+  const text = whatsappTextFromHref(await cta.getAttribute("href"));
+  expect(visibleWhatsAppText(text)).toContain("Oi, gostaria de falar com a BLK.");
+  expect(text).not.toContain("Cluster selecionado:");
+  expect(text).not.toContain("CTA:");
+  expect(text).not.toContain("gclid");
 
   await cta.dispatchEvent("click");
 
@@ -91,9 +144,11 @@ test("homepage final CTA composer uses shared whatsapp payload behavior", async 
   await expect(finalCta).toBeVisible();
 
   await expect(objective).toHaveValue("");
-  const initialHref = decodeURIComponent((await finalCta.getAttribute("href")) || "");
-  expect(initialHref).toContain("CTA: final-cta.");
-  expect(initialHref).not.toContain("Objetivo:");
+  const initialText = whatsappTextFromHref(await finalCta.getAttribute("href"));
+  expect(visibleWhatsAppText(initialText)).toContain("Oi, quero falar com a BLK.");
+  expect(initialText).not.toContain("CTA:");
+  expect(initialText).not.toContain("Objetivo:");
+  expect(initialText).not.toContain("gclid");
 
   const sectionBox = await finalSection.boundingBox();
   const headingBox = await finalHeading.boundingBox();
@@ -118,11 +173,11 @@ test("homepage final CTA composer uses shared whatsapp payload behavior", async 
   await location.fill("São José dos Campos - https://maps.app.goo.gl/exemplo");
   await objective.selectOption("Regularização Rural");
 
-  const href = decodeURIComponent((await finalCta.getAttribute("href")) || "");
-  expect(href).toContain("CTA: final-cta.");
-  expect(href).toContain("gclid=abc123");
-  expect(href).toContain("Localização: São José dos Campos - https://maps.app.goo.gl/exemplo.");
-  expect(href).toContain("Objetivo: Regularização Rural.");
+  const text = whatsappTextFromHref(await finalCta.getAttribute("href"));
+  expect(text).not.toContain("CTA:");
+  expect(text).not.toContain("gclid");
+  expect(text).toContain("Localização: São José dos Campos - https://maps.app.goo.gl/exemplo.");
+  expect(text).toContain("Objetivo: Regularização Rural.");
 
   await finalCta.dispatchEvent("click");
 

@@ -1,6 +1,7 @@
 ---
 import BrandIcon from "./BrandIcon.astro";
 import { getWhatsAppNumber } from "../lib/contact";
+import { buildWhatsAppUrl } from "../lib/whatsapp";
 
 type Props = {
   content: {
@@ -18,6 +19,7 @@ type Props = {
 
 const { content, primaryCtaLabel } = Astro.props as Props;
 const number = getWhatsAppNumber();
+const href = buildWhatsAppUrl(number, { ctaLocation: "final-cta" });
 ---
 
 <section
@@ -58,7 +60,7 @@ const number = getWhatsAppNumber();
       </label>
       <a
         class="btn-primary inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold sm:self-end"
-        href={`https://wa.me/${number}?text=${encodeURIComponent("Olá! Quero orçamento. CTA: final-cta.")}`}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         data-final-whatsapp-submit
@@ -69,89 +71,3 @@ const number = getWhatsAppNumber();
     </form>
   </div>
 </section>
-
-<script is:inline>
-  (function () {
-    const storageKey = "blk_attribution_v1";
-    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
-
-    function readStored() {
-      try {
-        return JSON.parse(sessionStorage.getItem(storageKey) || "{}");
-      } catch {
-        return {};
-      }
-    }
-
-    function readCurrentParams() {
-      const params = new URLSearchParams(window.location.search);
-      const out = {};
-      keys.forEach((key) => {
-        const value = params.get(key);
-        if (value) out[key] = value;
-      });
-      return out;
-    }
-
-    function append(parts, label, value) {
-      if (value) parts.push(`${label}: ${value}.`);
-    }
-
-    function buildMessage(payload, attribution) {
-      const parts = ["Olá! Quero orçamento."];
-      append(parts, "Localização", payload.location);
-      append(parts, "Objetivo", payload.objective);
-      append(parts, "CTA", payload.ctaLocation);
-      const pairs = Object.entries(attribution).map(([key, value]) => `${key}=${value}`);
-      if (pairs.length) parts.push(pairs.join(" "));
-      return parts.join(" ");
-    }
-
-    document.querySelectorAll("[data-final-whatsapp-form]").forEach((form) => {
-      if (!(form instanceof HTMLFormElement)) return;
-      if (form.dataset.bound === "1") return;
-      form.dataset.bound = "1";
-
-      const submit = form.querySelector("[data-final-whatsapp-submit]");
-      if (!(submit instanceof HTMLAnchorElement)) return;
-
-      const number = (form.dataset.whatsappNumber || "").replace(/\D/g, "");
-      const ctaLocation = form.dataset.ctaLocation || "";
-      const attribution = { ...readCurrentParams(), ...readStored() };
-      if (Object.keys(attribution).length > 0) {
-        sessionStorage.setItem(storageKey, JSON.stringify(attribution));
-      }
-
-      function payload() {
-        const data = new FormData(form);
-        return {
-          location: String(data.get("location") || "").trim(),
-          objective: String(data.get("objective") || "").trim(),
-          ctaLocation
-        };
-      }
-
-      function syncHref() {
-        submit.href = `https://wa.me/${number}?text=${encodeURIComponent(buildMessage(payload(), attribution))}`;
-      }
-
-      syncHref();
-      form.addEventListener("input", syncHref);
-      form.addEventListener("change", syncHref);
-      form.addEventListener("submit", (event) => event.preventDefault());
-
-      submit.addEventListener("click", () => {
-        const currentPayload = payload();
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "whatsapp_click",
-          page_path: window.location.pathname,
-          cta_location: ctaLocation || undefined,
-          location: currentPayload.location || undefined,
-          objective: currentPayload.objective || undefined,
-          ...attribution
-        });
-      });
-    });
-  })();
-</script>

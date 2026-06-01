@@ -8,7 +8,7 @@ import BrandIcon from "../components/BrandIcon.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
 import GtmHead from "../components/GtmHead.astro";
 import SeoHead from "../components/SeoHead.astro";
-import { buildDefaultWhatsAppUrl } from "../lib/contact";
+import { buildDefaultWhatsAppUrl, getWhatsAppNumber } from "../lib/contact";
 import { isBrandIconName } from "../lib/brand-icons";
 import { getSiteConfig } from "../lib/site-config";
 
@@ -28,12 +28,9 @@ const {
 
 const siteConfig = await getSiteConfig();
 const pageDescription = description ?? siteConfig.meta.default_description;
-const navWhatsAppHref = buildDefaultWhatsAppUrl({
-  intro: siteConfig.contact.whatsapp.nav_intro
-});
-const footerWhatsAppHref = buildDefaultWhatsAppUrl({
-  intro: siteConfig.contact.whatsapp.footer_intro
-});
+const whatsAppNumber = getWhatsAppNumber();
+const navWhatsAppHref = buildDefaultWhatsAppUrl({ ctaLocation: "nav" });
+const footerWhatsAppHref = buildDefaultWhatsAppUrl({ ctaLocation: "footer" });
 const navLinks = siteConfig.navigation.primary_links;
 const currentYear = new Date().getFullYear();
 const legalEntity = "BLK Gestão Empresarial Ltda. (CNPJ: 37.814.104-0001/40)";
@@ -91,6 +88,9 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
             target="_blank"
             rel="noopener noreferrer"
             data-testid="nav-whatsapp-cta"
+            data-whatsapp-link
+            data-whatsapp-number={whatsAppNumber}
+            data-cta-location="nav"
             aria-label="WhatsApp"
           >
             <span aria-hidden="true" class="inline-flex h-4 w-4">
@@ -160,6 +160,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
                 <ul class="space-y-3 text-sm font-medium text-gray-600">
                   {column.links.map((link) => {
                     const external = isExternalHref(link.href);
+                    const whatsappContact = link.href.startsWith("https://wa.me/");
                     return (
                       <li>
                         <a
@@ -167,6 +168,9 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
                           href={link.href}
                           target={external ? "_blank" : undefined}
                           rel={external ? "noopener noreferrer" : undefined}
+                          data-whatsapp-link={whatsappContact ? "true" : undefined}
+                          data-whatsapp-number={whatsappContact ? whatsAppNumber : undefined}
+                          data-cta-location={whatsappContact ? "footer" : undefined}
                         >
                           {link.label}
                         </a>
@@ -211,6 +215,134 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 
       initAccordions();
       initCollapses();
+    </script>
+    <script>
+      import { mergeFirstTouchAttribution } from "../lib/attribution";
+      import { buildWhatsAppUrl, selectSourceCodedWhatsAppGreeting } from "../lib/whatsapp";
+
+      (function () {
+        const storageKey = "blk_attribution_v1";
+        const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+
+        function readStored() {
+          try {
+            return JSON.parse(sessionStorage.getItem(storageKey) || "{}");
+          } catch {
+            return {};
+          }
+        }
+
+        function readCurrentParams() {
+          const params = new URLSearchParams(window.location.search);
+          const out = {};
+          keys.forEach((key) => {
+            const value = params.get(key);
+            if (value) out[key] = value;
+          });
+          return out;
+        }
+
+        function readAttribution() {
+          const attribution = mergeFirstTouchAttribution(readStored(), readCurrentParams());
+          if (Object.keys(attribution).length > 0) {
+            sessionStorage.setItem(storageKey, JSON.stringify(attribution));
+          }
+          return attribution;
+        }
+
+        function anchorPayload(node) {
+          return {
+            service: node.dataset.service || "",
+            city: node.dataset.city || "",
+            location: node.dataset.location || "",
+            approximateAreaOrPerimeter: node.dataset.approximateAreaOrPerimeter || "",
+            objective: node.dataset.objective || "",
+            deadline: node.dataset.deadline || "",
+            desiredDeliverable: node.dataset.desiredDeliverable || "",
+            selectedCluster: node.dataset.selectedCluster || "",
+            ctaLocation: node.dataset.ctaLocation || ""
+          };
+        }
+
+        function syncAnchor(node) {
+          const payload = anchorPayload(node);
+          const attribution = readAttribution();
+          const payloadWithAttribution = { ...payload, attribution };
+          const greeting = selectSourceCodedWhatsAppGreeting(payloadWithAttribution);
+          node.href = buildWhatsAppUrl(node.dataset.whatsappNumber || "", payloadWithAttribution);
+          node.dataset.whatsappGreetingId = greeting.id;
+          return { payload, attribution, greeting };
+        }
+
+        document.querySelectorAll("[data-whatsapp-link]").forEach((node) => {
+          if (!(node instanceof HTMLAnchorElement)) return;
+          if (node.dataset.bound === "1") return;
+          node.dataset.bound = "1";
+          syncAnchor(node);
+
+          node.addEventListener("click", () => {
+            const { payload, attribution, greeting } = syncAnchor(node);
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "whatsapp_click",
+              service: payload.service || undefined,
+              city: payload.city || undefined,
+              selected_cluster: payload.selectedCluster || undefined,
+              cta_location: payload.ctaLocation || undefined,
+              whatsapp_greeting_id: greeting.id,
+              page_path: window.location.pathname,
+              ...attribution
+            });
+          });
+        });
+
+        document.querySelectorAll("[data-final-whatsapp-form]").forEach((form) => {
+          if (!(form instanceof HTMLFormElement)) return;
+          if (form.dataset.bound === "1") return;
+          form.dataset.bound = "1";
+
+          const submit = form.querySelector("[data-final-whatsapp-submit]");
+          if (!(submit instanceof HTMLAnchorElement)) return;
+
+          function payload() {
+            const data = new FormData(form);
+            return {
+              location: String(data.get("location") || "").trim(),
+              objective: String(data.get("objective") || "").trim(),
+              ctaLocation: form.dataset.ctaLocation || ""
+            };
+          }
+
+          function syncHref() {
+            const attribution = readAttribution();
+            const payloadWithAttribution = { ...payload(), attribution };
+            const greeting = selectSourceCodedWhatsAppGreeting(payloadWithAttribution);
+            submit.href = buildWhatsAppUrl(form.dataset.whatsappNumber || "", payloadWithAttribution);
+            submit.dataset.whatsappGreetingId = greeting.id;
+            return { attribution, greeting };
+          }
+
+          syncHref();
+          form.addEventListener("input", syncHref);
+          form.addEventListener("change", syncHref);
+          form.addEventListener("submit", (event) => event.preventDefault());
+
+          submit.addEventListener("click", () => {
+            const currentPayload = payload();
+            const { attribution, greeting } = syncHref();
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: "whatsapp_click",
+              page_path: window.location.pathname,
+              cta_location: currentPayload.ctaLocation || undefined,
+              whatsapp_greeting_id: greeting.id,
+              location: currentPayload.location || undefined,
+              objective: currentPayload.objective || undefined,
+              ...attribution
+            });
+          });
+        });
+      })();
     </script>
   </body>
 </html>
