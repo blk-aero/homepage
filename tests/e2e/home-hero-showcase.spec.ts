@@ -75,7 +75,7 @@ test("homepage renders the authority triage section order with canonical hero co
     "section-deliverables",
     "section-visualization-platform",
     "section-technical-confidence",
-    "section-proof-snippets",
+    "section-portfolio",
     "section-faq",
     "section-final-cta"
   ];
@@ -128,96 +128,205 @@ test("compact proof band shows the accepted proof groups without relationship la
   await expect(proofBand).not.toContainText(/cliente direto|parceiro|fornecedor/i);
 });
 
-test("homepage triage cards show five clusters with examples and detail actions", async ({
+test("homepage triage cards route by outcome with one section CTA and discrete detail links", async ({
   page
 }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
 
   const cards = page.getByTestId("section-triage-cards");
+  const innerPanel = page.getByTestId("triage-inner-panel");
+  await expect(
+    cards.getByRole("heading", { name: "Escolha a base técnica ideal para o seu projeto" })
+  ).toBeVisible();
+  await expect(
+    cards.getByText(
+      "Selecione o caminho mais próximo da sua demanda. A BLK ajuda a transformar localização e objetivo em escopo, prazo e entregáveis técnicos."
+    )
+  ).toBeVisible();
+  await expect(innerPanel).toBeVisible();
+
   const expectedCards = [
-    ["Projeto e Obra", "as-built"],
-    ["Regularização Rural", "SIGEF"],
-    ["Regularização Urbana", "REURB"],
-    ["Volumetria e Medição", "terraplenagem"],
-    ["Monitoramento e Inteligência Geográfica", "due diligence"]
+    ["Projeto e Obra", "projetar, compatibilizar ou acompanhar"],
+    ["Regularização Rural", "análise documental e geoespacial"],
+    ["Regularização Urbana", "aprovação e alinhamento"],
+    ["Volumetria e Medição", "comparáveis, verificáveis"],
+    ["Monitoramento e Inteligência Geográfica", "acompanhados ao longo do tempo"]
   ];
 
   for (const [title, example] of expectedCards) {
     const card = cards.locator("article").filter({ has: page.getByRole("heading", { name: title }) });
     await expect(card).toBeVisible();
     await expect(card).toContainText(example);
-    await expect(card.getByRole("link", { name: "Falar com especialista" })).toBeVisible();
-    await expect(card.getByRole("link", { name: `Ver detalhes: ${title}` })).toBeVisible();
+    await expect(card.getByRole("link", { name: "Falar com especialista" })).toHaveCount(0);
+    await expect(
+      card.getByRole("link", { name: new RegExp(`Ver detalhes.*${title}`, "i") })
+    ).toContainText("Ver detalhes");
   }
+
+  await expect(cards.getByRole("link", { name: "Falar com especialista" })).toHaveCount(1);
+  await expect(cards).not.toContainText(/\b(SIGEF|REURB|as-built|due diligence)\b/i);
+
+  const sectionBackground = await cards.evaluate((node) => getComputedStyle(node).backgroundColor);
+  const innerBackground = await innerPanel.evaluate((node) => getComputedStyle(node).backgroundColor);
+  expect(sectionBackground).not.toBe("rgba(0, 0, 0, 0)");
+  expect(innerBackground).toBe("rgb(255, 255, 255)");
 });
 
-test("homepage deliverables are grouped around buyer decisions", async ({ page }) => {
+test("homepage deliverables show approved decision-first groups and tags", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
 
   const deliverables = page.getByTestId("section-deliverables");
+  await expect(deliverables).toContainText("O QUE VOCÊ RECEBE");
+  await expect(
+    deliverables.getByRole("heading", { name: "Bases técnicas para destravar decisões" })
+  ).toBeVisible();
+  await expect(deliverables).toContainText(
+    "A entrega não é só uma pasta de arquivos. É uma base técnica organizada pelo uso"
+  );
+
   for (const group of [
-    "Base para Projeto e Obra",
-    "Base para Regularização e Aprovação",
-    "Base para Medição e Auditoria",
-    "Base Visual para Alinhamento"
+    "Projeto e Obra",
+    "Regularização e Aprovação",
+    "Medição e Auditoria",
+    "Alinhamento Visual"
   ]) {
     await expect(deliverables.getByRole("heading", { name: group })).toBeVisible();
   }
 
-  await expect(deliverables).toContainText(/decisão|aprovação|auditoria|alinhamento/i);
+  for (const tag of [
+    "DXF",
+    "curvas de nível",
+    "levantamento planialtimétrico",
+    "memorial",
+    "LEPAC",
+    "perímetro",
+    "planta ambiental",
+    "volumetria",
+    "corte / aterro",
+    "comparativos",
+    "relatório",
+    "ortofoto",
+    "nuvem de pontos",
+    "modelo 3D",
+    "MDT"
+  ]) {
+    await expect(deliverables).toContainText(tag);
+  }
+  await expect(deliverables.locator("em", { hasText: "as-built" })).toBeVisible();
+
+  for (const trigger of [
+    "Projetar, compatibilizar ou executar obra",
+    "Regularizar, aprovar ou defender limites",
+    "Medir, auditar ou pagar avanço físico",
+    "Alinhar quem não usa software técnico"
+  ]) {
+    await expect(deliverables).toContainText(trigger);
+  }
+
+  const articles = deliverables.locator("article");
+  await expect(articles).toHaveCount(4);
+  const firstBox = await articles.nth(0).boundingBox();
+  const secondBox = await articles.nth(1).boundingBox();
+  const thirdBox = await articles.nth(2).boundingBox();
+  expect(firstBox).toBeTruthy();
+  expect(secondBox).toBeTruthy();
+  expect(thirdBox).toBeTruthy();
+  expect(Math.abs((firstBox?.y ?? 0) - (secondBox?.y ?? 0))).toBeLessThan(8);
+  expect(thirdBox?.y ?? 0).toBeGreaterThan((firstBox?.y ?? 0) + 40);
 });
 
 test("homepage visualization platform is a separate differentiator after deliverables", async ({
   page
 }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
 
   const deliverables = page.getByTestId("section-deliverables");
   const platform = page.getByTestId("section-visualization-platform");
   await expect(platform).toBeVisible();
-  await expect(platform).toContainText("orthoimages");
+  await expect(platform).toContainText("App de Visualização e Compartilhamento");
+  await expect(
+    platform.getByRole("heading", {
+      name: "Visualize e compartilhe o projeto sem depender de software especializado"
+    })
+  ).toBeVisible();
+  await expect(platform).toContainText("Ortofotos");
   await expect(platform).toContainText("nuvens de pontos");
   await expect(platform).toContainText("modelos 3D");
   await expect(platform).toContainText("evidências");
   await expect(platform).toContainText(/sem instalar|software especializado|hardware/i);
+  await expect(platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i })).toBeVisible();
+  await expect(platform.getByRole("link", { name: /download|baixar/i })).toHaveCount(0);
   await expect(page.locator("body")).not.toContainText(/20 dias|vinte dias/i);
 
   const deliverablesBox = await deliverables.boundingBox();
   const platformBox = await platform.boundingBox();
   expect(platformBox?.y ?? 0).toBeGreaterThan(deliverablesBox?.y ?? 0);
+
+  const headingBox = await platform
+    .getByRole("heading", {
+      name: "Visualize e compartilhe o projeto sem depender de software especializado"
+    })
+    .boundingBox();
+  const imageBox = await platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i }).boundingBox();
+  expect(imageBox?.x ?? 0).toBeGreaterThan(headingBox?.x ?? 0);
+  expect(imageBox?.width ?? 0).toBeGreaterThan(300);
 });
 
-test("homepage lower proof snippets are anonymized and FAQ handles hiring objections", async ({
+test("homepage portfolio uses proof-shaped placeholders and FAQ uses app terminology", async ({
   page
 }) => {
   await page.goto("/");
 
-  const proof = page.getByTestId("section-proof-snippets");
-  for (const cluster of [
-    "Projeto e Obra",
-    "Regularização Rural",
-    "Regularização Urbana",
-    "Volumetria e Medição",
-    "Monitoramento e Inteligência Geográfica"
+  const portfolio = page.getByTestId("section-portfolio");
+  await expect(page.getByTestId("section-proof-snippets")).toHaveCount(0);
+  await expect(portfolio).toContainText("PORTFÓLIO");
+  await expect(portfolio.getByRole("heading", { name: "Exemplos de projeto e evidência entregue" })).toBeVisible();
+  for (const text of [
+    "Terreno em Condomínio",
+    "Parcelamento em Chácaras",
+    "REURB-E",
+    "Viabilidade de Platô para Galpões",
+    "Aterro Sanitário de São José dos Campos",
+    "INCRA/SIGEF",
+    "LEPAC",
+    "ritmo de uso"
   ]) {
-    await expect(proof).toContainText(cluster);
+    await expect(portfolio).toContainText(text);
   }
-  await expect(proof).not.toContainText(
-    /Terras Alpha|Fazenda Itamirim|Colinas de São José|Jambeiro|São José dos Campos landfill/i
-  );
+  await expect(portfolio.locator("[data-testid='portfolio-skeleton']")).toHaveCount(5);
+  await expect(portfolio.getByRole("link")).toHaveCount(0);
 
   const faq = page.getByTestId("section-faq");
+  await expect(faq.locator("[data-accordion='collapse']")).toBeVisible();
   for (const topic of [
     "preço",
     "5/7/10 dias",
     "localização e objetivo",
-    "plataforma de visualização",
+    "App de Visualização e Compartilhamento",
     "aprovação ou auditoria",
     "entidade registrada"
   ]) {
     await expect(faq).toContainText(topic);
   }
   await expect(faq).not.toContainText(/a partir de R\$|preço inicial/i);
+});
+
+test("homepage ships without prototype-only markers or switchers", async ({ page }) => {
+  await page.goto("/");
+
+  const prototypeAttributes = await page.evaluate(() =>
+    Array.from(document.querySelectorAll("*")).flatMap((element) =>
+      Array.from(element.attributes)
+        .map((attribute) => attribute.name)
+        .filter((name) => name.startsWith("data-prototype") || name.startsWith("data-homepage-prototype"))
+    )
+  );
+  expect(prototypeAttributes).toEqual([]);
+  await expect(page.getByText(/PrototypeSwitcher|homepage prototype|variant switcher/i)).toHaveCount(0);
+  expect(page.url()).not.toContain("variant=");
 });
 
 test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({
