@@ -156,7 +156,9 @@ test("homepage triage cards route by outcome with one section CTA and discrete d
     await expect(card).toBeVisible();
     await expect(card).toContainText(example);
     await expect(card.getByRole("link", { name: "Falar com especialista" })).toHaveCount(0);
-    await expect(card.getByRole("link", { name: "Ver detalhes", exact: true })).toBeVisible();
+    await expect(
+      card.getByRole("link", { name: new RegExp(`Ver detalhes.*${title}`, "i") })
+    ).toContainText("Ver detalhes");
   }
 
   await expect(cards.getByRole("link", { name: "Falar com especialista" })).toHaveCount(1);
