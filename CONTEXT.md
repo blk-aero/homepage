@@ -150,7 +150,35 @@ _Avoid_: top explanatory header inside the visual panel, crowded mobile controls
 
 **Lightly Qualified WhatsApp Message**:
 A prefilled WhatsApp message that asks for the minimum useful project context without blocking the chat.
-_Avoid_: generic greeting, required lead form
+_Avoid_: generic greeting, orçamento wording, required lead form
+
+**Simple WhatsApp Greeting**:
+A short prefilled WhatsApp opener that visitors are unlikely to rewrite before sending.
+_Avoid_: long qualification script, internal tracking label, orçamento request
+
+**Source-Coded WhatsApp Greeting**:
+A simple WhatsApp greeting whose wording or non-obvious marker lets BLK recover the originating source after the lead sends the message.
+_Avoid_: visible CTA label, strange-looking metadata, user-specific fingerprinting
+
+**Hidden WhatsApp Marker**:
+A non-visible marker embedded in a simple WhatsApp greeting so BLK can match the sent text back to a known source dictionary.
+_Avoid_: visible punctuation code, long tracking suffix, per-user fingerprinting
+
+**Message Attribution Boundary**:
+The rule that WhatsApp message text should not expose raw attribution fields such as UTM parameters or GCLID; those belong in analytics and storage.
+_Avoid_: utm_source text in WhatsApp, gclid text in WhatsApp, internal campaign metadata in the lead's message
+
+**WhatsApp Marker Placement**:
+The position where a hidden WhatsApp marker is embedded in the greeting, such as before the visible text or after the first greeting word, to increase the source dictionary's option space.
+_Avoid_: placing markers where they visibly disrupt the greeting, random placement, user-specific placement
+
+**Deterministic WhatsApp Greeting**:
+A source-coded WhatsApp greeting that stays stable for the same campaign and site touchpoint instead of changing by time of day or session.
+_Avoid_: time-of-day variants, random greetings, per-user message fingerprints
+
+**Proposal-Led Contact**:
+The commercial framing that positions the first WhatsApp conversation around understanding the project and preparing a value-based proposal.
+_Avoid_: orçamento request, price-only contact, quote-first language
 
 **Final WhatsApp Composer**:
 The final homepage CTA pattern where visitors provide a location and select their objective before opening a prefilled WhatsApp conversation.

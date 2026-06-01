@@ -7,7 +7,12 @@ test("footer shows BLK contact and trust details without template social links",
   const footerLogo = footer.getByRole("link", { name: "BLK Aero" }).locator("img");
   await expect(footerLogo).toHaveAttribute("src", /logo_inline_grey_fulltext_aero_nobackground/);
   await expect(footer.getByRole("link", { name: "contato@blk.aero" })).toHaveAttribute("href", "mailto:contato@blk.aero");
-  await expect(footer.getByRole("link", { name: "(12) 98806-2737" })).toHaveAttribute("href", /wa\.me\/5512988062737/);
+  const phoneLink = footer.getByRole("link", { name: "(12) 98806-2737" });
+  await expect(phoneLink).toHaveAttribute("href", /wa\.me\/5512988062737/);
+  const phoneText = new URL((await phoneLink.getAttribute("href")) || "").searchParams.get("text") || "";
+  expect(phoneText).toContain("Olá, quero falar com a BLK.");
+  expect(phoneText).not.toContain("CTA:");
+  expect(phoneText).not.toContain("orçamento");
   await expect(footer).toContainText("Categoria A em Aerolevantamento pelo Ministério da Defesa");
   const footerLinks = footer
     .getByRole("heading", { name: "Navegação" })

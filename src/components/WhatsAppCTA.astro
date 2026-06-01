@@ -47,6 +47,7 @@ const href = buildWhatsAppUrl(number, {
 
 <a
   data-testid="whatsapp-cta"
+  data-whatsapp-link
   data-whatsapp-number={number}
   data-service={service ?? ""}
   data-city={city ?? ""}
@@ -69,87 +70,3 @@ const href = buildWhatsAppUrl(number, {
     <span>{label}</span>
   </span>
 </a>
-
-<script is:inline>
-  (function () {
-    const storageKey = "blk_attribution_v1";
-    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
-
-    function readStored() {
-      try {
-        return JSON.parse(sessionStorage.getItem(storageKey) || "{}");
-      } catch {
-        return {};
-      }
-    }
-
-    function readCurrentParams() {
-      const params = new URLSearchParams(window.location.search);
-      const out = {};
-      keys.forEach((key) => {
-        const value = params.get(key);
-        if (value) out[key] = value;
-      });
-      return out;
-    }
-
-    function append(parts, label, value) {
-      if (value) parts.push(`${label}: ${value}.`);
-    }
-
-    function buildMessage(payload, attribution) {
-      const parts = ["Olá! Quero orçamento."];
-      append(parts, "Serviço", payload.service);
-      append(parts, "Cidade", payload.city);
-      append(parts, "Localização", payload.location);
-      append(parts, "Área/perímetro aproximado", payload.approximateAreaOrPerimeter);
-      append(parts, "Objetivo", payload.objective);
-      append(parts, "Prazo desejado", payload.deadline);
-      append(parts, "Entrega desejada", payload.desiredDeliverable);
-      append(parts, "Cluster selecionado", payload.selectedCluster);
-      append(parts, "CTA", payload.ctaLocation);
-      const pairs = Object.entries(attribution).map(([k, v]) => `${k}=${v}`);
-      if (pairs.length) parts.push(pairs.join(" "));
-      return parts.join(" ");
-    }
-
-    document.querySelectorAll("[data-testid='whatsapp-cta']").forEach((node) => {
-      if (!(node instanceof HTMLAnchorElement)) return;
-      if (node.dataset.bound === "1") return;
-      node.dataset.bound = "1";
-
-      const number = (node.dataset.whatsappNumber || "").replace(/\D/g, "");
-      const payload = {
-        service: node.dataset.service || "",
-        city: node.dataset.city || "",
-        location: node.dataset.location || "",
-        approximateAreaOrPerimeter: node.dataset.approximateAreaOrPerimeter || "",
-        objective: node.dataset.objective || "",
-        deadline: node.dataset.deadline || "",
-        desiredDeliverable: node.dataset.desiredDeliverable || "",
-        selectedCluster: node.dataset.selectedCluster || "",
-        ctaLocation: node.dataset.ctaLocation || ""
-      };
-      const attribution = { ...readCurrentParams(), ...readStored() };
-      if (Object.keys(attribution).length > 0) {
-        sessionStorage.setItem(storageKey, JSON.stringify(attribution));
-      }
-
-      const message = buildMessage(payload, attribution);
-      node.href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-
-      node.addEventListener("click", () => {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "whatsapp_click",
-          service: payload.service || undefined,
-          city: payload.city || undefined,
-          selected_cluster: payload.selectedCluster || undefined,
-          cta_location: payload.ctaLocation || undefined,
-          page_path: window.location.pathname,
-          ...attribution
-        });
-      });
-    });
-  })();
-</script>
