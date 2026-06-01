@@ -206,8 +206,10 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
     <ConsentBanner />
     <AttributionCapture />
     <script>
+      import { initAccordions } from "flowbite/lib/esm/components/accordion";
       import { initCollapses } from "flowbite/lib/esm/components/collapse";
 
+      initAccordions();
       initCollapses();
     </script>
   </body>

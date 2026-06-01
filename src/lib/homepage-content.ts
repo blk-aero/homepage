@@ -188,7 +188,7 @@ export const homepageContent = {
     title: "App de Visualização e Compartilhamento",
     headline: "Visualize e compartilhe o projeto sem depender de software especializado",
     description:
-      "Ortofotos, nuvens de pontos, modelos 3D, plantas, memoriais e arquivos técnicos ficam organizados em um ambiente visual para engenharia, jurídico, gestão, clientes e contratados discutirem a mesma base sem instalar software especializado ou depender de hardware pesado.",
+      "Ortofotos, nuvens de pontos, modelos 3D, evidências, plantas, memoriais e arquivos técnicos ficam organizados em um ambiente visual para engenharia, jurídico, gestão, clientes e contratados discutirem a mesma base sem instalar software especializado ou depender de hardware pesado.",
     imageAlt:
       "App de Visualização e Compartilhamento da BLK com entregáveis técnicos organizados no mapa",
     highlights: [

@@ -131,9 +131,11 @@ test("compact proof band shows the accepted proof groups without relationship la
 test("homepage triage cards route by outcome with one section CTA and discrete detail links", async ({
   page
 }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
 
   const cards = page.getByTestId("section-triage-cards");
+  const innerPanel = page.getByTestId("triage-inner-panel");
   await expect(
     cards.getByRole("heading", { name: "Escolha a base técnica ideal para o seu projeto" })
   ).toBeVisible();
@@ -142,6 +144,7 @@ test("homepage triage cards route by outcome with one section CTA and discrete d
       "Selecione o caminho mais próximo da sua demanda. A BLK ajuda a transformar localização e objetivo em escopo, prazo e entregáveis técnicos."
     )
   ).toBeVisible();
+  await expect(innerPanel).toBeVisible();
 
   const expectedCards = [
     ["Projeto e Obra", "projetar, compatibilizar ou acompanhar"],
@@ -163,9 +166,15 @@ test("homepage triage cards route by outcome with one section CTA and discrete d
 
   await expect(cards.getByRole("link", { name: "Falar com especialista" })).toHaveCount(1);
   await expect(cards).not.toContainText(/\b(SIGEF|REURB|as-built|due diligence)\b/i);
+
+  const sectionBackground = await cards.evaluate((node) => getComputedStyle(node).backgroundColor);
+  const innerBackground = await innerPanel.evaluate((node) => getComputedStyle(node).backgroundColor);
+  expect(sectionBackground).not.toBe("rgba(0, 0, 0, 0)");
+  expect(innerBackground).toBe("rgb(255, 255, 255)");
 });
 
 test("homepage deliverables show approved decision-first groups and tags", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
 
   const deliverables = page.getByTestId("section-deliverables");
@@ -173,6 +182,9 @@ test("homepage deliverables show approved decision-first groups and tags", async
   await expect(
     deliverables.getByRole("heading", { name: "Bases técnicas para destravar decisões" })
   ).toBeVisible();
+  await expect(deliverables).toContainText(
+    "A entrega não é só uma pasta de arquivos. É uma base técnica organizada pelo uso"
+  );
 
   for (const group of [
     "Projeto e Obra",
@@ -203,53 +215,95 @@ test("homepage deliverables show approved decision-first groups and tags", async
     await expect(deliverables).toContainText(tag);
   }
   await expect(deliverables.locator("em", { hasText: "as-built" })).toBeVisible();
+
+  for (const trigger of [
+    "Projetar, compatibilizar ou executar obra",
+    "Regularizar, aprovar ou defender limites",
+    "Medir, auditar ou pagar avanço físico",
+    "Alinhar quem não usa software técnico"
+  ]) {
+    await expect(deliverables).toContainText(trigger);
+  }
+
+  const articles = deliverables.locator("article");
+  await expect(articles).toHaveCount(4);
+  const firstBox = await articles.nth(0).boundingBox();
+  const secondBox = await articles.nth(1).boundingBox();
+  const thirdBox = await articles.nth(2).boundingBox();
+  expect(firstBox).toBeTruthy();
+  expect(secondBox).toBeTruthy();
+  expect(thirdBox).toBeTruthy();
+  expect(Math.abs((firstBox?.y ?? 0) - (secondBox?.y ?? 0))).toBeLessThan(8);
+  expect(thirdBox?.y ?? 0).toBeGreaterThan((firstBox?.y ?? 0) + 40);
 });
 
 test("homepage visualization platform is a separate differentiator after deliverables", async ({
   page
 }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
 
   const deliverables = page.getByTestId("section-deliverables");
   const platform = page.getByTestId("section-visualization-platform");
   await expect(platform).toBeVisible();
-  await expect(platform).toContainText("orthoimages");
+  await expect(platform).toContainText("App de Visualização e Compartilhamento");
+  await expect(
+    platform.getByRole("heading", {
+      name: "Visualize e compartilhe o projeto sem depender de software especializado"
+    })
+  ).toBeVisible();
+  await expect(platform).toContainText("Ortofotos");
   await expect(platform).toContainText("nuvens de pontos");
   await expect(platform).toContainText("modelos 3D");
   await expect(platform).toContainText("evidências");
   await expect(platform).toContainText(/sem instalar|software especializado|hardware/i);
+  await expect(platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i })).toBeVisible();
+  await expect(platform.getByRole("link", { name: /download|baixar/i })).toHaveCount(0);
   await expect(page.locator("body")).not.toContainText(/20 dias|vinte dias/i);
 
   const deliverablesBox = await deliverables.boundingBox();
   const platformBox = await platform.boundingBox();
   expect(platformBox?.y ?? 0).toBeGreaterThan(deliverablesBox?.y ?? 0);
+
+  const headingBox = await platform
+    .getByRole("heading", {
+      name: "Visualize e compartilhe o projeto sem depender de software especializado"
+    })
+    .boundingBox();
+  const imageBox = await platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i }).boundingBox();
+  expect(imageBox?.x ?? 0).toBeGreaterThan(headingBox?.x ?? 0);
 });
 
-test("homepage lower proof snippets are anonymized and FAQ handles hiring objections", async ({
+test("homepage portfolio uses proof-shaped placeholders and FAQ uses app terminology", async ({
   page
 }) => {
   await page.goto("/");
 
   const proof = page.getByTestId("section-proof-snippets");
-  for (const cluster of [
-    "Projeto e Obra",
-    "Regularização Rural",
-    "Regularização Urbana",
-    "Volumetria e Medição",
-    "Monitoramento e Inteligência Geográfica"
+  await expect(proof).toContainText("PORTFÓLIO");
+  await expect(proof.getByRole("heading", { name: "Exemplos de projeto e evidência entregue" })).toBeVisible();
+  for (const text of [
+    "Terreno em Condomínio",
+    "Parcelamento em Chácaras",
+    "REURB-E",
+    "Viabilidade de Platô para Galpões",
+    "Aterro Sanitário de São José dos Campos",
+    "INCRA/SIGEF",
+    "LEPAC",
+    "ritmo de uso"
   ]) {
-    await expect(proof).toContainText(cluster);
+    await expect(proof).toContainText(text);
   }
-  await expect(proof).not.toContainText(
-    /Terras Alpha|Fazenda Itamirim|Colinas de São José|Jambeiro|São José dos Campos landfill/i
-  );
+  await expect(proof.locator("[data-testid='portfolio-skeleton']")).toHaveCount(5);
+  await expect(proof.getByRole("link")).toHaveCount(0);
 
   const faq = page.getByTestId("section-faq");
+  await expect(faq.locator("[data-accordion='collapse']")).toBeVisible();
   for (const topic of [
     "preço",
     "5/7/10 dias",
     "localização e objetivo",
-    "plataforma de visualização",
+    "App de Visualização e Compartilhamento",
     "aprovação ou auditoria",
     "entidade registrada"
   ]) {
