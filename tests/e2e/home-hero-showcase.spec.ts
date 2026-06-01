@@ -272,6 +272,7 @@ test("homepage visualization platform is a separate differentiator after deliver
     .boundingBox();
   const imageBox = await platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i }).boundingBox();
   expect(imageBox?.x ?? 0).toBeGreaterThan(headingBox?.x ?? 0);
+  expect(imageBox?.width ?? 0).toBeGreaterThan(300);
 });
 
 test("homepage portfolio uses proof-shaped placeholders and FAQ uses app terminology", async ({
