@@ -29,6 +29,23 @@ body {
   @apply bg-gray-50 font-body text-gray-900;
 }
 
+.site-main {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(1rem, 1fr)
+    [content-start] minmax(0, 72rem)
+    [content-end] minmax(1rem, 1fr)
+    [full-end];
+}
+
+.site-main > * {
+  grid-column: content;
+}
+
+.site-main > .full-bleed {
+  grid-column: full;
+}
+
 h1,
 h2,
 h3,

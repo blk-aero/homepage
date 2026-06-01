@@ -40,15 +40,6 @@ This file serves as the **single source of truth for all outstanding design deci
 *   **Decision**: Should we enforce a strict section ordering for the Solution and Solution+City page templates?
     *   *Recommendation*: Yes, hardcode the vertical layout structure to match the researched high-converting competitor pattern.
 
-### 2.2 Lighthouse Accessibility Gates
-*   **Source**: `docs/Archive/initial_prd.md` (PRD Targets / KPIs)
-*   **Context**: Previous specs established a strict launch blocker of `Lighthouse Accessibility >= 90` to ensure WCAG 2.2 color contrast, keyboard focus order on carousels, and ARIA labels.
-*   **Gap**: The new backlog focus is limited to load speeds and Core Web Vitals, omitting the accessibility constraint.
-*   **Decision**: Maintain `Lighthouse Accessibility >= 90` as a strict release gate?
-    *   *Recommendation*: Yes, the automated accessibility test in Playwright (`accessibility-smoke.spec.ts`) must remain active.
-
----
-
 ## 3. Advanced SEO & AEO Data
 
 ### 3.1 Semantic Anchoring (`mentions` via Wikidata/Wikipedia)

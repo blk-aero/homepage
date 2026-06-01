@@ -25,7 +25,7 @@ Build out the complete supporting architecture for the BLK Aero marketing site:
 3. **Searchable Coverage Index**: Upgrade the `/cidades` index route into a searchable list of cities and neighborhoods filtered instantaneously via client-side Vanilla JS.
 4. **E-E-A-T & AI Discovery Layer**: Implement a comprehensive `/sobre` entity page with Google Perfil-aligned info, a stacked JSON-LD schema graph, and an `/llms.txt` file at the root.
 5. **Static Lead Magnet & Webhook System**: Implement a content-driven `/ofertas/[slug]` capture form connected to GTM (respecting Consent Mode v2) and routed to Pipedream.
-6. **Performance & Multi-Channel Tracking**: Omit heavy scripts, optimize LCP images natively, lazy load embeds (with `VideoObject` schema), and enforce consistent GTM dataLayer events for calls, emails, and lead forms.
+6. **Multi-Channel Tracking**: Enforce consistent GTM dataLayer events for calls, emails, WhatsApp actions, and lead forms while keeping the static Astro/Flowbite surface lightweight.
 
 ## User Stories
 
@@ -45,10 +45,7 @@ Build out the complete supporting architecture for the BLK Aero marketing site:
 14. As a commercial operator, I want lead contact details to be sent to a Pipedream webhook, so that they can be automatically saved in our spreadsheets or CRM.
 15. As a mobile visitor, I want to tap the phone number in the header/footer and have it open my dialer immediately while firing a `click_to_call` tracking event.
 16. As a mobile visitor, I want to tap the email address in the footer and have it open my email app while firing an `email_click` tracking event.
-17. As a site visitor, I want all pages to load in under 2 seconds on mobile, so that I don't abandon the site due to slow loading.
-18. As a visitor with reduced-motion settings, I want the homepage carousel not to auto-cycle, so that I can read the slides comfortably.
-19. As a site maintainer, I want images (like the hero slides and platform screenshots) to be automatically converted to WebP/AVIF and scaled to fit the device, so that I don't have to manually optimize files.
-20. As a site builder, I want a simple Markdown template to write new city files, so that I can quickly add more active cities to the site in the future.
+17. As a site builder, I want a simple Markdown template to write new city files, so that I can quickly add more active cities to the site in the future.
 
 ## Implementation Decisions
 
@@ -78,10 +75,10 @@ Build out the complete supporting architecture for the BLK Aero marketing site:
 - Implement an outbound Pipedream webhook handler inside GTM or as a client script that pushes the captured lead data securely to the target URL.
 - Ensure the WhatsApp message builder helper (`src/lib/whatsapp.ts`) and client-side listener (`src/components/WhatsAppCTA.astro`) correctly capture first-touch session-preserved UTM and `gclid` parameters without overwriting them.
 
-### 4. Performance Media Otimization
-- Refactor the hero carousel and other major landing pages to use Astro's native `<Image>` component for visual assets (hero pictures, platform mockups).
-- Implement a lazy iframe component or a click-to-play placeholder for YouTube videos, accompanied by a generated `VideoObject` JSON-LD schema when a video exists on a page.
-- Keep the proof band logos as text tags in the initial rollout, creating a task for the developer to place actual monochrome logo files under `src/assets/homepage/proof-logos/mono/` for a future automatic image-pipeline conversion.
+### 4. Media Follow-Up Boundaries
+- Future major landing pages should use Astro's native `<Image>` component for local visual assets, following the homepage hero/platform precedent.
+- Video embed work is intentionally outside this PRD and should be planned separately when a real video surface exists.
+- Proof logo asset curation is tracked separately from this backlog so the SEO/local expansion work does not depend on logo sourcing.
 
 ## Testing Decisions
 

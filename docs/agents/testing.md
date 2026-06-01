@@ -9,13 +9,15 @@
 - `npm run test:e2e`
 - `npm run check:links`
 
-Playwright starts the dev server automatically from `playwright.config.ts` with:
+Playwright builds the static site and starts the preview server automatically from `playwright.config.ts` with:
 
 ```bash
-npm run dev -- --host 127.0.0.1 --port 4321
+npm run build && npm run preview -- --host 127.0.0.1 --port 4321
 ```
 
 `npm run check:links` expects a running local site at `http://127.0.0.1:4321`.
+
+Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright against an already-started local server. By default, Playwright builds and previews the current checkout to avoid stale dev-server output.
 
 ## Verification Matrix
 

@@ -33,6 +33,8 @@ test("homepage hero uses right-side image carousel", async ({ page }) => {
 
   const heroSrc = await heroImage.getAttribute("src");
   expect(heroSrc).toContain("blk-hero-e-projeto-obra");
+  await expect(heroImage).toHaveAttribute("width", /[1-9]\d*/);
+  await expect(heroImage).toHaveAttribute("height", /[1-9]\d*/);
 });
 
 test("homepage stays in light theme when the OS prefers dark mode", async ({ page }) => {
@@ -257,7 +259,10 @@ test("homepage visualization platform is a separate differentiator after deliver
   await expect(platform).toContainText("modelos 3D");
   await expect(platform).toContainText("evidências");
   await expect(platform).toContainText(/sem instalar|software especializado|hardware/i);
-  await expect(platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i })).toBeVisible();
+  const platformImage = platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i });
+  await expect(platformImage).toBeVisible();
+  await expect(platformImage).toHaveAttribute("width", /[1-9]\d*/);
+  await expect(platformImage).toHaveAttribute("height", /[1-9]\d*/);
   await expect(platform.getByRole("link", { name: /download|baixar/i })).toHaveCount(0);
   await expect(page.locator("body")).not.toContainText(/20 dias|vinte dias/i);
 
@@ -270,9 +275,33 @@ test("homepage visualization platform is a separate differentiator after deliver
       name: "Visualize e compartilhe o projeto sem depender de software especializado"
     })
     .boundingBox();
-  const imageBox = await platform.getByRole("img", { name: /App de Visualização e Compartilhamento/i }).boundingBox();
+  const imageBox = await platformImage.boundingBox();
   expect(imageBox?.x ?? 0).toBeGreaterThan(headingBox?.x ?? 0);
   expect(imageBox?.width ?? 0).toBeGreaterThan(300);
+});
+
+test("homepage full-bleed sections do not create horizontal overflow", async ({
+  page
+}) => {
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 1280, height: 900 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+
+    await expect(page.getByTestId("section-visualization-platform")).not.toHaveClass(/w-screen/);
+    await expect(page.getByTestId("section-final-cta")).not.toHaveClass(/w-screen/);
+
+    const overflow = await page.evaluate(() => ({
+      documentScrollWidth: document.documentElement.scrollWidth,
+      viewportWidth: window.innerWidth,
+      bodyScrollWidth: document.body.scrollWidth
+    }));
+
+    expect(overflow.documentScrollWidth).toBeLessThanOrEqual(overflow.viewportWidth);
+    expect(overflow.bodyScrollWidth).toBeLessThanOrEqual(overflow.viewportWidth);
+  }
 });
 
 test("homepage portfolio uses proof-shaped placeholders and FAQ uses app terminology", async ({
