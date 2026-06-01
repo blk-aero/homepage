@@ -4,7 +4,17 @@ import heroProjetoObra from "../assets/homepage/hero/blk-hero-e-projeto-obra.web
 import heroRegularizacaoRural from "../assets/homepage/hero/blk-hero-e-regularizacao-rural.webp";
 import heroRegularizacaoUrbana from "../assets/homepage/hero/blk-hero-e-regularizacao-urbana.webp";
 import heroVolumetriaMedicao from "../assets/homepage/hero/blk-hero-e-volumetria-medicao.webp";
+import { Image } from "astro:assets";
 import WhatsAppCTA from "./WhatsAppCTA.astro";
+
+const heroImages = {
+  "projeto-obra": heroProjetoObra,
+  "regularizacao-rural": heroRegularizacaoRural,
+  "regularizacao-urbana": heroRegularizacaoUrbana,
+  "volumetria-medicao": heroVolumetriaMedicao,
+  "monitoramento-inteligencia": heroMonitoramentoInteligencia
+};
+type HeroImageId = keyof typeof heroImages;
 
 type Props = {
   h1: string;
@@ -12,7 +22,7 @@ type Props = {
   primaryCtaLabel: string;
   slides?: {
     title: string;
-    imageId: string;
+    imageId: HeroImageId;
     tag: string;
     panelLabel: string;
     panelTitle: string;
@@ -35,14 +45,6 @@ const {
 } = Astro.props as Props;
 
 const secondaryExternal = secondaryCtaHref ? /^https?:\/\//.test(secondaryCtaHref) : false;
-const imageSrc = (image: string | { src: string }) => (typeof image === "string" ? image : image.src);
-const heroImages: Record<string, string> = {
-  "projeto-obra": imageSrc(heroProjetoObra),
-  "regularizacao-rural": imageSrc(heroRegularizacaoRural),
-  "regularizacao-urbana": imageSrc(heroRegularizacaoUrbana),
-  "volumetria-medicao": imageSrc(heroVolumetriaMedicao),
-  "monitoramento-inteligencia": imageSrc(heroMonitoramentoInteligencia)
-};
 ---
 
 <section data-testid="section-hero" class="surface overflow-hidden rounded-lg">
@@ -98,7 +100,7 @@ const heroImages: Record<string, string> = {
               aria-hidden={index === 0 ? "false" : "true"}
             >
               <div class="relative overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
-                <img
+                <Image
                   data-testid="home-hero-image"
                   class="h-[390px] w-full object-cover"
                   src={heroImages[slide.imageId]}

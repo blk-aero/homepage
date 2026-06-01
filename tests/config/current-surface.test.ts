@@ -40,10 +40,10 @@ const activeSurfaceFiles = [
   "src/layouts/BaseLayout.astro"
 ];
 
-const archivedPlanningFiles = [
-  "docs/Archive/draft_prd.md",
-  "docs/Archive/remaining_prd_work.md",
-  "docs/Archive/RESEARCH.md"
+const activePlanningFiles = [
+  "docs/backlog_prd.md",
+  "docs/to-be-grilled.md",
+  "docs/proof-logo-assets-prd.md"
 ];
 
 describe("current homepage branch surface", () => {
@@ -63,8 +63,8 @@ describe("current homepage branch surface", () => {
     }
   });
 
-  it("archives old planning docs instead of deleting them", () => {
-    for (const file of archivedPlanningFiles) {
+  it("keeps current planning docs available outside Archive", () => {
+    for (const file of activePlanningFiles) {
       expect(existsSync(file), `${file} should exist`).toBe(true);
     }
   });
