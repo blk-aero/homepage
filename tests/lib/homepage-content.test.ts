@@ -59,4 +59,52 @@ describe("homepage content model", () => {
       ["Alinhamento Visual", ["ortofoto", "nuvem de pontos", "modelo 3D", "MDT"]]
     ]);
   });
+
+  it("exposes the accepted app, portfolio, FAQ, and final CTA contracts", () => {
+    expect(homepageContent.visualizationPlatform.eyebrow).toBe(
+      "App de Visualização e Compartilhamento"
+    );
+    expect(homepageContent.visualizationPlatform.headline).toBe(
+      "Visualize e compartilhe o projeto sem depender de software especializado"
+    );
+    expect(homepageContent.visualizationPlatform.imageAlt).toContain(
+      "App de Visualização e Compartilhamento"
+    );
+
+    expect(homepageContent.portfolio.eyebrow).toBe("PORTFÓLIO");
+    expect(homepageContent.portfolio.title).toBe("Exemplos de projeto e evidência entregue");
+    expect(homepageContent.portfolio.intro).toBe(
+      "Uma amostra dos tipos de entrega que a BLK organiza para projeto, regularização, medição e gestão territorial."
+    );
+    expect(homepageContent.portfolio.cards.map((card) => [card.cluster, card.title, card.tags])).toEqual([
+      ["Projeto e Obra", "Terreno em Condomínio", ["topografia", "modelo 3D", "curvas de nível"]],
+      ["Regularização Rural", "Parcelamento em Chácaras", ["INCRA/SIGEF", "CAR", "plantas", "memoriais"]],
+      ["Regularização Urbana", "REURB-E", ["LEPAC", "planta ambiental", "planta de perímetro"]],
+      [
+        "Volumetria e Medição",
+        "Viabilidade de Platô para Galpões",
+        ["simulação de cenários", "movimentação de terra", "decisão de compra"]
+      ],
+      [
+        "Monitoramento e Inteligência Geográfica",
+        "Aterro Sanitário de São José dos Campos",
+        ["previsão", "ritmo de uso", "gestão de ativo"]
+      ]
+    ]);
+
+    expect(
+      homepageContent.faq.items.find((item) => item.question.includes("software"))?.answer
+    ).toContain("App de Visualização e Compartilhamento");
+
+    expect(homepageContent.finalCta.title).toBe("Envie localização e objetivo do projeto");
+    expect(homepageContent.finalCta.supportCopy).toBe(
+      "Com essas duas informações, a BLK já consegue orientar o escopo inicial e indicar o próximo passo pelo WhatsApp."
+    );
+    expect(homepageContent.finalCta.location).toEqual({
+      label: "Localização do projeto",
+      placeholder: "Cidade, bairro, endereço ou link do mapa",
+      maxLength: 300
+    });
+    expect(homepageContent.finalCta.objectives).toContain("Ainda não sei, preciso de orientação");
+  });
 });

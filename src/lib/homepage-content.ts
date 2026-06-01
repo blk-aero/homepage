@@ -150,26 +150,32 @@ export const homepageContent = {
   deliverables: {
     eyebrow: "O QUE VOCÊ RECEBE",
     title: "Bases técnicas para destravar decisões",
+    intro:
+      "A entrega não é só uma pasta de arquivos. É uma base técnica organizada pelo uso: projetar, aprovar, medir ou alinhar pessoas em torno do mesmo território.",
     groups: [
       {
+        trigger: "Projetar, compatibilizar ou executar obra",
         title: "Projeto e Obra",
         description:
-          "Bases para orientar arquitetura, engenharia, compatibilização e decisões de campo.",
+          "Relevo, bases técnicas e leitura visual para reduzir dúvida entre escritório, campo e obra.",
         tags: ["DXF", "curvas de nível", "levantamento planialtimétrico", "as-built"]
       },
       {
+        trigger: "Regularizar, aprovar ou defender limites",
         title: "Regularização e Aprovação",
         description:
           "Peças e evidências para apoiar processos rurais, urbanos, cadastrais, legais e municipais.",
         tags: ["memorial", "LEPAC", "perímetro", "planta ambiental"]
       },
       {
+        trigger: "Medir, auditar ou pagar avanço físico",
         title: "Medição e Auditoria",
         description:
-          "Medições, volumes e registros comparáveis para auditoria, pagamento e controle de avanço.",
+          "Volumes, superfícies e registros comparáveis para controle, pagamento e auditoria.",
         tags: ["volumetria", "corte / aterro", "comparativos", "relatório"]
       },
       {
+        trigger: "Alinhar quem não usa software técnico",
         title: "Alinhamento Visual",
         description:
           "Mapas, modelos e evidências para alinhar gestão, engenharia, jurídico, clientes e contratados.",
@@ -178,9 +184,13 @@ export const homepageContent = {
     ]
   },
   visualizationPlatform: {
-    title: "Plataforma visual para alinhar todos os envolvidos",
+    eyebrow: "App de Visualização e Compartilhamento",
+    title: "App de Visualização e Compartilhamento",
+    headline: "Visualize e compartilhe o projeto sem depender de software especializado",
     description:
-      "orthoimages, nuvens de pontos, modelos 3D e evidências ficam organizados em um ambiente visual para engenharia, jurídico, gestão, clientes e contratados discutirem a mesma base sem instalar software especializado ou depender de hardware pesado.",
+      "Ortofotos, nuvens de pontos, modelos 3D, plantas, memoriais e arquivos técnicos ficam organizados em um ambiente visual para engenharia, jurídico, gestão, clientes e contratados discutirem a mesma base sem instalar software especializado ou depender de hardware pesado.",
+    imageAlt:
+      "App de Visualização e Compartilhamento da BLK com entregáveis técnicos organizados no mapa",
     highlights: [
       "Inspeção visual de áreas, obras e ativos",
       "Evidências reunidas no mesmo contexto espacial",
@@ -222,30 +232,57 @@ export const homepageContent = {
       }
     ]
   },
-  proofSnippets: {
-    title: "Padrões reais de trabalho, apresentados sem expor clientes",
-    snippets: [
+  portfolio: {
+    eyebrow: "PORTFÓLIO",
+    title: "Exemplos de projeto e evidência entregue",
+    intro:
+      "Uma amostra dos tipos de entrega que a BLK organiza para projeto, regularização, medição e gestão territorial.",
+    cards: [
       {
         cluster: "Projeto e Obra",
-        text: "Base topográfica e visual usada para alinhar projeto, obra e interferências antes de decisões de campo."
+        title: "Terreno em Condomínio",
+        description:
+          "Base técnica para projeto arquitetônico e alinhamento visual antes de obra ou implantação.",
+        artifact: "topografia",
+        tags: ["topografia", "modelo 3D", "curvas de nível"]
       },
       {
         cluster: "Regularização Rural",
-        text: "Área rural organizada com peças, limites e evidências para apoiar análise documental e geoespacial."
+        title: "Parcelamento em Chácaras",
+        description:
+          "Organização de perímetro, peças técnicas e bases para regularização rural e análise documental.",
+        artifact: "plantas e memoriais",
+        tags: ["INCRA/SIGEF", "CAR", "plantas", "memoriais"]
       },
       {
         cluster: "Regularização Urbana",
-        text: "Núcleo urbano documentado com base visual e cadastral para discussão técnica com envolvidos."
+        title: "REURB-E",
+        description:
+          "Base cadastral e ambiental para reduzir exigências e apoiar aprovação urbana.",
+        artifact: "LEPAC",
+        tags: ["LEPAC", "planta ambiental", "planta de perímetro"]
       },
       {
         cluster: "Volumetria e Medição",
-        text: "Medição recorrente transformada em evidência comparável para volumes, avanço e auditoria."
+        title: "Viabilidade de Platô para Galpões",
+        description:
+          "Simulações de terraplenagem para comparar cenários e apoiar decisão de compra.",
+        artifact: "cenários",
+        tags: ["simulação de cenários", "movimentação de terra", "decisão de compra"]
       },
       {
         cluster: "Monitoramento e Inteligência Geográfica",
-        text: "Ativo acompanhado com mapas, modelos e evidências para inspeção, risco e decisão estratégica."
+        title: "Aterro Sanitário de São José dos Campos",
+        description:
+          "Série visual e métrica para acompanhar capacidade, tendência de uso e gestão do ativo.",
+        artifact: "série visual",
+        tags: ["previsão", "ritmo de uso", "gestão de ativo"]
       }
     ]
+  },
+  proofSnippets: {
+    title: "Padrões reais de trabalho, apresentados sem expor clientes",
+    snippets: []
   },
   faq: {
     title: "Dúvidas comuns antes de contratar",
@@ -268,7 +305,7 @@ export const homepageContent = {
       {
         question: "Preciso de software técnico para entender a entrega?",
         answer:
-          "Não necessariamente. A plataforma de visualização ajuda stakeholders sem software especializado a entender mapas, modelos e evidências."
+          "Não necessariamente. O App de Visualização e Compartilhamento ajuda stakeholders sem software especializado a entender mapas, modelos e evidências."
       },
       {
         question: "Serve para aprovação ou auditoria?",
@@ -283,6 +320,21 @@ export const homepageContent = {
     ]
   },
   finalCta: {
-    title: "Envie a localização e o objetivo do projeto"
+    title: "Envie localização e objetivo do projeto",
+    supportCopy:
+      "Com essas duas informações, a BLK já consegue orientar o escopo inicial e indicar o próximo passo pelo WhatsApp.",
+    location: {
+      label: "Localização do projeto",
+      placeholder: "Cidade, bairro, endereço ou link do mapa",
+      maxLength: 300
+    },
+    objectives: [
+      "Projeto e Obra",
+      "Regularização Rural",
+      "Regularização Urbana",
+      "Volumetria e Medição",
+      "Monitoramento e Inteligência Geográfica",
+      "Ainda não sei, preciso de orientação"
+    ]
   }
 };
