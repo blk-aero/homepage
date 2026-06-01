@@ -21,9 +21,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/coverage-v8": "^4.1.8",
     "linkinator": "^7.5.3",
     "playwright": "^1.58.2",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.8"
   }
 }
