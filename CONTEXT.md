@@ -12,6 +12,18 @@ _Avoid_: single-service homepage, generic brochure page
 A homepage routing option that names a buyer problem cluster and hints at related BLK services.
 _Avoid_: exhaustive service catalog item, hidden secondary service
 
+**Triage Card Outcome Copy**:
+Short buyer-facing copy on a homepage triage card that explains what the service cluster helps the visitor decide or move forward.
+_Avoid_: raw service list, long technical description
+
+**Homepage Triage Heading**:
+The public triage section heading: "Escolha a base técnica ideal para o seu projeto".
+_Avoid_: triagem objetiva, decision/base slash wording, overly casual phrasing
+
+**Homepage Triage Intro**:
+The public triage section intro: "Selecione o caminho mais próximo da sua demanda. A BLK ajuda a transformar localização e objetivo em escopo, prazo e entregáveis técnicos."
+_Avoid_: internal routing explanation, persuasive overclaim, service catalog preamble
+
 **Card-Based Matching**:
 The homepage matching pattern where visitors self-select a service cluster through triage cards instead of completing an interactive form.
 _Avoid_: required matcher form, calculator-first homepage
@@ -23,6 +35,10 @@ _Avoid_: primary hero CTA, forced lead capture
 **Detail Path**:
 The secondary route for visitors who want to inspect a triage card's service scope before contacting BLK.
 _Avoid_: primary card click, hidden research path
+
+**Discrete Detail Link**:
+A quiet secondary link from a homepage triage card to its detail path.
+_Avoid_: second primary button, heavy card CTA
 
 **Temporary Support Page**:
 A intentionally simple page that keeps homepage navigation and detail links release-safe while the full destination content is not yet in scope.
@@ -43,6 +59,10 @@ _Avoid_: large proof wall, per-logo explanation, clutter before triage
 **Named Proof**:
 A verifiable served organization, partner, or project reference that BLK is allowed to show publicly.
 _Avoid_: unapproved logo, implied endorsement
+
+**Proof Logo Asset**:
+A provided logo and URL used to represent a named proof item in the compact proof band.
+_Avoid_: invented logo, inconsistent color treatment, oversized proof mark
 
 **Category Proof**:
 A truthful buyer or client-type reference that shows BLK's served market breadth without naming a specific organization.
@@ -132,6 +152,14 @@ _Avoid_: top explanatory header inside the visual panel, crowded mobile controls
 A prefilled WhatsApp message that asks for the minimum useful project context without blocking the chat.
 _Avoid_: generic greeting, required lead form
 
+**Final WhatsApp Composer**:
+The final homepage CTA pattern where visitors provide a location and select their objective before opening a prefilled WhatsApp conversation.
+_Avoid_: long lead form, entrega desejada field, price quote form
+
+**Final Objective Selector**:
+The **Objetivo** selector inside the **Final WhatsApp Composer**, using buyer-objective options from BLK's offer context.
+_Avoid_: five-cluster-only selector, raw service catalog, file-format dropdown
+
 **Auditable Geospatial Base**:
 The technical evidence package BLK uses to support engineering, legal, environmental, or financial decisions.
 _Avoid_: drone images, map files, aerial photos
@@ -141,8 +169,12 @@ BLK outputs that make technical field conditions understandable to both technica
 _Avoid_: pretty visuals, decorative maps, technical-only deliverable
 
 **Client Visualization Platform**:
-The BLK delivery surface where clients can view orthophotos, point clouds, 3D content, and related outputs without specialized software or hardware.
-_Avoid_: file repository, download folder, generic portal
+The internal domain concept for BLK's delivery surface where clients can view orthophotos, point clouds, 3D content, and related outputs without specialized software or hardware.
+_Avoid_: public homepage label, file repository, download folder, generic portal
+
+**App de Visualização e Compartilhamento**:
+The buyer-facing homepage name for BLK's client surface for viewing project outputs and sharing the same visual context with stakeholders.
+_Avoid_: hub visual, entrega navegável, collaboration suite, permanent portal, software product, generic portal
 
 **Standard Visualization Access**:
 The default 20-day client access window to BLK's visualization platform after delivery, extendable when the project needs it.
@@ -152,6 +184,10 @@ _Avoid_: homepage access-window copy, optional portal, permanent hosting promise
 A short homepage proof example tied to a service cluster, showing how BLK's work supported a real type of decision.
 _Avoid_: long case study, vague testimonial
 
+**Portfólio Section**:
+The homepage proof section that shows selected project patterns with descriptive names, short descriptions, placeholder visuals, and deliverable tags.
+_Avoid_: full case-study section, generic sample grid, named-client proof wall
+
 **Anonymized Cluster Proof**:
 A homepage proof snippet that describes a real kind of BLK outcome by service cluster without naming the client or project.
 _Avoid_: named mini-case, unsupported generic example
@@ -159,6 +195,10 @@ _Avoid_: named mini-case, unsupported generic example
 **Hiring Objection FAQ**:
 A practical homepage FAQ section that answers buying concerns before the final CTA.
 _Avoid_: generic SEO FAQ, technical trivia
+
+**Visualization FAQ Answer**:
+The FAQ answer that explains users do not necessarily need specialist software to understand delivery outputs.
+_Avoid_: plataforma de visualização wording, app-as-software-product promise
 
 **Organized Deliverable Space**:
 A structured delivery environment that keeps technical files, visualizations, and supporting context together for easier client use.
@@ -172,6 +212,10 @@ _Avoid_: method-first explanation, equipment-first pitch
 A deliverable category named by the decision it supports, with technical files listed as supporting detail.
 _Avoid_: raw file-format list, jargon-first output list
 
+**Borrowed Technical Term**:
+An English technical term used in BLK copy because it is already common in the buyer's technical workflow.
+_Avoid_: unexplained English flourish, translated term that buyers would not recognize
+
 **Base para Projeto e Obra**:
 The deliverable group for design and construction decisions, including terrain bases, orthophotos, contours, models, sections, and CAD/GIS files.
 _Avoid_: generic project files
@@ -179,6 +223,18 @@ _Avoid_: generic project files
 **Base para Regularização e Aprovação**:
 The deliverable group for legal, cadastral, rural, urban, and municipal approval decisions.
 _Avoid_: paperwork only, map only
+
+**Planta Ambiental**:
+A regularization and approval deliverable that documents environmental constraints or required environmental context for the project scope.
+_Avoid_: decorative environmental map, generic image layer
+
+**LEPAC**:
+Levantamento Planialtimétrico Cadastral used as a regularization and approval deliverable.
+_Avoid_: generic map, loose cadastral sketch
+
+**MDT**:
+Modelo Digital de Terreno used as a concise homepage tag for terrain-model deliverables.
+_Avoid_: MDT/MDS bundle in homepage tags, unexplained model jargon
 
 **Base para Medição e Auditoria**:
 The deliverable group for volumes, progress evidence, date comparisons, reporting, and contractual or financial verification.
@@ -245,15 +301,22 @@ _Avoid_: last-touch attribution, parameter overwriting
 - An **Authority + Triage Homepage** routes visitors through a small set of **Homepage Triage Cards** or directly to **WhatsApp First Contact**.
 - A **Homepage Triage Card** can mention related secondary services so visitors know BLK offers them without turning the homepage into a full catalog.
 - A **Homepage Triage Card** primarily supports **WhatsApp First Contact** and secondarily exposes a **Detail Path**.
+- A **Homepage Triage Card** should expose its **Detail Path** through a **Discrete Detail Link**, while the section keeps only one prominent contact CTA.
+- The homepage triage section should use the **Homepage Triage Heading**.
+- The homepage triage section should use the **Homepage Triage Intro**.
 - The homepage uses **Card-Based Matching** for the current phase instead of a separate Service Matcher or calculator.
 - A **Researching Visitor Offer** belongs below the initial hero and triage flow, not as the primary homepage hero action.
 - A **Detail Path** from a **Homepage Triage Card** can lead to a **Temporary Support Page** in the current phase and later to a **Cluster Detail Page**.
 - A **Temporary Support Page** is not a **Cluster Detail Page** and should not pretend to contain full service-cluster content.
 - The current **Homepage Triage Cards** are **Projeto e Obra**, **Regularização Rural**, **Regularização Urbana**, **Volumetria e Medição**, and **Monitoramento e Inteligência Geográfica**.
+- **Homepage Triage Cards** should use **Triage Card Outcome Copy** rather than raw service-list descriptions.
+- **Homepage Triage Cards** should not use tags; tags belong in deliverables and portfolio sections.
 - **Served Client Proof** supports the **Authority + Triage Homepage** by making prior service visible before visitors decide whether to contact BLK.
 - The homepage should place a **Compact Proof Band** after the hero and before the **Homepage Triage Cards**.
 - **Served Client Proof** can combine **Named Proof** and **Category Proof** when both are truthful.
 - **Named Proof** can distinguish **Direct Client Proof**, **Indirect Client Proof**, **Membership Proof**, and **Operational Credential Proof** in the data model without requiring per-item labels in the homepage UI.
+- **Named Proof** should use a provided **Proof Logo Asset** and URL when available; use a text or fallback visual only when no logo is provided.
+- **Proof Logo Assets** should be visually normalized to a gray treatment and similar perceived size.
 - **Served Client Proof** should use two simple homepage groups: **Credenciais e Associações** and **Clientes e Projetos Atendidos**.
 - **Clientes e Projetos Atendidos** can contain both **Direct Client Proof** and **Indirect Client Proof**.
 - A **Service Landing Page** may have many **Service + City Pages**.
@@ -265,24 +328,72 @@ _Avoid_: last-touch attribution, parameter overwriting
 - The **Authority + Triage Homepage** uses the **Homepage Hero Subheadline** beneath the primary headline.
 - The homepage hero uses a **Hero Service Cluster Carousel** with a **Quiet Technical Hero Visual** to introduce the five main service paths without turning the first viewport into a services grid.
 - The **Hero Service Cluster Carousel** uses **Appealing Motion With Silent Accessibility**: auto-cycle for normal users, pause on hover/focus, stop after dot click, respect reduced-motion preferences, and avoid visible pause/play controls unless testing requires them.
-- A **Lightly Qualified WhatsApp Message** supports **WhatsApp First Contact** by requesting location, area, objective, deadline, and required deliverables inside the chat itself.
+- A **Lightly Qualified WhatsApp Message** supports **WhatsApp First Contact** by requesting enough context to route the first commercial response without forcing a long lead form.
+- The final homepage CTA should use a **Final WhatsApp Composer** with only **Localização** and **Objetivo**.
+- The **Final WhatsApp Composer** should make **Objetivo** a **Final Objective Selector** based on BLK's business-context offer objectives, not a free-text field or raw file-format list.
+- The **Final Objective Selector** can be more specific than the five **Homepage Triage Cards** while staying in buyer language.
+- **Final Objective Selector** labels should combine concise solution categories with buyer cues instead of long need statements or internal service names.
+- The **Final Objective Selector** should include "Ainda não sei, preciso de orientação" as the explicit uncertainty option.
+- The **Final WhatsApp Composer** should initially avoid blocking validation, but its fields should have character limits to keep the prefilled message concise.
+- The **Final WhatsApp Composer** should allow up to 300 characters for **Localização** so visitors can paste a short address or map link.
+- The **Final WhatsApp Composer** should be a compact horizontal composer on desktop and stacked on mobile, avoiding a card-in-band visual treatment.
+- The final CTA can use a light green band for emphasis, but should avoid placing a large white form card inside it; inputs should integrate directly with the band.
+- The final CTA heading should be direct and form-specific: "Envie localização e objetivo do projeto."
 - An **Auditable Geospatial Base** is the core evidence package behind BLK service offers.
 - **Accessible Visual Evidence** makes an **Auditable Geospatial Base** easier for non-technical stakeholders to understand and use in decisions.
+- The **Client Visualization Platform** should be presented publicly as the **App de Visualização e Compartilhamento**.
+- **Compartilhamento** in **App de Visualização e Compartilhamento** means sharing project context with stakeholders, not file collaboration or permanent public hosting.
+- The **App de Visualização e Compartilhamento** should lead with the viewer benefit, using deliverable inventory such as orthophotos, point clouds, models, plans, and technical files as supporting proof.
+- The **App de Visualização e Compartilhamento** is standard in BLK's delivery practice, but homepage copy should present it as part of the delivery experience rather than a rigid per-project inclusion promise.
+- The **App de Visualização e Compartilhamento** can be shown visually as a real app screenshot, while the copy should frame it as a way to review and share BLK delivery artifacts.
+- In the app section, the eyebrow should name **App de Visualização e Compartilhamento** while the headline should name the buyer action or outcome.
+- The app section headline should use "projeto" for buyer clarity, while body copy should clarify the concrete technical deliverables.
+- The app section should say "sem depender de software especializado" rather than implying the app replaces CAD, GIS, or technical tools.
+- The app section should function as proof and differentiation, not as a separate CTA or request to try the app.
+- The app section proof lines should emphasize tasks the app enables rather than naming specific departments or audiences.
+- The app section proof lines should prefer "entregas" over "arquivos" so the app does not read like a download folder.
+- The app section should show the real app screenshot cleanly and prominently, without product-tour callouts or annotations.
+- The app section should use copy-left and screenshot-right on desktop, then stack copy before screenshot on mobile.
+- The app screenshot should keep its real app/window frame visible, but the page should avoid heavy shadow, fake decorative chrome, or dark presentation around it.
+- The app section should use a white or neutral background with restrained green accents, not a green band behind the screenshot.
+- The app section should avoid download-focused copy; "baixar arquivos" should not be one of the main proof lines.
 - The homepage uses **Deliverables First** before explaining the **Trustworthy Method**.
 - **Deliverables First** should use **Decision-First Deliverable Groups** rather than a raw list of file formats.
+- The public deliverables section should use "O QUE VOCÊ RECEBE" as the eyebrow and "Bases técnicas para destravar decisões" as the heading.
 - The homepage **Decision-First Deliverable Groups** are **Base para Projeto e Obra**, **Base para Regularização e Aprovação**, **Base para Medição e Auditoria**, and **Base Visual para Alinhamento**.
+- Public deliverable cards can shorten the **Decision-First Deliverable Group** labels to "Projeto e Obra", "Regularização e Aprovação", "Medição e Auditoria", and "Alinhamento Visual".
+- Public deliverable cards can use **Borrowed Technical Terms** in their tags when those terms are buyer-recognizable, and those terms should be visually distinguished from Portuguese tags.
+- Public deliverable cards should use about four tags each to stay concrete without becoming a file catalog.
+- **Planta Ambiental** belongs under **Base para Regularização e Aprovação**.
+- **LEPAC** belongs under **Base para Regularização e Aprovação** and should be preferred over generic "mapa" when the copy is naming the cadastral deliverable.
+- **MDT** can be used as the homepage-level terrain-model tag without pairing it with **MDS**.
 - The **Trustworthy Method** should mention **Verification Checkpoints**, **PEC-PCD Quality Check**, **Norm-Based Delivery**, and **Aerolevantamento Compliance** where applicable.
 - The homepage and cluster pages use **Standards-Forward Copy** for ABNT NBR 13133, INCRA/SIGEF, PEC-PCD, and aerolevantamento references.
 - For aerolevantamento and drone topography, BLK should communicate **Defense-Registered Aerolevantamento** as a credibility and formal-acceptance requirement.
 - The homepage trust badge should use **Categoria A em Aerolevantamento** wording.
 - BLK should communicate the drone-topography advantage as **Dense Detail with Validated Accuracy**, not as a blanket claim that drone survey is more precise than traditional topography.
 - The homepage names the **Technical Confidence Method** section as "Como garantimos confiança técnica".
+- The **Technical Confidence Method** should use a horizontal stepper on desktop, stacked steps on mobile, and a light green **Categoria A em Aerolevantamento** badge.
 - **Defense-Registered Aerolevantamento** should appear as a light trust badge near the **Technical Confidence Method** and as a fuller explanation in the **Hiring Objection FAQ**.
 - The **Client Visualization Platform** turns **Accessible Visual Evidence** into a usable **Organized Deliverable Space** for clients without specialized software or hardware.
 - **Standard Visualization Access** is part of BLK delivery and lasts 20 days by default, with extension available by project need, but the homepage should emphasize easy visualization rather than the access window.
-- The **Client Visualization Platform** appears as a highlighted differentiator after the homepage **Decision-First Deliverable Groups**, not as one of the deliverable groups.
-- After the **Technical Confidence Method**, the homepage should show **Use-Case Proof Snippets**, then **Hiring Objection FAQ**, then a final **Primary Specialist CTA**.
-- Homepage **Use-Case Proof Snippets** should use **Anonymized Cluster Proof**; named cases belong on dedicated case pages.
+- The **App de Visualização e Compartilhamento** appears as a highlighted differentiator after the homepage **Decision-First Deliverable Groups**, not as one of the deliverable groups.
+- After the **Technical Confidence Method**, the homepage should show the **Portfólio Section**, then **Hiring Objection FAQ**, then a final **Primary Specialist CTA**.
+- The **Hiring Objection FAQ** should use **App de Visualização e Compartilhamento** wording in the visualization/software answer.
+- The **Portfólio Section** should use **Anonymized Cluster Proof** patterns; named cases belong on dedicated case pages.
+- The public eyebrow for the **Portfólio Section** should be "PORTFÓLIO", not "PORTIFOLIO".
+- **Portfólio Section** cards should show the service-cluster label as a small muted label and the project-style example name as the card title.
+- The **Portfólio Section** should use a single short intro sentence, not a long explanatory block.
+- **Portfólio Section** placeholders should use artifact-shaped skeletons rather than generic image placeholders.
+- **Portfólio Section** cards should keep consistent dimensions while varying the internal skeleton rhythm by artifact type.
+- **Portfólio Section** cards can include one small metric or proof cue when it strengthens the example, but should avoid tickets, exact dates, or detailed case-study outcomes.
+- **Portfólio Section** can include a named project example when BLK is comfortable showing that reference publicly.
+- The **Portfólio Section** can mix one named public anchor with descriptive project examples for the remaining cards.
+- **Portfólio Section** cards should not include per-card detail links in the current pass.
+- **Portfólio Section** tags should stay in Portuguese unless a technical acronym is already buyer-facing.
+- **Portfólio Section** tags should prefer "modelo 3D" over "maquete 3D" for geospatial delivery examples.
+- **Portfólio Section** tags should be separate chips instead of slash-combined labels when space allows.
+- **Portfólio Section** tags should use lowercase except for established acronyms.
 - A **Searchable Coverage Index** lists all active cities and their neighborhoods, letting users find their location before navigating to a **Service + City Page**.
 - A **Lead Capture Offer** captures client info with GTM and Pipedream only when Consent Mode v2 is granted, serving as a **Researching Visitor Offer**.
 - **First-Touch Attribution** stores campaign data to qualify the **Lightly Qualified WhatsApp Message** even if the visitor views other pages first.
@@ -297,3 +408,4 @@ _Avoid_: last-touch attribution, parameter overwriting
 - "Homepage" was used as both a brand page and a single-service landing page - resolved: this project uses an **Authority + Triage Homepage**.
 - "Contact CTA" could mean a form, phone, email, or WhatsApp - resolved: the primary low-friction path is **WhatsApp First Contact**.
 - "Detail page" was used for both release-safe placeholders and full service-cluster content - resolved: the current phase uses **Temporary Support Pages**; future full destinations are **Cluster Detail Pages**.
+- "Hub visual" was too vague and English-coded for homepage copy - resolved: the public section should use **App de Visualização e Compartilhamento**.
