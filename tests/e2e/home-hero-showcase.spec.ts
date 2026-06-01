@@ -75,7 +75,7 @@ test("homepage renders the authority triage section order with canonical hero co
     "section-deliverables",
     "section-visualization-platform",
     "section-technical-confidence",
-    "section-proof-snippets",
+    "section-portfolio",
     "section-faq",
     "section-final-cta"
   ];
@@ -280,9 +280,10 @@ test("homepage portfolio uses proof-shaped placeholders and FAQ uses app termino
 }) => {
   await page.goto("/");
 
-  const proof = page.getByTestId("section-proof-snippets");
-  await expect(proof).toContainText("PORTFÓLIO");
-  await expect(proof.getByRole("heading", { name: "Exemplos de projeto e evidência entregue" })).toBeVisible();
+  const portfolio = page.getByTestId("section-portfolio");
+  await expect(page.getByTestId("section-proof-snippets")).toHaveCount(0);
+  await expect(portfolio).toContainText("PORTFÓLIO");
+  await expect(portfolio.getByRole("heading", { name: "Exemplos de projeto e evidência entregue" })).toBeVisible();
   for (const text of [
     "Terreno em Condomínio",
     "Parcelamento em Chácaras",
@@ -293,10 +294,10 @@ test("homepage portfolio uses proof-shaped placeholders and FAQ uses app termino
     "LEPAC",
     "ritmo de uso"
   ]) {
-    await expect(proof).toContainText(text);
+    await expect(portfolio).toContainText(text);
   }
-  await expect(proof.locator("[data-testid='portfolio-skeleton']")).toHaveCount(5);
-  await expect(proof.getByRole("link")).toHaveCount(0);
+  await expect(portfolio.locator("[data-testid='portfolio-skeleton']")).toHaveCount(5);
+  await expect(portfolio.getByRole("link")).toHaveCount(0);
 
   const faq = page.getByTestId("section-faq");
   await expect(faq.locator("[data-accordion='collapse']")).toBeVisible();
@@ -311,6 +312,21 @@ test("homepage portfolio uses proof-shaped placeholders and FAQ uses app termino
     await expect(faq).toContainText(topic);
   }
   await expect(faq).not.toContainText(/a partir de R\$|preço inicial/i);
+});
+
+test("homepage ships without prototype-only markers or switchers", async ({ page }) => {
+  await page.goto("/");
+
+  const prototypeAttributes = await page.evaluate(() =>
+    Array.from(document.querySelectorAll("*")).flatMap((element) =>
+      Array.from(element.attributes)
+        .map((attribute) => attribute.name)
+        .filter((name) => name.startsWith("data-prototype") || name.startsWith("data-homepage-prototype"))
+    )
+  );
+  expect(prototypeAttributes).toEqual([]);
+  await expect(page.getByText(/PrototypeSwitcher|homepage prototype|variant switcher/i)).toHaveCount(0);
+  expect(page.url()).not.toContain("variant=");
 });
 
 test("homepage hero renders five no-arrow cluster carousel slides with labeled dots", async ({

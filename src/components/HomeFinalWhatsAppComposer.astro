@@ -50,6 +50,7 @@ const number = getWhatsAppNumber();
           class="mt-2 w-full rounded-lg border border-primary-200 bg-white px-3 py-3 text-sm font-normal text-gray-900 focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-100"
           name="objective"
         >
+          <option value="" selected disabled>Selecione o objetivo</option>
           {content.objectives.map((objective) => (
             <option value={objective}>{objective}</option>
           ))}

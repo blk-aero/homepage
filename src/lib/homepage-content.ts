@@ -7,7 +7,7 @@ export const homepageSectionOrder = [
   "deliverables",
   "visualization-platform",
   "technical-confidence",
-  "proof-snippets",
+  "portfolio",
   "faq",
   "final-cta"
 ] as const;
@@ -279,10 +279,6 @@ export const homepageContent = {
         tags: ["previsão", "ritmo de uso", "gestão de ativo"]
       }
     ]
-  },
-  proofSnippets: {
-    title: "Padrões reais de trabalho, apresentados sem expor clientes",
-    snippets: []
   },
   faq: {
     title: "Dúvidas comuns antes de contratar",

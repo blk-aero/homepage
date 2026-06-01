@@ -15,10 +15,12 @@ describe("homepage content model", () => {
       "deliverables",
       "visualization-platform",
       "technical-confidence",
-      "proof-snippets",
+      "portfolio",
       "faq",
       "final-cta"
     ]);
+    expect(homepageContent.sectionOrder).not.toContain("proof-snippets");
+    expect(homepageContent).not.toHaveProperty("proofSnippets");
 
     expect(homepageContent.triageCards.cards.map((card) => [card.title, card.detailPath])).toEqual([
       ["Projeto e Obra", "/solucoes/projeto-e-obra"],

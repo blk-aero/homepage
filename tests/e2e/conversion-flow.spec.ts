@@ -90,6 +90,11 @@ test("homepage final CTA composer uses shared whatsapp payload behavior", async 
   await expect(objective).toContainText("Ainda não sei, preciso de orientação");
   await expect(finalCta).toBeVisible();
 
+  await expect(objective).toHaveValue("");
+  const initialHref = decodeURIComponent((await finalCta.getAttribute("href")) || "");
+  expect(initialHref).toContain("CTA: final-cta.");
+  expect(initialHref).not.toContain("Objetivo:");
+
   const sectionBox = await finalSection.boundingBox();
   const headingBox = await finalHeading.boundingBox();
   const ctaBox = await finalCta.boundingBox();
