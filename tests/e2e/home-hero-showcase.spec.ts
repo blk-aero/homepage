@@ -128,43 +128,79 @@ test("compact proof band shows the accepted proof groups without relationship la
   await expect(proofBand).not.toContainText(/cliente direto|parceiro|fornecedor/i);
 });
 
-test("homepage triage cards show five clusters with examples and detail actions", async ({
+test("homepage triage cards route by outcome with one section CTA and discrete detail links", async ({
   page
 }) => {
   await page.goto("/");
 
   const cards = page.getByTestId("section-triage-cards");
+  await expect(
+    cards.getByRole("heading", { name: "Escolha a base técnica ideal para o seu projeto" })
+  ).toBeVisible();
+  await expect(
+    cards.getByText(
+      "Selecione o caminho mais próximo da sua demanda. A BLK ajuda a transformar localização e objetivo em escopo, prazo e entregáveis técnicos."
+    )
+  ).toBeVisible();
+
   const expectedCards = [
-    ["Projeto e Obra", "as-built"],
-    ["Regularização Rural", "SIGEF"],
-    ["Regularização Urbana", "REURB"],
-    ["Volumetria e Medição", "terraplenagem"],
-    ["Monitoramento e Inteligência Geográfica", "due diligence"]
+    ["Projeto e Obra", "projetar, compatibilizar ou acompanhar"],
+    ["Regularização Rural", "análise documental e geoespacial"],
+    ["Regularização Urbana", "aprovação e alinhamento"],
+    ["Volumetria e Medição", "comparáveis, verificáveis"],
+    ["Monitoramento e Inteligência Geográfica", "acompanhados ao longo do tempo"]
   ];
 
   for (const [title, example] of expectedCards) {
     const card = cards.locator("article").filter({ has: page.getByRole("heading", { name: title }) });
     await expect(card).toBeVisible();
     await expect(card).toContainText(example);
-    await expect(card.getByRole("link", { name: "Falar com especialista" })).toBeVisible();
-    await expect(card.getByRole("link", { name: `Ver detalhes: ${title}` })).toBeVisible();
+    await expect(card.getByRole("link", { name: "Falar com especialista" })).toHaveCount(0);
+    await expect(card.getByRole("link", { name: "Ver detalhes", exact: true })).toBeVisible();
   }
+
+  await expect(cards.getByRole("link", { name: "Falar com especialista" })).toHaveCount(1);
+  await expect(cards).not.toContainText(/\b(SIGEF|REURB|as-built|due diligence)\b/i);
 });
 
-test("homepage deliverables are grouped around buyer decisions", async ({ page }) => {
+test("homepage deliverables show approved decision-first groups and tags", async ({ page }) => {
   await page.goto("/");
 
   const deliverables = page.getByTestId("section-deliverables");
+  await expect(deliverables).toContainText("O QUE VOCÊ RECEBE");
+  await expect(
+    deliverables.getByRole("heading", { name: "Bases técnicas para destravar decisões" })
+  ).toBeVisible();
+
   for (const group of [
-    "Base para Projeto e Obra",
-    "Base para Regularização e Aprovação",
-    "Base para Medição e Auditoria",
-    "Base Visual para Alinhamento"
+    "Projeto e Obra",
+    "Regularização e Aprovação",
+    "Medição e Auditoria",
+    "Alinhamento Visual"
   ]) {
     await expect(deliverables.getByRole("heading", { name: group })).toBeVisible();
   }
 
-  await expect(deliverables).toContainText(/decisão|aprovação|auditoria|alinhamento/i);
+  for (const tag of [
+    "DXF",
+    "curvas de nível",
+    "levantamento planialtimétrico",
+    "memorial",
+    "LEPAC",
+    "perímetro",
+    "planta ambiental",
+    "volumetria",
+    "corte / aterro",
+    "comparativos",
+    "relatório",
+    "ortofoto",
+    "nuvem de pontos",
+    "modelo 3D",
+    "MDT"
+  ]) {
+    await expect(deliverables).toContainText(tag);
+  }
+  await expect(deliverables.locator("em", { hasText: "as-built" })).toBeVisible();
 });
 
 test("homepage visualization platform is a separate differentiator after deliverables", async ({

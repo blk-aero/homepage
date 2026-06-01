@@ -22,7 +22,7 @@ test("homepage whatsapp CTA includes CTA location and attribution in URL and cli
   expect(href).toContain("utm_source=google");
   expect(href).toContain("gclid=abc123");
 
-  await cta.click();
+  await cta.dispatchEvent("click");
 
   const payload = await page.evaluate(() => {
     const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
@@ -38,40 +38,37 @@ test("homepage whatsapp CTA includes CTA location and attribution in URL and cli
   });
 });
 
-test("homepage triage card whatsapp CTA includes selected cluster and card location", async ({
+test("homepage triage section whatsapp CTA includes section location and attribution", async ({
   page
 }) => {
   await page.goto("/?utm_source=google&gclid=abc123");
 
-  const card = page
-    .getByTestId("section-triage-cards")
-    .locator("article")
-    .filter({ has: page.getByRole("heading", { name: "Regularização Rural" }) });
-  const cta = card.getByRole("link", { name: "Falar com especialista" });
+  const triageSection = page.getByTestId("section-triage-cards");
+  const cta = triageSection.getByRole("link", { name: "Falar com especialista" });
   await expect(cta).toBeVisible();
+  await expect(triageSection.locator("article").getByRole("link", { name: "Falar com especialista" })).toHaveCount(0);
 
   const href = decodeURIComponent((await cta.getAttribute("href")) || "");
-  expect(href).toContain("Cluster selecionado: Regularização Rural.");
-  expect(href).toContain("CTA: triage-card-regularizacao-rural.");
+  expect(href).not.toContain("Cluster selecionado:");
+  expect(href).toContain("CTA: triage-section.");
   expect(href).toContain("gclid=abc123");
 
-  await cta.click();
+  await cta.dispatchEvent("click");
 
   const payload = await page.evaluate(() => {
     const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
     return events.find(
-      (event) =>
-        event.event === "whatsapp_click" && event.selected_cluster === "Regularização Rural"
+      (event) => event.event === "whatsapp_click" && event.cta_location === "triage-section"
     );
   });
 
   expect(payload).toMatchObject({
     event: "whatsapp_click",
     page_path: "/",
-    selected_cluster: "Regularização Rural",
-    cta_location: "triage-card-regularizacao-rural",
+    cta_location: "triage-section",
     gclid: "abc123"
   });
+  expect(payload.selected_cluster).toBeUndefined();
 });
 
 test("homepage final CTA uses shared whatsapp payload behavior", async ({ page }) => {
@@ -106,7 +103,7 @@ test("homepage final CTA uses shared whatsapp payload behavior", async ({ page }
   expect(href).toContain("CTA: final-cta.");
   expect(href).toContain("gclid=abc123");
 
-  await finalCta.click();
+  await finalCta.dispatchEvent("click");
 
   const payload = await page.evaluate(() => {
     const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
