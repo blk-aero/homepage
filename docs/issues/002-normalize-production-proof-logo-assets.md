@@ -12,16 +12,16 @@ labels:
 
 ## What to build
 
-Prepare production-ready **Proof Logo Assets** for the approved proof items that have logo files. The output should follow the manual standard documented beside the homepage proof-logo assets: quiet gray treatment, tight crop, consistent perceived size, transparent backgrounds where possible, and performance-conscious file sizes.
+Prepare production-ready **Proof Logo Assets** for the approved proof items that have logo files. The output should follow the manual standard documented beside the homepage proof-logo assets: original color treatment, tight crop, consistent perceived size, transparent backgrounds where possible, and performance-conscious file sizes.
 
-Prefer monochrome SVG when the mark can be represented cleanly as vector. Use optimized raster assets only when SVG is not reliable for the source logo. Keep intake/source files out of the runtime homepage surface.
+Prefer SVG when the mark can be represented cleanly as vector. Use optimized raster assets only when SVG is not reliable for the source logo. Keep intake/source files out of the runtime homepage surface.
 
 ## Acceptance criteria
 
 - [ ] Production logo assets exist for all approved logo-backed proof items in the content model.
 - [ ] SVG is used for clean vector logos where practical.
 - [ ] Optimized raster assets are used only where vector output is not reliable.
-- [ ] Assets are cropped tightly and normalized to a quiet gray treatment.
+- [ ] Assets are cropped tightly and normalized using original colors.
 - [ ] Assets avoid oversized source-file payloads.
 - [ ] The production asset directory remains separate from temporary intake files.
 

@@ -20,7 +20,7 @@ The content model should embed the approved proof items directly in the homepage
 
 The component should show all approved items, preserve the two existing visible proof groups, sort items alphabetically inside each group, link each item quietly to its source URL, and use the same quiet proof-item layout for logo-backed and text fallback items.
 
-Logo assets should be manually normalized before they enter the production asset directory. Prefer monochrome SVG for clean vector marks. Use optimized raster assets only when SVG is not reliable for the source logo. Rendering should use Astro-native asset handling so the compact proof band stays performance-conscious.
+Logo assets should be manually normalized before they enter the production asset directory. Prefer SVG for clean vector marks. Use optimized raster assets only when SVG is not reliable for the source logo. Rendering should use Astro-native asset handling so the compact proof band stays performance-conscious.
 
 ## User Stories
 
@@ -60,9 +60,9 @@ Logo assets should be manually normalized before they enter the production asset
 - Logo alt text should use the public display name only.
 - Text fallback items should use the same quiet proof-item layout as logo-backed items.
 - Manually normalize logo assets before production use.
-- Prefer monochrome SVG for logos that can be represented cleanly as vector assets.
+- Prefer SVG for logos that can be represented cleanly as vector assets.
 - Use optimized raster assets only when the source logo cannot be reliably represented as SVG.
-- Keep normalized production logos visually gray, tightly cropped, transparent where possible, and consistent in perceived size.
+- Keep normalized production logos in their original colors, tightly cropped, transparent where possible, and consistent in perceived size.
 - Keep the proof band performance-conscious by avoiding oversized source files and relying on the site's Astro asset flow.
 - Render raster logos with Astro's image component.
 - Render SVG logos as Astro SVG component imports where that is the cleanest path.

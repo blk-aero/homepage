@@ -5,9 +5,9 @@ This directory is for production-ready logos used by the homepage compact proof 
 ## Output Standard
 
 - Use approved proof items only. Do not infer public-use approval from a loose file in `tmp/`.
-- Prefer monochrome SVG for logos that can be represented cleanly as vector assets.
+- Prefer SVG for logos that can be represented cleanly as vector assets.
 - Use optimized raster assets only when the source logo cannot be reliably represented as SVG.
-- Normalize logos to a quiet gray treatment that matches the compact proof band.
+- Normalize logos to their original colors, keeping them consistent in perceived size.
 - Crop assets tightly and remove unnecessary padding.
 - Use transparent backgrounds where possible.
 - Keep perceived logo size consistent across wide, tall, and text-heavy marks.
