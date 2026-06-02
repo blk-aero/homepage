@@ -14,6 +14,124 @@ export const homepageSectionOrder = [
 
 export type HomepageSectionId = (typeof homepageSectionOrder)[number];
 
+export type HomepageProofItem = {
+  name: string;
+  href: string;
+  logo?: string;
+};
+
+export type HomepageProofGroup = {
+  title: string;
+  items: HomepageProofItem[];
+};
+
+const homepageProofGroups = [
+  {
+    title: "Credenciais e Associações",
+    items: [
+      {
+        name: "ACONVAP",
+        href: "https://www.aconvap.com.br/",
+        logo: "aconvap.png"
+      },
+      {
+        name: "BR-UTM",
+        href: "https://br-utm.decea.mil.br/",
+        logo: "br-utm.png"
+      },
+      {
+        name: "CREA-SP",
+        href: "https://www.creasp.org.br/",
+        logo: "crea-sp.svg"
+      },
+      {
+        name: "Enredes",
+        href: "https://enredes.com.br/",
+        logo: "enredes.png"
+      },
+      {
+        name: "INCRA",
+        href: "https://www.gov.br/incra/pt-br",
+        logo: "incra.png"
+      },
+      {
+        name: "Ministério da Defesa",
+        href: "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento",
+        logo: "ministerio-defesa.png"
+      },
+      {
+        name: "UNICAMP",
+        href: "https://unicampventures.org.br/",
+        logo: "unicamp.png"
+      }
+    ]
+  },
+  {
+    title: "Clientes e Projetos Atendidos",
+    items: [
+      {
+        name: "Construtora Oliveira Roxo",
+        href: "https://www.instagram.com/construtoraoliveiraroxo/",
+        logo: "oliveira-roxo.png"
+      },
+      {
+        name: "Lia Blanco Arquitetura",
+        href: "https://www.instagram.com/blancolia/"
+      },
+      {
+        name: "Lucas Diniz Arquitetura",
+        href: "https://www.instagram.com/lucasdinizarquitetura/",
+        logo: "lucas-diniz.png"
+      },
+      {
+        name: "Macaw Studio",
+        href: "https://macawstudio.myportfolio.com/",
+        logo: "macaw-studio.png"
+      },
+      {
+        name: "Mobilidade Urbana SJC",
+        href: "https://www.sjc.sp.gov.br/secretarias/mobilidade-urbana/",
+        logo: "pmsjc.png"
+      },
+      {
+        name: "Montante",
+        href: "https://montante.com.br/",
+        logo: "montante.png"
+      },
+      {
+        name: "Polimix Ambiental",
+        href: "https://www.polimixambiental.com.br/",
+        logo: "polimix-ambiental.png"
+      },
+      {
+        name: "Sahyoun Properties",
+        href: "https://sahyounproperties.com/",
+        logo: "sahyoun-properties.svg"
+      },
+      {
+        name: "Sergio Porto Engenharia",
+        href: "https://www.sergioporto.com.br/",
+        logo: "sergio-porto.png"
+      },
+      {
+        name: "Six Engenharia",
+        href: "https://sixengenharia.com.br/",
+        logo: "six-engenharia.png"
+      },
+      {
+        name: "SN Saneamento",
+        href: "http://snsaneamento.com.br",
+        logo: "sergio-nogueira.png"
+      },
+      {
+        name: "URBAM",
+        href: "https://www.urbam.com.br/",
+        logo: "urbam.png"
+      }
+    ]
+  }
+] satisfies HomepageProofGroup[];
+
 export const homepageContent = {
   hero: {
     title: "Do terreno real à decisão segura e auditável",
@@ -130,22 +248,7 @@ export const homepageContent = {
     })
   },
   proofBand: {
-    credentialsTitle: "Credenciais e Associações",
-    credentials: ["ACONVAP", "Enredes", "Ministério da Defesa", "CREA-SP", "BR-UTM/DECEA"],
-    clientProjectsTitle: "Clientes e Projetos Atendidos",
-    clientProjects: [
-      "SN Saneamento",
-      "Sabesp",
-      "Construtora Oliveira Roxo",
-      "Sahyoun Properties",
-      "Polimix Ambiental",
-      "Six Engenharia",
-      "Macaw Studio",
-      "Sergio Porto",
-      "Montante",
-      "URBAM",
-      "SJC Mobilidade"
-    ]
+    groups: homepageProofGroups
   },
   deliverables: {
     eyebrow: "O QUE VOCÊ RECEBE",
