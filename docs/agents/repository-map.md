@@ -14,7 +14,6 @@
 
 ## Task Routing
 
-- For page, section, visual asset, CTA, navigation, proof block, or service-content work, follow `DESIGN.md`.
 - For page/content changes, verify route rendering and CTA presence.
 - For schema/SEO changes, verify metadata outputs and crawl artifacts such as `/robots.txt` and sitemap files.
 - For backlog planning, open only the root-level `docs/*-prd.md` file that matches the requested work.
