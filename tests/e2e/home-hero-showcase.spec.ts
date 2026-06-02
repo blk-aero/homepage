@@ -102,32 +102,56 @@ test("compact proof band shows the accepted proof groups without relationship la
   await page.goto("/");
 
   const proofBand = page.getByTestId("section-compact-proof");
+  const triageCards = page.getByTestId("section-triage-cards");
   await expect(proofBand.getByRole("heading", { name: "Credenciais e Associações" })).toBeVisible();
   await expect(
     proofBand.getByRole("heading", { name: "Clientes e Projetos Atendidos" })
   ).toBeVisible();
 
-  for (const item of ["ACONVAP", "Enredes", "Ministério da Defesa", "CREA-SP", "BR-UTM/DECEA"]) {
-    await expect(proofBand).toContainText(item);
+  const proofLinks = [
+    ["ACONVAP", "https://www.aconvap.com.br/"],
+    ["BR-UTM", "https://br-utm.decea.mil.br/"],
+    ["CREA-SP", "https://www.creasp.org.br/"],
+    ["Enredes", "https://enredes.com.br/"],
+    ["INCRA", "https://www.gov.br/incra/pt-br"],
+    ["Ministério da Defesa", "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento"],
+    ["UNICAMP", "https://unicampventures.org.br/"],
+    ["Construtora Oliveira Roxo", "https://www.instagram.com/construtoraoliveiraroxo/"],
+    ["Lia Blanco Arquitetura", "https://www.instagram.com/blancolia/"],
+    ["Lucas Diniz Arquitetura", "https://www.instagram.com/lucasdinizarquitetura/"],
+    ["Macaw Studio", "https://macawstudio.myportfolio.com/"],
+    ["Mobilidade Urbana SJC", "https://www.sjc.sp.gov.br/secretarias/mobilidade-urbana/"],
+    ["Montante", "https://montante.com.br/"],
+    ["Polimix Ambiental", "https://www.polimixambiental.com.br/"],
+    ["Sahyoun Properties", "https://sahyounproperties.com/"],
+    ["Sergio Porto Engenharia", "https://www.sergioporto.com.br/"],
+    ["Six Engenharia", "https://sixengenharia.com.br/"],
+    ["SN Saneamento", "http://snsaneamento.com.br"],
+    ["URBAM", "https://www.urbam.com.br/"]
+  ];
+
+  for (const [name, href] of proofLinks) {
+    const link = proofBand.getByRole("link", { name });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute("href", href);
   }
 
-  for (const item of [
-    "SN Saneamento",
-    "Sabesp",
-    "Construtora Oliveira Roxo",
-    "Sahyoun Properties",
-    "Polimix Ambiental",
-    "Six Engenharia",
-    "Macaw Studio",
-    "Sergio Porto",
-    "Montante",
-    "URBAM",
-    "SJC Mobilidade"
-  ]) {
-    await expect(proofBand).toContainText(item);
-  }
+  await expect(proofBand.getByRole("link", { name: "Lia Blanco Arquitetura" })).toContainText(
+    "Lia Blanco Arquitetura"
+  );
+  await expect(proofBand.getByRole("img")).toHaveCount(18);
+  await expect(proofBand).not.toContainText(
+    /cliente direto|cliente indireto|parceiro|fornecedor|supplier|endorsement/i
+  );
 
-  await expect(proofBand).not.toContainText(/cliente direto|parceiro|fornecedor/i);
+  const heroBox = await page.getByTestId("section-hero").boundingBox();
+  const proofBox = await proofBand.boundingBox();
+  const triageBox = await triageCards.boundingBox();
+  expect(heroBox).toBeTruthy();
+  expect(proofBox).toBeTruthy();
+  expect(triageBox).toBeTruthy();
+  expect(proofBox?.y ?? 0).toBeGreaterThan(heroBox?.y ?? 0);
+  expect(triageBox?.y ?? 0).toBeGreaterThan(proofBox?.y ?? 0);
 });
 
 test("homepage triage cards route by outcome with one section CTA and discrete detail links", async ({
