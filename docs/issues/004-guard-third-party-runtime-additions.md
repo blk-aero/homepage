@@ -16,13 +16,13 @@ runtime drift.
 
 ## Acceptance criteria
 
-- [ ] The current public-page runtime script inventory is captured by a check or
+- [x] The current public-page runtime script inventory is captured by a check or
       allowlist.
-- [ ] New third-party runtime additions require a named business-purpose
+- [x] New third-party runtime additions require a named business-purpose
       exception.
-- [ ] The guardrail does not remove existing operational or analytics scripts
+- [x] The guardrail does not remove existing operational or analytics scripts
       unless measurement shows they are harmful or no longer purposeful.
-- [ ] Relevant page behavior remains covered by existing tests.
+- [x] Relevant page behavior remains covered by existing tests.
 
 ## Test intent
 

@@ -16,13 +16,13 @@ inspected as static HTML.
 
 ## Acceptance criteria
 
-- [ ] Built output exposes primary homepage headings and body copy without
+- [x] Built output exposes primary homepage headings and body copy without
       relying on client-side JavaScript.
-- [ ] Built output exposes primary links and CTA destinations needed for
+- [x] Built output exposes primary links and CTA destinations needed for
       crawling and first-contact paths.
-- [ ] Built output exposes page metadata needed for basic crawl/render
+- [x] Built output exposes page metadata needed for basic crawl/render
       performance.
-- [ ] The check is documented as prior art for future public page templates.
+- [x] The check is documented as prior art for future public page templates.
 
 ## Test intent
 

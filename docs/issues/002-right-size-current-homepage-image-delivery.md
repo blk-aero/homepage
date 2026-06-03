@@ -15,14 +15,14 @@ already implemented first-image LCP priority behavior.
 
 ## Acceptance criteria
 
-- [ ] The homepage hero image is delivered closer to its rendered slot without
+- [x] The homepage hero image is delivered closer to its rendered slot without
       removing the existing LCP priority behavior.
-- [ ] Proof/logo images flagged by PageSpeed are delivered closer to their
+- [x] Proof/logo images flagged by PageSpeed are delivered closer to their
       rendered sizes without becoming decorative or losing meaningful `alt`
       text.
-- [ ] Header/footer logo image sizing includes explicit dimensions where needed
+- [x] Header/footer logo image sizing includes explicit dimensions where needed
       to avoid PageSpeed's missing-dimensions diagnostic.
-- [ ] Existing homepage layout stability and no-horizontal-overflow behavior are
+- [x] Existing homepage layout stability and no-horizontal-overflow behavior are
       preserved.
 
 ## Test intent

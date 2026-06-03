@@ -16,11 +16,11 @@ enforce the desired headers.
 
 ## Acceptance criteria
 
-- [ ] Live HTML remains short-lived enough for content and metadata updates to
+- [x] Live HTML remains short-lived enough for content and metadata updates to
       roll out predictably.
 - [ ] Live content-hashed Astro assets serve a long immutable cache policy,
       ideally `public, max-age=31536000, immutable`.
-- [ ] If the current hosting layer cannot enforce the desired headers, the
+- [x] If the current hosting layer cannot enforce the desired headers, the
       trade-off and chosen infrastructure path are documented before
       implementation.
 - [ ] The final behavior is verified against production after deployment.

@@ -15,13 +15,13 @@ pages, and verify the homepage still renders correctly through built preview.
 
 ## Acceptance criteria
 
-- [ ] Rendered public pages no longer request `fonts.googleapis.com` or
+- [x] Rendered public pages no longer request `fonts.googleapis.com` or
       `fonts.gstatic.com` for Lato.
-- [ ] Lato remains the configured visual baseline; the implementation does not
+- [x] Lato remains the configured visual baseline; the implementation does not
       silently switch to a system font stack.
-- [ ] Font loading is handled with local assets and an intentional loading
+- [x] Font loading is handled with local assets and an intentional loading
       strategy.
-- [ ] Homepage rendering remains visually stable enough for the existing
+- [x] Homepage rendering remains visually stable enough for the existing
       homepage Playwright checks to pass.
 
 ## Test intent

@@ -19,6 +19,8 @@ npm run build && npm run preview -- --host 127.0.0.1 --port 4321
 
 Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright against an already-started local server. By default, Playwright builds and previews the current checkout to avoid stale dev-server output.
 
+`npm run test` excludes the `dist`-reading built-output specs so the default unit/config suite does not depend on local build state. Use `npm run test:built` for crawlable HTML, public runtime, and deployment release checks that must build first.
+
 ## Verification Matrix
 
 - Docs-only changes: run `git diff --check`.
@@ -28,6 +30,8 @@ Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright again
 - `src/content/config.ts` or active route inventory changes: run `npm run test -- tests/config/current-surface.test.ts`.
 - `src/content/site/global.yaml` or `src/lib/site-config.ts`: run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.
 - Route/content changes in `src/pages` or `src/content`: run `npm run test:e2e -- tests/e2e/routing.spec.ts`, relevant behavior specs, and `npm run build`.
+- Crawl/render-sensitive homepage changes: run `npm run test:built`. This includes `tests/config/crawlable-built-html.test.ts`, the crawlable built HTML foundation check and the prior-art path for future public templates.
+- Third-party runtime changes: update `docs/agents/public-runtime-allowlist.json` with the named business purpose, then run `npm run test:built`.
 - CTA/navigation/hero behavior changes: run relevant e2e specs, especially `tests/e2e/conversion-flow.spec.ts`, `tests/e2e/navigation-whatsapp.spec.ts`, and `tests/e2e/home-hero-showcase.spec.ts`.
 - Lead magnet/trust/about parity changes: run `npm run test:e2e -- tests/e2e/prd-parity.spec.ts`.
 - Embed/lazy-media changes: run `npm run test:e2e -- tests/e2e/lite-embed.spec.ts`.
