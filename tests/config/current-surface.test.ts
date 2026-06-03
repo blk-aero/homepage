@@ -40,12 +40,6 @@ const activeSurfaceFiles = [
   "src/layouts/BaseLayout.astro"
 ];
 
-const activePlanningFiles = [
-  "docs/backlog_prd.md",
-  "docs/to-be-grilled.md",
-  "docs/proof-logo-assets-prd.md"
-];
-
 describe("current homepage branch surface", () => {
   it("keeps only the homepage and temporary support route files", () => {
     for (const file of activeSurfaceFiles) {
@@ -60,12 +54,6 @@ describe("current homepage branch surface", () => {
   it("removes components that only supported legacy generated pages", () => {
     for (const file of removedLegacyComponents) {
       expect(existsSync(file), `${file} should be removed`).toBe(false);
-    }
-  });
-
-  it("keeps current planning docs available outside Archive", () => {
-    for (const file of activePlanningFiles) {
-      expect(existsSync(file), `${file} should exist`).toBe(true);
     }
   });
 });

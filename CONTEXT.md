@@ -56,6 +56,10 @@ _Avoid_: decorative logo strip, unverifiable social proof
 A short proof section placed near the homepage hero that shows credibility without delaying service triage.
 _Avoid_: large proof wall, per-logo explanation, clutter before triage
 
+**Home Proof Band Component**:
+The single homepage component responsible for rendering the compact proof groups, logo-backed proof items, and text fallback proof items.
+_Avoid_: duplicated inline proof markup, parallel proof sections
+
 **Named Proof**:
 A verifiable served organization, partner, or project reference that BLK is allowed to show publicly.
 _Avoid_: unapproved logo, implied endorsement
@@ -63,6 +67,10 @@ _Avoid_: unapproved logo, implied endorsement
 **Proof Logo Asset**:
 A provided logo and URL used to represent a named proof item in the compact proof band.
 _Avoid_: invented logo, inconsistent color treatment, oversized proof mark
+
+**Homepage Proof Content Model**:
+The curated homepage content structure that records which named proof items appear in each proof group and whether each item uses a logo or text fallback.
+_Avoid_: loose asset-folder inventory, separate mini-CMS, inferred public-use permission
 
 **Category Proof**:
 A truthful buyer or client-type reference that shows BLK's served market breadth without naming a specific organization.
@@ -150,7 +158,35 @@ _Avoid_: top explanatory header inside the visual panel, crowded mobile controls
 
 **Lightly Qualified WhatsApp Message**:
 A prefilled WhatsApp message that asks for the minimum useful project context without blocking the chat.
-_Avoid_: generic greeting, required lead form
+_Avoid_: generic greeting, orçamento wording, required lead form
+
+**Simple WhatsApp Greeting**:
+A short prefilled WhatsApp opener that visitors are unlikely to rewrite before sending.
+_Avoid_: long qualification script, internal tracking label, orçamento request
+
+**Source-Coded WhatsApp Greeting**:
+A simple WhatsApp greeting whose wording or non-obvious marker lets BLK recover the originating source after the lead sends the message.
+_Avoid_: visible CTA label, strange-looking metadata, user-specific fingerprinting
+
+**Hidden WhatsApp Marker**:
+A non-visible marker embedded in a simple WhatsApp greeting so BLK can match the sent text back to a known source dictionary.
+_Avoid_: visible punctuation code, long tracking suffix, per-user fingerprinting
+
+**Message Attribution Boundary**:
+The rule that WhatsApp message text should not expose raw attribution fields such as UTM parameters or GCLID; those belong in analytics and storage.
+_Avoid_: utm_source text in WhatsApp, gclid text in WhatsApp, internal campaign metadata in the lead's message
+
+**WhatsApp Marker Placement**:
+The position where a hidden WhatsApp marker is embedded in the greeting, such as before the visible text or after the first greeting word, to increase the source dictionary's option space.
+_Avoid_: placing markers where they visibly disrupt the greeting, random placement, user-specific placement
+
+**Deterministic WhatsApp Greeting**:
+A source-coded WhatsApp greeting that stays stable for the same campaign and site touchpoint instead of changing by time of day or session.
+_Avoid_: time-of-day variants, random greetings, per-user message fingerprints
+
+**Proposal-Led Contact**:
+The commercial framing that positions the first WhatsApp conversation around understanding the project and preparing a value-based proposal.
+_Avoid_: orçamento request, price-only contact, quote-first language
 
 **Final WhatsApp Composer**:
 The final homepage CTA pattern where visitors provide a location and select their objective before opening a prefilled WhatsApp conversation.
@@ -313,11 +349,17 @@ _Avoid_: last-touch attribution, parameter overwriting
 - **Homepage Triage Cards** should not use tags; tags belong in deliverables and portfolio sections.
 - **Served Client Proof** supports the **Authority + Triage Homepage** by making prior service visible before visitors decide whether to contact BLK.
 - The homepage should place a **Compact Proof Band** after the hero and before the **Homepage Triage Cards**.
+- The **Compact Proof Band** should be rendered through one **Home Proof Band Component** rather than duplicated inline markup.
 - **Served Client Proof** can combine **Named Proof** and **Category Proof** when both are truthful.
 - **Named Proof** can distinguish **Direct Client Proof**, **Indirect Client Proof**, **Membership Proof**, and **Operational Credential Proof** in the data model without requiring per-item labels in the homepage UI.
-- **Named Proof** should use a provided **Proof Logo Asset** and URL when available; use a text or fallback visual only when no logo is provided.
-- **Proof Logo Assets** should be visually normalized to a gray treatment and similar perceived size.
+- **Named Proof** should come from the **Homepage Proof Content Model** rather than from loose asset availability.
+- A **Named Proof** item should use a **Proof Logo Asset** and URL when the **Homepage Proof Content Model** provides one; use a text or fallback visual when the content model does not provide an approved logo.
+- Each **Named Proof** item should use a simple public display name suited to the compact homepage layout.
+- Each **Named Proof** item with a public source URL should link quietly to that source without becoming a prominent navigation CTA.
+- Text fallback **Named Proof** items should use the same quiet proof-item layout as logo-backed items.
+- **Proof Logo Assets** should be visually normalized to a gray treatment and similar perceived size without making the **Compact Proof Band** load-heavy.
 - **Served Client Proof** should use two simple homepage groups: **Credenciais e Associações** and **Clientes e Projetos Atendidos**.
+- Items inside each **Served Client Proof** group should be sorted alphabetically by their public display name.
 - **Clientes e Projetos Atendidos** can contain both **Direct Client Proof** and **Indirect Client Proof**.
 - A **Service Landing Page** may have many **Service + City Pages**.
 - A **Service + City Page** must add local context to a **Service Landing Page** rather than only changing the city name.

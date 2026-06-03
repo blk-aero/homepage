@@ -14,6 +14,10 @@ test("header contact links to whatsapp instead of tel", async ({ page }) => {
   const href = await contact.getAttribute("href");
   expect(href).toContain("wa.me/");
   expect(href).not.toContain("tel:");
+  const text = new URL(href || "").searchParams.get("text") || "";
+  expect(text).toContain("Oi, quero falar com a BLK.");
+  expect(text).not.toContain("CTA:");
+  expect(text).not.toContain("orçamento");
 });
 
 test("header uses vanilla Flowbite navbar spacing and logo size", async ({ page }) => {

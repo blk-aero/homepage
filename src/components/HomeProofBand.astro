@@ -1,0 +1,91 @@
+---
+import { Image } from "astro:assets";
+import type { HomepageProofGroup } from "../lib/homepage-content";
+import aconvapLogo from "../assets/homepage/proof-logos/aconvap.png";
+import brUtmLogo from "../assets/homepage/proof-logos/br-utm.png";
+import creaSpLogo from "../assets/homepage/proof-logos/crea-sp.svg";
+import enredesLogo from "../assets/homepage/proof-logos/enredes.png";
+import incraLogo from "../assets/homepage/proof-logos/incra.png";
+import lucasDinizLogo from "../assets/homepage/proof-logos/lucas-diniz.png";
+import macawStudioLogo from "../assets/homepage/proof-logos/macaw-studio.png";
+import ministerioDefesaLogo from "../assets/homepage/proof-logos/ministerio-defesa.png";
+import montanteLogo from "../assets/homepage/proof-logos/montante.png";
+import oliveiraRoxoLogo from "../assets/homepage/proof-logos/oliveira-roxo.png";
+import pmsjcLogo from "../assets/homepage/proof-logos/pmsjc.png";
+import polimixAmbientalLogo from "../assets/homepage/proof-logos/polimix-ambiental.png";
+import sahyounPropertiesLogo from "../assets/homepage/proof-logos/sahyoun-properties.svg";
+import sergioNogueiraLogo from "../assets/homepage/proof-logos/sergio-nogueira.png";
+import sergioPortoLogo from "../assets/homepage/proof-logos/sergio-porto.png";
+import sixEngenhariaLogo from "../assets/homepage/proof-logos/six-engenharia.png";
+import unicampLogo from "../assets/homepage/proof-logos/unicamp.png";
+import urbamLogo from "../assets/homepage/proof-logos/urbam.png";
+
+type Props = {
+  groups: HomepageProofGroup[];
+};
+
+const { groups } = Astro.props;
+
+const proofLogoAssets = {
+  "aconvap.png": aconvapLogo,
+  "br-utm.png": brUtmLogo,
+  "crea-sp.svg": creaSpLogo,
+  "enredes.png": enredesLogo,
+  "incra.png": incraLogo,
+  "lucas-diniz.png": lucasDinizLogo,
+  "macaw-studio.png": macawStudioLogo,
+  "ministerio-defesa.png": ministerioDefesaLogo,
+  "montante.png": montanteLogo,
+  "oliveira-roxo.png": oliveiraRoxoLogo,
+  "pmsjc.png": pmsjcLogo,
+  "polimix-ambiental.png": polimixAmbientalLogo,
+  "sahyoun-properties.svg": sahyounPropertiesLogo,
+  "sergio-nogueira.png": sergioNogueiraLogo,
+  "sergio-porto.png": sergioPortoLogo,
+  "six-engenharia.png": sixEngenhariaLogo,
+  "unicamp.png": unicampLogo,
+  "urbam.png": urbamLogo
+};
+---
+
+<section data-testid="section-compact-proof" class="surface mt-6 rounded-xl p-5 md:p-6">
+  <div class="grid gap-5 md:grid-cols-[0.85fr_1.15fr] md:gap-6">
+    {groups.map((group) => (
+      <div>
+        <h2 class="text-base font-semibold text-gray-950 md:text-lg">{group.title}</h2>
+        <ul class="mt-3 flex flex-wrap gap-2.5">
+          {group.items.map((item) => {
+            const logo = item.logo ? proofLogoAssets[item.logo as keyof typeof proofLogoAssets] : undefined;
+            if (item.logo && !logo) {
+              throw new Error(`Missing proof logo asset import for ${item.logo}`);
+            }
+
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.name}
+                  class="inline-flex h-14 min-w-0 items-center justify-center rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-600 transition hover:border-gray-300 hover:text-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700"
+                >
+                  {logo ? (
+                    <Image
+                      src={logo}
+                      alt={item.name}
+                      class="max-h-9 w-auto max-w-[9.5rem] object-contain opacity-90 transition-opacity duration-200 hover:opacity-100"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <span class="max-w-[9.5rem] truncate">{item.name}</span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
