@@ -15,11 +15,11 @@ content-hashed Astro asset in the live hosting layer.
 
 ## Acceptance criteria
 
-- [ ] The release guidance explains that cache headers must be checked against
+- [x] The release guidance explains that cache headers must be checked against
       production, not local build output.
-- [ ] The check includes one live HTML request.
-- [ ] The check includes one live content-hashed Astro asset request.
-- [ ] The check records whether HTML remains short-lived and whether hashed
+- [x] The check includes one live HTML request.
+- [x] The check includes one live content-hashed Astro asset request.
+- [x] The check records whether HTML remains short-lived and whether hashed
       assets are candidates for long immutable caching.
 
 ## Test intent

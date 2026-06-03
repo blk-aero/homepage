@@ -1,7 +1,7 @@
 ---
 title: Add shared foundation checks when the next real template ships
 labels:
-  - ready-for-agent
+  - blocked
 ---
 
 # Add shared foundation checks when the next real template ships

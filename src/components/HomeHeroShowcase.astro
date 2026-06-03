@@ -105,6 +105,10 @@ const secondaryExternal = secondaryCtaHref ? /^https?:\/\//.test(secondaryCtaHre
                   class="h-[390px] w-full object-cover"
                   src={heroImages[slide.imageId]}
                   alt={slide.alt}
+                  width={760}
+                  height={760}
+                  widths={[390, 760]}
+                  sizes="(max-width: 767px) calc(100vw - 4rem), 760px"
                   loading={index === 0 ? "eager" : "lazy"}
                   fetchpriority={index === 0 ? "high" : "auto"}
                   decoding="async"

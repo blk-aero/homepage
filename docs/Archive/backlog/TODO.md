@@ -1,2 +1,3 @@
 - Add GTM and Google Analytics and Pixel ...
 - Keep SEO/LLM indexing enrichment outside the Technical Performance PRD except for crawl/render overlap: built HTML should expose primary content, metadata, headings, and links without client JavaScript; OG/Twitter previews, JSON-LD, `/llms.txt`, FAQ schema, and local SEO strategy belong in the discovery/SEO backlog.
+- Pending Performance Foundation follow-up: finish shared foundation checks only after the first real non-homepage public template ships. Reference issue: `docs/issues/005-add-shared-foundation-checks-next-template.md`. Do not implement this against temporary support pages; resume the issue when a real Cluster Detail Page, Searchable Coverage Index, Local Service + City Page, or Lead Capture Offer page exists.
