@@ -56,6 +56,9 @@ const proofLogoAssets = {
         <ul class="mt-3 flex flex-wrap gap-2.5">
           {group.items.map((item) => {
             const logo = item.logo ? proofLogoAssets[item.logo as keyof typeof proofLogoAssets] : undefined;
+            if (item.logo && !logo) {
+              throw new Error(`Missing proof logo asset import for ${item.logo}`);
+            }
 
             return (
               <li>

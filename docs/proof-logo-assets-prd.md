@@ -63,6 +63,7 @@ Logo assets should be manually normalized before they enter the production asset
 - Prefer SVG for logos that can be represented cleanly as vector assets.
 - Use optimized raster assets only when the source logo cannot be reliably represented as SVG.
 - Keep normalized production logos in their original colors, tightly cropped, transparent where possible, and consistent in perceived size.
+- For primarily white or very light marks, use an approved readable color variant for white backgrounds rather than forcing an invisible original-white mark.
 - Keep the proof band performance-conscious by avoiding oversized source files and relying on the site's Astro asset flow.
 - Render raster logos with Astro's image component.
 - Render SVG logos as Astro SVG component imports where that is the cleanest path.
