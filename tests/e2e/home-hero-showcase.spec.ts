@@ -37,6 +37,21 @@ test("homepage hero uses right-side image carousel", async ({ page }) => {
   await expect(heroImage).toHaveAttribute("height", /[1-9]\d*/);
 });
 
+test("homepage hero marks the first image as LCP priority", async ({ page }) => {
+  await page.goto("/");
+
+  const heroImages = page.getByTestId("home-hero-image");
+
+  await expect(heroImages).toHaveCount(5);
+  await expect(heroImages.first()).toHaveAttribute("loading", "eager");
+  await expect(heroImages.first()).toHaveAttribute("fetchpriority", "high");
+
+  for (let index = 1; index < 5; index += 1) {
+    await expect(heroImages.nth(index)).toHaveAttribute("loading", "lazy");
+    await expect(heroImages.nth(index)).toHaveAttribute("fetchpriority", "auto");
+  }
+});
+
 test("homepage stays in light theme when the OS prefers dark mode", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
