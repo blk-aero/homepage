@@ -1,3 +1,5 @@
+import { existsSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { homepageContent } from "../../src/lib/homepage-content";
 
@@ -108,5 +110,77 @@ describe("homepage content model", () => {
       maxLength: 300
     });
     expect(homepageContent.finalCta.objectives).toContain("Ainda não sei, preciso de orientação");
+  });
+
+  it("exposes the approved homepage proof groups with sorted links and fallback items", () => {
+    expect(homepageContent.proofBand.groups.map((group) => group.title)).toEqual([
+      "Credenciais e Associações",
+      "Clientes e Projetos Atendidos"
+    ]);
+
+    for (const group of homepageContent.proofBand.groups) {
+      expect(group.items.map((item) => item.name)).toEqual(
+        [...group.items.map((item) => item.name)].sort((a, b) => a.localeCompare(b, "pt-BR"))
+      );
+
+      for (const item of group.items) {
+        expect(item.name).toBeTruthy();
+        expect(item.href).toMatch(/^https?:\/\//);
+      }
+    }
+
+    expect(homepageContent.proofBand.groups[0]?.items).toEqual([
+      expect.objectContaining({ name: "ACONVAP", href: "https://www.aconvap.com.br/" }),
+      expect.objectContaining({ name: "BR-UTM", href: "https://br-utm.decea.mil.br/" }),
+      expect.objectContaining({ name: "CREA-SP", href: "https://www.creasp.org.br/" }),
+      expect.objectContaining({ name: "Enredes", href: "https://enredes.com.br/" }),
+      expect.objectContaining({ name: "INCRA", href: "https://www.gov.br/incra/pt-br" }),
+      expect.objectContaining({
+        name: "Ministério da Defesa",
+        href: "https://www.gov.br/defesa/pt-br/assuntos/aerolevantamento"
+      }),
+      expect.objectContaining({ name: "UNICAMP", href: "https://unicampventures.org.br/" })
+    ]);
+
+    expect(homepageContent.proofBand.groups[1]?.items).toEqual([
+      expect.objectContaining({
+        name: "Construtora Oliveira Roxo",
+        href: "https://www.instagram.com/construtoraoliveiraroxo/"
+      }),
+      expect.objectContaining({
+        name: "Lia Blanco Arquitetura",
+        href: "https://www.instagram.com/blancolia/"
+      }),
+      expect.objectContaining({
+        name: "Lucas Diniz Arquitetura",
+        href: "https://www.instagram.com/lucasdinizarquitetura/"
+      }),
+      expect.objectContaining({ name: "Macaw Studio", href: "https://macawstudio.myportfolio.com/" }),
+      expect.objectContaining({ name: "Mobilidade Urbana SJC", href: "https://www.sjc.sp.gov.br/secretarias/mobilidade-urbana/" }),
+      expect.objectContaining({ name: "Montante", href: "https://montante.com.br/" }),
+      expect.objectContaining({ name: "Polimix Ambiental", href: "https://www.polimixambiental.com.br/" }),
+      expect.objectContaining({ name: "Sahyoun Properties", href: "https://sahyounproperties.com/" }),
+      expect.objectContaining({ name: "Sergio Porto Engenharia", href: "https://www.sergioporto.com.br/" }),
+      expect.objectContaining({ name: "Six Engenharia", href: "https://sixengenharia.com.br/" }),
+      expect.objectContaining({ name: "SN Saneamento", href: "http://snsaneamento.com.br" }),
+      expect.objectContaining({ name: "URBAM", href: "https://www.urbam.com.br/" })
+    ]);
+    expect(homepageContent.proofBand.groups[1]?.items.find((item) => item.name === "Lia Blanco Arquitetura")).not.toHaveProperty("logo");
+  });
+
+  it("points logo-backed proof items at production logo assets only", () => {
+    const logoItems = homepageContent.proofBand.groups.flatMap((group) =>
+      group.items.filter((item) => item.logo)
+    );
+
+    expect(logoItems).toHaveLength(18);
+    for (const item of logoItems) {
+      const logoPath = join("src/assets/homepage/proof-logos", item.logo || "");
+      expect(existsSync(logoPath), `${item.name} logo asset exists`).toBe(true);
+      expect(statSync(logoPath).size, `${item.name} logo stays performance-conscious`).toBeLessThan(
+        100_000
+      );
+    }
+    expect(logoItems.map((item) => item.logo)).not.toContain("logos.csv");
   });
 });
