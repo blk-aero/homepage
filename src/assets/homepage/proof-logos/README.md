@@ -10,6 +10,7 @@ This directory is for production-ready logos used by the homepage compact proof 
 - Normalize logos to their original colors, keeping them consistent in perceived size.
 - Crop assets tightly and remove unnecessary padding.
 - Use transparent backgrounds where possible.
+- Invert the colors of primarily white or light-colored marks (e.g., using `.negate({ alpha: false })` in the script) to ensure readability on the proof band's white backgrounds.
 - Keep perceived logo size consistent across wide, tall, and text-heavy marks.
 - Avoid shipping oversized source files. Production raster assets should be compressed before use.
 - Use lowercase, hyphenated filenames that match the public display name where practical.

@@ -26,6 +26,11 @@ const mapping = {
   'pmsjc.png': 'pmsjc.png'
 };
 
+const invertLogos = [
+  'macaw-studio.png',
+  'montante.png'
+];
+
 async function normalizeLogos() {
   console.log('Starting logo normalization in color...');
   
@@ -51,8 +56,13 @@ async function normalizeLogos() {
       // Trims transparent margins, resizes to fit inside 420x140 without enlargement,
       // and exports as optimized transparent PNG while preserving original color channels.
       try {
-        await sharp(srcPath)
-          .trim()
+        let pipeline = sharp(srcPath).trim();
+        
+        if (invertLogos.includes(srcName)) {
+          pipeline = pipeline.negate({ alpha: false });
+        }
+
+        await pipeline
           .resize({
             width: 420,
             height: 140,
