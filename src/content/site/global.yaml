@@ -33,6 +33,8 @@ footer:
           href: /cidades
         - label: Blog
           href: /blog
+        - label: Política de Privacidade
+          href: /politica-de-privacidade
   social_links:
     - label: LinkedIn
       href: https://www.linkedin.com/company/blk-aero
@@ -46,3 +48,6 @@ footer:
     - label: Instagram
       href: https://www.instagram.com/blk.aero/
       icon: instagram
+
+tracking:
+  gtm_id: GTM-WL3NKNLP

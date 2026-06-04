@@ -1,11 +1,21 @@
 import { test, expect } from "@playwright/test";
 
-for (const path of ["/sobre", "/politica-de-privacidade"]) {
+for (const path of ["/sobre"]) {
   test(`${path} route is removed`, async ({ page }) => {
     const response = await page.goto(path);
     expect(response?.status()).toBe(404);
   });
 }
+
+test("/politica-de-privacidade renders the privacy policy page", async ({ page }) => {
+  const response = await page.goto("/politica-de-privacidade");
+  expect(response?.status()).toBe(200);
+
+  await expect(page.getByRole("heading", { level: 1, name: "Política de Privacidade" })).toBeVisible();
+  await expect(page).toHaveTitle(/Política de Privacidade - BLK Aero/);
+  await expect(page.getByText("Google Tag Manager")).toBeVisible();
+  await expect(page.getByText("Meta Pixel")).toBeVisible();
+});
 
 const temporaryRoutes = [
   "/solucoes",

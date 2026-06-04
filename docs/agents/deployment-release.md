@@ -10,14 +10,14 @@ Source of truth: `DEPLOYMENT.md`.
 - Runtime: `withastro/action@v6` with Node 24
 - Deploy action: `actions/deploy-pages@v5`
 - Target URL: `https://blk.aero`
-- Optional environment variables: `SITE_URL`, `PUBLIC_WHATSAPP_NUMBER`, `PUBLIC_GTM_ID`
+- Optional environment variables: `SITE_URL`, `PUBLIC_WHATSAPP_NUMBER`, `PUBLIC_GTM_ID` override
 
 ## Post-Deploy Checks
 
 1. Open `/robots.txt` and confirm the sitemap URL is present.
 2. Open `/sitemap-index.xml` and confirm expected pages are listed.
 3. Validate key routes: `/`, `/solucoes`, `/cidades`, `/blog`, and `/solucoes/projeto-e-obra`.
-4. Run GTM preview checks when `PUBLIC_GTM_ID` is enabled.
+4. Run GTM preview checks for the configured GTM container.
 5. Run PageSpeed checks for primary landing pages on mobile and desktop.
 6. Check production cache headers.
 

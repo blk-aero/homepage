@@ -47,6 +47,9 @@ const site = defineCollection({
     footer: z.object({
       link_columns: z.array(footerLinkColumn).min(1),
       social_links: z.array(footerSocialLink).min(1)
+    }),
+    tracking: z.object({
+      gtm_id: z.string().regex(/^GTM-[A-Z0-9]+$/)
     })
   })
 });

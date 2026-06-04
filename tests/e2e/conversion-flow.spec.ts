@@ -197,3 +197,64 @@ test("homepage final CTA composer uses shared whatsapp payload behavior", async 
     gclid: "abc123"
   });
 });
+
+test("footer email click pushes supporting contact analytics", async ({ page }) => {
+  await page.goto("/?utm_source=google&gclid=abc123");
+
+  const email = page.getByRole("link", { name: "contato@blk.aero" });
+  await email.dispatchEvent("click");
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find((event) => event.event === "email_click");
+  });
+
+  expect(payload).toMatchObject({
+    event: "email_click",
+    email: "contato@blk.aero",
+    cta_location: "footer",
+    page_path: "/",
+    utm_source: "google",
+    gclid: "abc123"
+  });
+});
+
+test("privacy policy email click pushes supporting contact analytics", async ({ page }) => {
+  await page.goto("/politica-de-privacidade?utm_source=privacy-test");
+
+  const email = page.getByRole("link", { name: "contato@blk.aero" }).last();
+  await email.dispatchEvent("click");
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find((event) => event.event === "email_click");
+  });
+
+  expect(payload).toMatchObject({
+    event: "email_click",
+    email: "contato@blk.aero",
+    page_path: "/politica-de-privacidade",
+    utm_source: "privacy-test"
+  });
+});
+
+test("footer social click pushes supporting contact analytics", async ({ page }) => {
+  await page.goto("/?utm_source=linkedin&utm_medium=social");
+
+  const social = page.locator("footer").getByRole("link", { name: "LinkedIn" });
+  await social.dispatchEvent("click");
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find((event) => event.event === "social_click");
+  });
+
+  expect(payload).toMatchObject({
+    event: "social_click",
+    social_platform: "LinkedIn",
+    outbound_url: "https://www.linkedin.com/company/blk-aero",
+    page_path: "/",
+    utm_source: "linkedin",
+    utm_medium: "social"
+  });
+});

@@ -7,15 +7,6 @@ export type ConsentState = {
   ad_personalization: ConsentValue;
 };
 
-export function defaultConsentState(): ConsentState {
-  return {
-    ad_storage: "denied",
-    analytics_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied"
-  };
-}
-
 export function grantedConsentState(): ConsentState {
   return {
     ad_storage: "granted",
