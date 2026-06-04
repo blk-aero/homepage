@@ -18,10 +18,14 @@ test("footer shows BLK contact and trust details without template social links",
     .getByRole("heading", { name: "Navegação" })
     .locator("xpath=following-sibling::ul[1]")
     .getByRole("link");
-  await expect(footerLinks).toHaveText(["Soluções", "Cidades", "Blog"]);
+  await expect(footerLinks).toHaveText(["Soluções", "Cidades", "Blog", "Política de Privacidade"]);
   await expect(footer.getByRole("link", { name: "Soluções" })).toHaveAttribute("href", "/solucoes");
   await expect(footer.getByRole("link", { name: "Cidades" })).toHaveAttribute("href", "/cidades");
   await expect(footer.getByRole("link", { name: "Blog" })).toHaveAttribute("href", "/blog");
+  await expect(footer.getByRole("link", { name: "Política de Privacidade" })).toHaveAttribute(
+    "href",
+    "/politica-de-privacidade"
+  );
   await expect(footer.getByRole("link", { name: "LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/company/blk-aero");
   await expect(footer.getByRole("link", { name: "YouTube" })).toHaveAttribute("href", "https://www.youtube.com/@blk-aero");
   await expect(footer.getByRole("link", { name: "Facebook" })).toHaveAttribute("href", "https://www.facebook.com/people/BLK-Aerolevantamento/61564931315622/");
@@ -30,7 +34,6 @@ test("footer shows BLK contact and trust details without template social links",
 
   await expect(footer).not.toContainText("Legal");
   await expect(footer).not.toContainText("Sobre a BLK");
-  await expect(footer).not.toContainText("Política de privacidade");
   await expect(footer).not.toContainText("contato@blkaero.com.br");
   await expect(footer).not.toContainText("WhatsApp");
   await expect(footer).not.toContainText("São José dos Campos");

@@ -332,9 +332,37 @@ _Avoid_: static city directory, heavy search interface
 A content collection offer page where users submit contact details to GTM and Pipedream before receiving their downloadable asset.
 _Avoid_: gated form without consent, direct download link
 
+**Simple Cookie Notice**:
+A sitewide privacy notice that tells visitors BLK uses essential cookies and similar technologies, links to the privacy policy, and treats staying on the site, continuing to browse, or clicking OK as agreement to analytics and ad measurement.
+_Avoid_: consent banner, cookie preference center, accept/reject prompt
+
+**Simple Cookie Notice Copy**:
+The public cookie notice text: "Utilizamos cookies essenciais e tecnologias semelhantes de acordo com a nossa Política de Privacidade e, ao continuar navegando, você concorda com estas condições."
+_Avoid_: long cookie explanation, accept/reject wording
+
+**Privacy Policy Page**:
+A simple public page that explains how BLK handles visitor, contact, attribution, analytics, and ad-measurement data on the website.
+_Avoid_: legal portal, stale template policy, hidden privacy link
+
 **First-Touch Attribution**:
 The session storage strategy that captures and preserves original campaign parameters (UTM and gclid) across pages without overwriting them.
 _Avoid_: last-touch attribution, parameter overwriting
+
+**WhatsApp Click Event**:
+The stable website measurement event for a visitor opening a BLK WhatsApp contact path, enriched with page, CTA, service, objective, greeting, and attribution context.
+_Avoid_: separate event names per WhatsApp placement, generic click conversion
+
+**Supporting Contact Event**:
+A website measurement event for a non-WhatsApp contact or outbound relationship action, such as email or social profile clicks.
+_Avoid_: tracking every navigation click, treating supporting clicks as primary conversions
+
+**Lead Capture Submit Event**:
+The future website measurement event for a visitor submitting a Lead Capture Offer form.
+_Avoid_: generic form submit, page-view conversion
+
+**Measurement Provider**:
+A third-party tool BLK may use through website tagging to measure audience, campaigns, conversions, remarketing, or ad performance, such as Google Tag Manager, Google Analytics, Google Ads, or Meta Pixel.
+_Avoid_: treating every provider as a separate site integration, undocumented tracking tool
 
 ## Relationships
 
@@ -442,7 +470,19 @@ _Avoid_: last-touch attribution, parameter overwriting
 - **Portfólio Section** tags should use lowercase except for established acronyms.
 - A **Searchable Coverage Index** lists all active cities and their neighborhoods, letting users find their location before navigating to a **Service + City Page**.
 - A **Lead Capture Offer** captures client info with GTM and Pipedream only when Consent Mode v2 is granted, serving as a **Researching Visitor Offer**.
+- A **Simple Cookie Notice** should stay visually compact and should not be treated as a **Lead Capture Offer** consent mechanism, but staying on the site, continuing to browse, or clicking OK can grant analytics and ad measurement for site tracking.
+- A **Simple Cookie Notice** should use the **Simple Cookie Notice Copy** with "Política de Privacidade" as the policy link and "OK" as the only button label.
+- A **Simple Cookie Notice** should link to the **Privacy Policy Page**.
+- A **Simple Cookie Notice** should be dismissed only by clicking OK; continued browsing can indicate agreement without automatically hiding the notice.
+- A **Simple Cookie Notice** means website analytics and ad measurement can begin during the visit rather than waiting for an explicit multi-choice consent step.
+- The **Privacy Policy Page** should appear as the last item in the footer Navegação group, not in the primary navigation.
 - **First-Touch Attribution** stores campaign data to qualify the **Lightly Qualified WhatsApp Message** even if the visitor views other pages first.
+- **WhatsApp First Contact** is the primary website conversion for analytics and ad measurement; other clicks are supporting engagement signals.
+- The **WhatsApp Click Event** should use one stable event name with contextual fields instead of separate event names for each CTA placement.
+- **Supporting Contact Events** can track email and social profile clicks without turning normal navigation into custom measurement events.
+- **Supporting Contact Events** are engagement events, not ad conversions.
+- A **Lead Capture Submit Event** should be reserved for **Lead Capture Offer** forms.
+- A **Lead Capture Submit Event** can become a conversion when **Lead Capture Offers** exist.
 
 ## Example dialogue
 
@@ -455,3 +495,4 @@ _Avoid_: last-touch attribution, parameter overwriting
 - "Contact CTA" could mean a form, phone, email, or WhatsApp - resolved: the primary low-friction path is **WhatsApp First Contact**.
 - "Detail page" was used for both release-safe placeholders and full service-cluster content - resolved: the current phase uses **Temporary Support Pages**; future full destinations are **Cluster Detail Pages**.
 - "Hub visual" was too vague and English-coded for homepage copy - resolved: the public section should use **App de Visualização e Compartilhamento**.
+- "Cookie banner" could mean explicit consent controls or a compact notice - resolved: the current public pattern should be a **Simple Cookie Notice**.

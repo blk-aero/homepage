@@ -1,8 +1,11 @@
 ---
-import { defaultConsentState } from "../lib/consent";
+import { grantedConsentState } from "../lib/consent";
+import { getSiteConfig } from "../lib/site-config";
 
-const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
-const consentDefaults = defaultConsentState();
+const siteConfig = await getSiteConfig();
+const envGtmId = (import.meta.env.PUBLIC_GTM_ID as string | undefined)?.trim();
+const gtmId = envGtmId && envGtmId.length > 0 ? envGtmId : siteConfig.tracking.gtm_id;
+const consentDefaults = grantedConsentState();
 ---
 
 {gtmId && (

@@ -1,0 +1,52 @@
+---
+---
+
+<div
+  id="cookie-notice"
+  class="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-700 bg-gray-900/95 px-4 py-3 text-white shadow-lg"
+  role="region"
+  aria-label="Aviso de cookies"
+  hidden
+>
+  <div class="mx-auto flex max-w-screen-xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <p class="text-sm leading-6">
+      Utilizamos cookies essenciais e tecnologias semelhantes de acordo com a nossa
+      <a class="font-semibold underline underline-offset-4 hover:text-primary-200" href="/politica-de-privacidade">Política de Privacidade</a>
+      e, ao continuar navegando, você concorda com estas condições.
+    </p>
+    <button id="cookie-notice-ok" class="inline-flex min-w-24 justify-center rounded bg-primary-400 px-6 py-2 text-sm font-semibold text-gray-950 hover:bg-primary-300 focus:outline-none focus:ring-4 focus:ring-primary-200">
+      OK
+    </button>
+  </div>
+</div>
+
+<script>
+  const storageKey = "blk_cookie_notice_v1";
+  const notice = document.getElementById("cookie-notice");
+  const ok = document.getElementById("cookie-notice-ok");
+
+  function noticeDismissed() {
+    try {
+      return localStorage.getItem(storageKey) === "dismissed";
+    } catch {
+      return false;
+    }
+  }
+
+  function rememberDismissal() {
+    try {
+      localStorage.setItem(storageKey, "dismissed");
+    } catch {
+      return;
+    }
+  }
+
+  if (!noticeDismissed() && notice) {
+    notice.hidden = false;
+  }
+
+  ok?.addEventListener("click", () => {
+    rememberDismissal();
+    if (notice) notice.hidden = true;
+  });
+</script>

@@ -12,7 +12,7 @@
 
 - `SITE_URL` (optional, defaults to `https://blk.aero` in the GitHub Pages workflow)
 - `PUBLIC_WHATSAPP_NUMBER` (optional, uses the site fallback number when unset)
-- `PUBLIC_GTM_ID` (optional)
+- `PUBLIC_GTM_ID` (optional, overrides the default GTM container in `src/content/site/global.yaml`)
 
 ## GitHub Pages workflow
 
@@ -27,5 +27,5 @@
 1. Open `/robots.txt` and confirm sitemap URL exists.
 2. Open `/sitemap-index.xml` and confirm pages are listed.
 3. Validate key pages (`/`, `/solucoes`, `/cidades`, `/blog`, `/solucoes/projeto-e-obra`).
-4. Run GTM preview if `PUBLIC_GTM_ID` is enabled.
+4. Run GTM preview for the configured GTM container.
 5. Run PageSpeed on mobile and desktop for primary landing pages.

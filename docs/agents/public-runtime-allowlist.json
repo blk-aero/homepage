@@ -1,6 +1,6 @@
 [
   {
     "origin": "https://www.googletagmanager.com",
-    "purpose": "Google Tag Manager loads analytics and conversion tags when PUBLIC_GTM_ID is configured."
+    "purpose": "Google Tag Manager loads analytics and conversion tags for the configured GTM container."
   }
 ]

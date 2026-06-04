@@ -22,7 +22,7 @@ for (const route of primaryRoutes) {
   });
 }
 
-test("cookie consent banner pushes denied defaults and granted acceptance", async ({ page }) => {
+test("simple cookie notice is dismissed with OK", async ({ page }) => {
   const pageErrors: string[] = [];
   page.on("pageerror", (error) => {
     pageErrors.push(error.message);
@@ -30,100 +30,95 @@ test("cookie consent banner pushes denied defaults and granted acceptance", asyn
 
   await page.goto("/");
   await page.evaluate(() => {
-    localStorage.removeItem("blk_cookie_consent_v1");
+    localStorage.removeItem("blk_cookie_notice_v1");
     window.dataLayer = [];
   });
   await page.reload();
 
-  const banner = page.locator("#cookie-banner");
-  await expect(banner).toBeVisible();
+  const notice = page.locator("#cookie-notice");
+  await expect(notice).toBeVisible();
+  await expect(notice).toContainText("Utilizamos cookies essenciais e tecnologias semelhantes");
+  await expect(notice.getByRole("link", { name: "Política de Privacidade" })).toHaveAttribute(
+    "href",
+    "/politica-de-privacidade"
+  );
 
-  const deniedEvent = await page.evaluate(() => {
+  await page.getByRole("button", { name: "OK" }).click();
+  await expect(notice).toBeHidden();
+
+  const stored = await page.evaluate(() => localStorage.getItem("blk_cookie_notice_v1"));
+  expect(stored).toBe("dismissed");
+  expect(pageErrors).toEqual([]);
+});
+
+test("simple cookie notice still works when localStorage is blocked", async ({ page }) => {
+  const pageErrors: string[] = [];
+  page.on("pageerror", (error) => {
+    pageErrors.push(error.message);
+  });
+
+  await page.addInitScript(() => {
+    const storageError = new DOMException("Blocked storage", "SecurityError");
+    Storage.prototype.getItem = () => {
+      throw storageError;
+    };
+    Storage.prototype.setItem = () => {
+      throw storageError;
+    };
+  });
+
+  await page.goto("/");
+
+  const notice = page.locator("#cookie-notice");
+  await expect(notice).toBeVisible();
+  await page.getByRole("button", { name: "OK" }).click();
+  await expect(notice).toBeHidden();
+  expect(pageErrors).toEqual([]);
+});
+
+test("dismissed simple cookie notice stays hidden on later page loads", async ({ page }) => {
+  const pageErrors: string[] = [];
+  page.on("pageerror", (error) => {
+    pageErrors.push(error.message);
+  });
+
+  await page.goto("/");
+  await page.evaluate(() => {
+    localStorage.setItem("blk_cookie_notice_v1", "dismissed");
+    window.dataLayer = [];
+  });
+  await page.reload();
+
+  await expect(page.locator("#cookie-notice")).toBeHidden();
+  expect(pageErrors).toEqual([]);
+});
+
+test("gtm consent defaults are granted for the simple cookie notice policy", async ({ page }) => {
+  const pageErrors: string[] = [];
+  page.on("pageerror", (error) => {
+    pageErrors.push(error.message);
+  });
+
+  await page.goto("/");
+  await page.evaluate(() => {
+    window.dataLayer = [];
+  });
+  await page.reload();
+
+  const consentCommand = await page.evaluate(() => {
     const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
-    return events.find((event) => event.event === "consent_update");
+    for (const event of events) {
+      const values = Array.isArray(event) ? event : Object.values(event);
+      if (values[0] === "consent" && values[1] === "default") return values;
+    }
+    return undefined;
   });
 
-  expect(deniedEvent).toMatchObject({
-    ad_storage: "denied",
-    analytics_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied"
-  });
-
-  await page.getByRole("button", { name: "Aceitar" }).click();
-  await expect(banner).toBeHidden();
-
-  const consentState = await page.evaluate(() => ({
-    stored: localStorage.getItem("blk_cookie_consent_v1"),
-    grantedEvent: Array.isArray(window.dataLayer)
-      ? window.dataLayer.findLast?.((event) => event.event === "consent_update")
-      : undefined
-  }));
-
-  expect(consentState.stored).toBe("accepted");
-  expect(consentState.grantedEvent).toMatchObject({
+  expect(consentCommand?.[2]).toMatchObject({
     ad_storage: "granted",
     analytics_storage: "granted",
     ad_user_data: "granted",
     ad_personalization: "granted"
-  });
-  expect(pageErrors).toEqual([]);
-});
-
-test("accepted cookie consent is re-applied on later page loads", async ({ page }) => {
-  const pageErrors: string[] = [];
-  page.on("pageerror", (error) => {
-    pageErrors.push(error.message);
-  });
-
-  await page.goto("/");
-  await page.evaluate(() => {
-    localStorage.setItem("blk_cookie_consent_v1", "accepted");
-    window.dataLayer = [];
-  });
-  await page.reload();
-
-  await expect(page.locator("#cookie-banner")).toBeHidden();
-
-  const consentEvent = await page.evaluate(() => {
-    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
-    return events.find((event) => event.event === "consent_update");
-  });
-
-  expect(consentEvent).toMatchObject({
-    ad_storage: "granted",
-    analytics_storage: "granted",
-    ad_user_data: "granted",
-    ad_personalization: "granted"
-  });
-  expect(pageErrors).toEqual([]);
-});
-
-test("rejected cookie consent is re-applied on later page loads", async ({ page }) => {
-  const pageErrors: string[] = [];
-  page.on("pageerror", (error) => {
-    pageErrors.push(error.message);
-  });
-
-  await page.goto("/");
-  await page.evaluate(() => {
-    localStorage.setItem("blk_cookie_consent_v1", "rejected");
-    window.dataLayer = [];
-  });
-  await page.reload();
-
-  await expect(page.locator("#cookie-banner")).toBeHidden();
-
-  const consentEvent = await page.evaluate(() => {
-    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
-    return events.find((event) => event.event === "consent_update");
-  });
-
-  expect(consentEvent).toMatchObject({
-    ad_storage: "denied",
-    analytics_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied"
   });
   expect(pageErrors).toEqual([]);
 });

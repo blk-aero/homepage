@@ -24,7 +24,7 @@ describe("source public runtime third-party guard", () => {
 
     expect(allowlist).toContainEqual({
       origin: "https://www.googletagmanager.com",
-      purpose: "Google Tag Manager loads analytics and conversion tags when PUBLIC_GTM_ID is configured."
+      purpose: "Google Tag Manager loads analytics and conversion tags for the configured GTM container."
     });
 
     for (const exception of allowlist) {

@@ -17,8 +17,6 @@ describe("global site config", () => {
       "Lorem ipsum",
       "00.000.000/0001-00",
       "/sobre",
-      "/politica-de-privacidade",
-      "Política de privacidade",
       "Legal",
       "contato@blkaero.com.br",
       "São José dos Campos",
@@ -47,7 +45,7 @@ describe("global site config", () => {
     expect(config).toContain("email: contato@blk.aero");
   });
 
-  it("uses solution-first primary navigation", () => {
+  it("keeps solution-first navigation with privacy policy in the footer", () => {
     const config = readFileSync("src/content/site/global.yaml", "utf8");
 
     expect(config).toContain("label: Soluções");
@@ -56,6 +54,14 @@ describe("global site config", () => {
     expect(config).toContain("href: /cidades");
     expect(config).toContain("label: Blog");
     expect(config).toContain("href: /blog");
+    expect(config).toContain("label: Política de Privacidade");
+    expect(config).toContain("href: /politica-de-privacidade");
     expect(config).not.toContain("label: Servicos");
+  });
+
+  it("keeps the BLK GTM container as the default tracking config", () => {
+    const config = readFileSync("src/content/site/global.yaml", "utf8");
+
+    expect(config).toContain("gtm_id: GTM-WL3NKNLP");
   });
 });
