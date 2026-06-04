@@ -42,7 +42,7 @@ const homepageProofGroups = [
       {
         name: "CREA-SP",
         href: "https://www.creasp.org.br/",
-        logo: "crea-sp.svg"
+        logo: "crea-sp.png"
       },
       {
         name: "Enredes",
