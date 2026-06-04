@@ -440,6 +440,50 @@ test("homepage visualization platform is a separate differentiator after deliver
   expect(imageBox?.width ?? 0).toBeGreaterThan(300);
 });
 
+test("homepage visualization platform image is delivered for its rendered slot", async ({ page }) => {
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 1280, height: 900 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+
+    const platformImage = page
+      .getByTestId("section-visualization-platform")
+      .getByRole("img", { name: /App de Visualização e Compartilhamento/i });
+
+    await expect(platformImage).toBeVisible();
+    await expect(platformImage).toHaveAttribute(
+      "sizes",
+      "(max-width: 1023px) calc(100vw - 3.5rem), 620px"
+    );
+    await expect(platformImage).toHaveAttribute("srcset", /\b390w\b/);
+    await expect(platformImage).toHaveAttribute("srcset", /\b640w\b/);
+    await expect(platformImage).toHaveAttribute("srcset", /\b960w\b/);
+
+    await platformImage.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => platformImage.evaluate((image) => (image as HTMLImageElement).currentSrc))
+      .not.toBe("");
+
+    const delivery = await platformImage.evaluate((image) => {
+      const htmlImage = image as HTMLImageElement;
+      const box = htmlImage.getBoundingClientRect();
+      return {
+        currentSrc: htmlImage.currentSrc,
+        naturalWidth: htmlImage.naturalWidth,
+        renderedWidth: box.width,
+        devicePixelRatio: window.devicePixelRatio
+      };
+    });
+
+    expect(delivery.currentSrc).toBeTruthy();
+    expect(delivery.naturalWidth).toBeLessThanOrEqual(
+      Math.ceil(delivery.renderedWidth * delivery.devicePixelRatio * 1.5)
+    );
+  }
+});
+
 test("homepage full-bleed sections do not create horizontal overflow", async ({
   page
 }) => {

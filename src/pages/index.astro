@@ -103,6 +103,9 @@ const { meta } = siteConfig;
           src={platformImage}
           alt={homepageContent.visualizationPlatform.imageAlt}
           class="rounded-lg border border-gray-200 object-cover object-left-top"
+          width={960}
+          widths={[390, 640, 960]}
+          sizes="(max-width: 1023px) calc(100vw - 3.5rem), 620px"
           loading="lazy"
           decoding="async"
         />

@@ -3,15 +3,14 @@ import { defaultConsentState } from "../lib/consent";
 
 const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
 const consentDefaults = defaultConsentState();
-const consentJson = JSON.stringify(consentDefaults);
 ---
 
 {gtmId && (
   <>
-    <script is:inline>
-      {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('consent', 'default', ${consentJson});`}
+    <script define:vars={{ consentDefaults }}>
+      window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('consent', 'default', consentDefaults);
     </script>
     <script async src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}></script>
   </>

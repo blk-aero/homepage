@@ -181,6 +181,14 @@ describe("homepage content model", () => {
         100_000
       );
     }
+
+    const creaSp = logoItems.find((item) => item.name === "CREA-SP");
+    expect(creaSp?.logo).toBe("crea-sp.png");
+    expect(
+      statSync(join("src/assets/homepage/proof-logos", creaSp?.logo || "")).size,
+      "CREA-SP logo stays small enough for runtime delivery"
+    ).toBeLessThanOrEqual(25_000);
+
     expect(logoItems.map((item) => item.logo)).not.toContain("logos.csv");
   });
 });
