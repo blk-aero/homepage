@@ -18,6 +18,11 @@ const runtimeExpressionAttributePattern =
 const runtimePropertyAssignmentPattern = /\b[A-Za-z_$][\w$]*\.(?:src|data)\s*=\s*(?:"([^"]+)"|'([^']+)'|`([^`]+)`)/g;
 const runtimePropertyExpressionAssignmentPattern =
   /\b([A-Za-z_$][\w$]*)\.(src|data)\s*=\s*([A-Za-z_$][\w$]*)\b/g;
+const elementVariablePattern =
+  /\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*document\.createElement\(\s*(?:"([a-z][a-z0-9-]*)"|'([a-z][a-z0-9-]*)'|`([a-z][a-z0-9-]*)`)\s*\)/g;
+const runtimeSetAttributePattern =
+  /\b([A-Za-z_$][\w$]*)\.setAttribute\(\s*(?:"(src|data)"|'(src|data)'|`(src|data)`)\s*,\s*(?:"([^"]+)"|'([^']+)'|`([^`]+)`|([A-Za-z_$][\w$]*))\s*\)/g;
+const runtimeElementNames = new Set(["script", "iframe", "embed", "object"]);
 const siteOrigin = "https://blk.aero";
 
 function astroFilesUnder(path: string): string[] {
@@ -87,6 +92,43 @@ function stringAssignmentValuesFor(source: string, identifier: string) {
   return [...source.matchAll(assignmentPattern)].map((match) => match.slice(1).find(Boolean) ?? "");
 }
 
+function elementVariableAssignmentsFor(source: string) {
+  return [...source.matchAll(elementVariablePattern)].map((match) => ({
+    index: match.index ?? 0,
+    objectName: match[1],
+    elementName: match.slice(2).find(Boolean) ?? ""
+  }));
+}
+
+function runtimeSetAttributeReferencesInSource(source: string) {
+  const elementVariableAssignments = elementVariableAssignmentsFor(source);
+
+  return [...source.matchAll(runtimeSetAttributePattern)].flatMap((match) => {
+    const objectName = match[1];
+    const elementAssignment = elementVariableAssignments
+      .filter((assignment) => assignment.objectName === objectName && assignment.index < (match.index ?? 0))
+      .at(-1);
+    const elementName = elementAssignment?.elementName;
+
+    if (!elementName || !runtimeElementNames.has(elementName)) {
+      return [];
+    }
+
+    const attribute = match.slice(2, 5).find(Boolean) ?? "";
+    const rawLiteralValue = match.slice(5, 8).find(Boolean);
+    const literalValue = rawLiteralValue?.includes("${") ? undefined : rawLiteralValue;
+    const identifier = match[8];
+
+    return [{
+      objectName,
+      elementName,
+      attribute,
+      literalValue,
+      identifier
+    }];
+  });
+}
+
 export function runtimeUrlsInSource(source: string, baseUrl = siteOrigin) {
   const expressionIdentifiers = [...source.matchAll(runtimeExpressionAttributePattern)]
     .map((match) => match[2].trim())
@@ -107,12 +149,28 @@ export function runtimeUrlsInSource(source: string, baseUrl = siteOrigin) {
       return runtimeUrl ? [runtimeUrl] : [];
     })
   );
+  const setAttributeUrls = runtimeSetAttributeReferencesInSource(source).flatMap((reference) => {
+    if (reference.literalValue) {
+      const runtimeUrl = runtimeUrlFor(reference.literalValue, baseUrl);
+      return runtimeUrl ? [runtimeUrl] : [];
+    }
+
+    if (reference.identifier) {
+      return stringAssignmentValuesFor(source, reference.identifier).flatMap((value) => {
+        const runtimeUrl = runtimeUrlFor(value, baseUrl);
+        return runtimeUrl ? [runtimeUrl] : [];
+      });
+    }
+
+    return [];
+  });
 
   return uniqueUrls([
     ...runtimeUrlsInMarkup(source, baseUrl),
     ...expressionUrls,
     ...propertyAssignmentUrls,
-    ...propertyExpressionUrls
+    ...propertyExpressionUrls,
+    ...setAttributeUrls
   ]);
 }
 
@@ -138,6 +196,13 @@ export function unresolvedRuntimeReferencesInSource(source: string) {
 
     return [`runtime assignment ${objectName}.${property} = ${identifier}`];
   });
+  const setAttributeReferences = runtimeSetAttributeReferencesInSource(source).flatMap((reference) => {
+    if (!reference.identifier || stringAssignmentValuesFor(source, reference.identifier).length > 0) {
+      return [];
+    }
 
-  return [...new Set([...expressionReferences, ...assignmentReferences])];
+    return [`runtime setAttribute ${reference.objectName}.${reference.attribute} = ${reference.identifier}`];
+  });
+
+  return [...new Set([...expressionReferences, ...assignmentReferences, ...setAttributeReferences])];
 }

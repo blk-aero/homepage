@@ -111,6 +111,53 @@ const loaderSrc = "https://loader.example.com/boot.js";
     ]);
   });
 
+  it("detects runtime URLs assigned through setAttribute on runtime-bearing elements", () => {
+    const source = `
+---
+const widgetSrc = "https://cdn.example.com/widget.js";
+const mediaSrc = "https://media.example.com/app";
+---
+<script>
+  const script = document.createElement("script");
+  script.setAttribute("src", "https://literal.example.com/widget.js");
+  const frame = document.createElement("iframe");
+  frame.setAttribute("src", widgetSrc);
+  const embed = document.createElement("embed");
+  embed.setAttribute("src", \`https://embed.example.com/player.js\`);
+  const object = document.createElement("object");
+  object.setAttribute("data", mediaSrc);
+  const img = document.createElement("img");
+  img.setAttribute("src", "https://images.example.com/photo.jpg");
+</script>
+`;
+
+    expect(runtimeUrlsInSource(source)).toEqual([
+      "https://literal.example.com/widget.js",
+      "https://cdn.example.com/widget.js",
+      "https://embed.example.com/player.js",
+      "https://media.example.com/app"
+    ]);
+  });
+
+  it("uses the nearest createElement assignment when setAttribute variables are reused", () => {
+    const source = `
+<script>
+  const node = document.createElement("script");
+  node.setAttribute("src", "https://cdn.example.com/widget.js");
+</script>
+<script>
+  const node = document.createElement("img");
+  node.setAttribute("src", "https://images.example.com/photo.jpg");
+  node.setAttribute("src", imageSrc);
+</script>
+`;
+
+    expect(runtimeUrlsInSource(source)).toEqual([
+      "https://cdn.example.com/widget.js"
+    ]);
+    expect(unresolvedRuntimeReferencesInSource(source)).toEqual([]);
+  });
+
   it("flags unresolved source-level runtime expressions before env-gated build output exists", () => {
     const source = `
 ---
@@ -126,6 +173,28 @@ import { widgetSrc } from "../lib/widget";
     expect(unresolvedRuntimeReferencesInSource(source)).toEqual([
       "runtime attribute src={widgetSrc}",
       "runtime assignment script.src = widgetSrc"
+    ]);
+  });
+
+  it("flags unresolved setAttribute runtime identifiers before env-gated build output exists", () => {
+    const source = `
+---
+import { widgetSrc } from "../lib/widget";
+import { mediaSrc } from "../lib/media";
+---
+<script>
+  const script = document.createElement("script");
+  script.setAttribute("src", widgetSrc);
+  const object = document.createElement("object");
+  object.setAttribute("data", mediaSrc);
+  const img = document.createElement("img");
+  img.setAttribute("src", imageSrc);
+</script>
+`;
+
+    expect(unresolvedRuntimeReferencesInSource(source)).toEqual([
+      "runtime setAttribute script.src = widgetSrc",
+      "runtime setAttribute object.data = mediaSrc"
     ]);
   });
 });
