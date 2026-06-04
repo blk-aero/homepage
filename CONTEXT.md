@@ -8,6 +8,10 @@ This context defines the commercial language for the BLK Aero website. It keeps 
 The brand-level entrypoint that builds trust in BLK Aero and routes visitors to the right commercial path.
 _Avoid_: single-service homepage, generic brochure page
 
+**Performance Foundation**:
+The reusable site-quality standard that future BLK public pages inherit so new routes stay fast, stable, crawlable, and easy to verify.
+_Avoid_: one-off homepage cleanup, score chasing, isolated PageSpeed patch
+
 **Homepage Triage Card**:
 A homepage routing option that names a buyer problem cluster and hints at related BLK services.
 _Avoid_: exhaustive service catalog item, hidden secondary service

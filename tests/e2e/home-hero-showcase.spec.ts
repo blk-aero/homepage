@@ -1,5 +1,44 @@
 import { expect, test } from "@playwright/test";
 
+test("homepage uses local Lato without Google Fonts requests", async ({ page }) => {
+  const googleFontRequests: string[] = [];
+  const localLatoRequests: string[] = [];
+
+  page.on("request", (request) => {
+    const requestUrl = new URL(request.url());
+
+    if (requestUrl.hostname === "fonts.googleapis.com" || requestUrl.hostname === "fonts.gstatic.com") {
+      googleFontRequests.push(request.url());
+    }
+
+    if (requestUrl.pathname.startsWith("/fonts/lato/")) {
+      localLatoRequests.push(request.url());
+    }
+  });
+
+  await page.goto("/");
+
+  await expect(page.getByTestId("section-hero")).toBeVisible();
+
+  const bodyFontFamily = await page.locator("body").evaluate((node) => getComputedStyle(node).fontFamily);
+
+  expect(bodyFontFamily).toContain("Lato");
+  expect(localLatoRequests.length).toBeGreaterThan(0);
+  expect(googleFontRequests).toEqual([]);
+});
+
+test("homepage brand logos reserve explicit dimensions", async ({ page }) => {
+  await page.goto("/");
+
+  const headerLogo = page.locator("header img").first();
+  const footerLogo = page.locator("footer img").first();
+
+  await expect(headerLogo).toHaveAttribute("width", /[1-9]\d*/);
+  await expect(headerLogo).toHaveAttribute("height", /[1-9]\d*/);
+  await expect(footerLogo).toHaveAttribute("width", /[1-9]\d*/);
+  await expect(footerLogo).toHaveAttribute("height", /[1-9]\d*/);
+});
+
 test("homepage hero uses right-side image carousel", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
@@ -35,6 +74,78 @@ test("homepage hero uses right-side image carousel", async ({ page }) => {
   expect(heroSrc).toContain("blk-hero-e-projeto-obra");
   await expect(heroImage).toHaveAttribute("width", /[1-9]\d*/);
   await expect(heroImage).toHaveAttribute("height", /[1-9]\d*/);
+});
+
+test("homepage hero marks the first image as LCP priority", async ({ page }) => {
+  await page.goto("/");
+
+  const heroImages = page.getByTestId("home-hero-image");
+
+  await expect(heroImages).toHaveCount(5);
+  await expect(heroImages.first()).toHaveAttribute("loading", "eager");
+  await expect(heroImages.first()).toHaveAttribute("fetchpriority", "high");
+
+  for (let index = 1; index < 5; index += 1) {
+    await expect(heroImages.nth(index)).toHaveAttribute("loading", "lazy");
+    await expect(heroImages.nth(index)).toHaveAttribute("fetchpriority", "auto");
+  }
+});
+
+test("homepage hero images are delivered for their rendered slot", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const heroImages = page.getByTestId("home-hero-image");
+  await expect(heroImages).toHaveCount(5);
+
+  const firstHeroImage = heroImages.first();
+  const width = Number(await firstHeroImage.getAttribute("width"));
+  const height = Number(await firstHeroImage.getAttribute("height"));
+
+  expect(width).toBeLessThanOrEqual(760);
+  expect(height).toBeLessThanOrEqual(760);
+  await expect(firstHeroImage).toHaveAttribute("sizes", /max-width/);
+  await expect(firstHeroImage).toHaveAttribute("srcset", /760w/);
+  await expect(firstHeroImage).toHaveAttribute("loading", "eager");
+  await expect(firstHeroImage).toHaveAttribute("fetchpriority", "high");
+
+  const mobileDelivery = await firstHeroImage.evaluate((image) => {
+    const htmlImage = image as HTMLImageElement;
+    const box = htmlImage.getBoundingClientRect();
+    return {
+      currentSrc: htmlImage.currentSrc,
+      naturalWidth: htmlImage.naturalWidth,
+      renderedWidth: box.width,
+      devicePixelRatio: window.devicePixelRatio
+    };
+  });
+
+  expect(mobileDelivery.currentSrc).toBeTruthy();
+  expect(mobileDelivery.naturalWidth).toBeLessThanOrEqual(
+    Math.ceil(mobileDelivery.renderedWidth * mobileDelivery.devicePixelRatio * 1.5)
+  );
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+
+  const desktopDelivery = await page
+    .getByTestId("home-hero-image")
+    .first()
+    .evaluate((image) => {
+      const htmlImage = image as HTMLImageElement;
+      const box = htmlImage.getBoundingClientRect();
+      return {
+        currentSrc: htmlImage.currentSrc,
+        naturalWidth: htmlImage.naturalWidth,
+        renderedWidth: box.width,
+        devicePixelRatio: window.devicePixelRatio
+      };
+    });
+
+  expect(desktopDelivery.currentSrc).toBeTruthy();
+  expect(desktopDelivery.naturalWidth).toBeLessThanOrEqual(
+    Math.ceil(desktopDelivery.renderedWidth * desktopDelivery.devicePixelRatio * 1.5)
+  );
 });
 
 test("homepage stays in light theme when the OS prefers dark mode", async ({ page }) => {
@@ -152,6 +263,31 @@ test("compact proof band shows the accepted proof groups without relationship la
   expect(triageBox).toBeTruthy();
   expect(proofBox?.y ?? 0).toBeGreaterThan(heroBox?.y ?? 0);
   expect(triageBox?.y ?? 0).toBeGreaterThan(proofBox?.y ?? 0);
+});
+
+test("compact proof logos keep alt text while using constrained responsive delivery", async ({ page }) => {
+  await page.goto("/");
+
+  const proofBand = page.getByTestId("section-compact-proof");
+  const proofImages = proofBand.getByRole("img");
+
+  await expect(proofImages).toHaveCount(18);
+
+  for (let index = 0; index < 18; index += 1) {
+    const image = proofImages.nth(index);
+    const alt = await image.getAttribute("alt");
+    const src = await image.getAttribute("src");
+
+    expect(alt).toBeTruthy();
+
+    if (src?.endsWith(".svg")) {
+      continue;
+    }
+
+    await expect(image).toHaveAttribute("sizes", "152px");
+    await expect(image).toHaveAttribute("srcset", /\b\d+w\b/);
+    expect(Number(await image.getAttribute("width"))).toBeLessThanOrEqual(304);
+  }
 });
 
 test("homepage triage cards route by outcome with one section CTA and discrete detail links", async ({

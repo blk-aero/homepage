@@ -8,7 +8,8 @@ describe("project scripts", () => {
       dev: "astro dev",
       build: "astro build",
       preview: "astro preview",
-      test: "vitest run",
+      test: "vitest run --exclude tests/config/crawlable-built-html.test.ts --exclude tests/config/public-runtime-guard.test.ts",
+      "test:built": "npm run build && vitest run tests/config/crawlable-built-html.test.ts tests/config/public-runtime-guard.test.ts tests/config/public-runtime-source-guard.test.ts tests/config/deployment-release.test.ts",
       "test:e2e": "playwright test"
     });
   });

@@ -7,6 +7,7 @@ Astro marketing site for BLK Aero, currently focused on the homepage PRD plus te
 - Do not read `ARCHIVE.md` or `/Archive` unless explicitly asked.
 - Keep edits scoped to the requested change and do not edit generated artifacts (`dist`, `.astro`) unless explicitly requested.
 - Keep this site vanilla Astro + Tailwind v4 + Flowbite: prefer installed Flowbite ESM/CSS integration over CDN scripts, frontend framework integrations, adapters, or heavy Vite plugins unless explicitly requested.
+- Preserve the Performance Foundation when adding public pages: route local bitmap assets through Astro image handling where practical, intentionally size hero/LCP images for their rendered slot, lazy-load non-critical imagery, reserve stable dimensions, and run a lab check for image-heavy pages.
 - Do not claim completion without running relevant verification and reporting the exact commands and outcomes.
 
 ## Task Guides
