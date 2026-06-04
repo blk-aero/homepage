@@ -10,6 +10,12 @@ import {
   unresolvedRuntimeReferencesInSource
 } from "./public-runtime-guard";
 
+function inlineScriptBodies(source: string) {
+  return [...source.matchAll(/<script\b(?=[^>]*\bis:inline\b)[^>]*>([\s\S]*?)<\/script>/gi)].map(
+    (match) => match[1]
+  );
+}
+
 describe("source public runtime third-party guard", () => {
   it("keeps approved third-party runtime exceptions named with a business purpose", () => {
     expect(existsSync(allowlistPath)).toBe(true);
@@ -47,6 +53,32 @@ describe("source public runtime third-party guard", () => {
         expect(approvedOrigins.has(originFor(url)), `${file} uses unapproved runtime URL ${url}`).toBe(true);
       }
     }
+  });
+
+  it("blocks unresolved Astro interpolation inside inline runtime scripts", () => {
+    const sourceFindings = findSourceRuntimeFiles().map((file) => ({
+      file,
+      source: readFileSync(file, "utf8")
+    }));
+
+    for (const { file, source } of sourceFindings) {
+      for (const body of inlineScriptBodies(source)) {
+        expect(body.includes("${"), `${file} must not use Astro interpolation inside is:inline scripts`).toBe(
+          false
+        );
+      }
+    }
+  });
+
+  it("allows Astro interpolation outside inline runtime script bodies", () => {
+    const source = `
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+</script>
+<p>{\`Allowed interpolation after inline script: \${label}\`}</p>
+`;
+
+    expect(inlineScriptBodies(source).some((body) => body.includes("${"))).toBe(false);
   });
 
   it("discovers Astro source files for env-gated runtime checks", () => {
