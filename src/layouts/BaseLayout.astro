@@ -258,17 +258,33 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/; SameSite=Lax";
         }
 
+        function safeSessionStorageGet(key) {
+          try {
+            return sessionStorage.getItem(key);
+          } catch (e) {
+            return null;
+          }
+        }
+
+        function safeSessionStorageSet(key, value) {
+          try {
+            sessionStorage.setItem(key, value);
+          } catch (e) {
+            // Ignore storage blocked errors
+          }
+        }
+
         function getLandingPage() {
-          let lp = sessionStorage.getItem(landingPageKey);
+          let lp = safeSessionStorageGet(landingPageKey);
           if (!lp) {
             lp = getCookie(landingCookieKey);
             if (lp) {
-              sessionStorage.setItem(landingPageKey, lp);
+              safeSessionStorageSet(landingPageKey, lp);
             }
           }
           if (!lp) {
             lp = window.location.pathname;
-            sessionStorage.setItem(landingPageKey, lp);
+            safeSessionStorageSet(landingPageKey, lp);
             setCookie(landingCookieKey, lp, 7);
           }
           return lp;
@@ -279,20 +295,20 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 
         function trackPageNavigation() {
           const currentPath = window.location.pathname;
-          const lastPage = sessionStorage.getItem(currentPageKey);
+          const lastPage = safeSessionStorageGet(currentPageKey);
           if (lastPage) {
-            sessionStorage.setItem(previousPageKey, lastPage);
+            safeSessionStorageSet(previousPageKey, lastPage);
           }
-          sessionStorage.setItem(currentPageKey, currentPath);
+          safeSessionStorageSet(currentPageKey, currentPath);
         }
 
         function getPreviousPage() {
-          return sessionStorage.getItem(previousPageKey) || "";
+          return safeSessionStorageGet(previousPageKey) || "";
         }
 
         function readStored() {
           try {
-            return JSON.parse(sessionStorage.getItem(storageKey) || "{}");
+            return JSON.parse(safeSessionStorageGet(storageKey) || "{}");
           } catch {
             return {};
           }
@@ -318,7 +334,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
               stored = {};
             }
             if (Object.keys(stored).length > 0) {
-              sessionStorage.setItem(storageKey, JSON.stringify(stored));
+              safeSessionStorageSet(storageKey, JSON.stringify(stored));
             }
           }
 
@@ -326,7 +342,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           const attribution = mergeFirstTouchAttribution(stored, current);
 
           if (Object.keys(attribution).length > 0) {
-            sessionStorage.setItem(storageKey, JSON.stringify(attribution));
+            safeSessionStorageSet(storageKey, JSON.stringify(attribution));
             setCookie(cookieKey, JSON.stringify(attribution), 7);
           }
           return attribution;

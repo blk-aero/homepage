@@ -20,6 +20,10 @@
       existing = {};
     }
 
-    sessionStorage.setItem(storageKey, JSON.stringify({ ...current, ...existing }));
+    try {
+      sessionStorage.setItem(storageKey, JSON.stringify({ ...current, ...existing }));
+    } catch (e) {
+      // Ignore storage blocked errors
+    }
   })();
 </script>
