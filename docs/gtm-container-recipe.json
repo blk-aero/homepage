@@ -1,0 +1,353 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-06-10 13:00:00",
+  "containerVersion": {
+    "name": "BLK Aero Analytics & Campaigns",
+    "container": {
+      "name": "BLK Aero Website",
+      "publicId": "GTM-WL3NKNLP",
+      "usageContext": ["WEB"]
+    },
+    "variable": [
+      {
+        "name": "DLV - gclid",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "gclid" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - utm_source",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "utm_source" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - utm_medium",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "utm_medium" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - utm_campaign",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "utm_campaign" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - landing_page",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "landing_page" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - page_path",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "page_path" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - previous_page",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "previous_page" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - cta_location",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "cta_location" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - location",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "location" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - objective",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "objective" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - email",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "email" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - social_platform",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "social_platform" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      }
+    ],
+    "trigger": [
+      {
+        "name": "Custom Event - whatsapp_click",
+        "triggerId": "1",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "whatsapp_click"
+          }
+        ]
+      },
+      {
+        "name": "Custom Event - email_click",
+        "triggerId": "2",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "email_click"
+          }
+        ]
+      },
+      {
+        "name": "Custom Event - social_click",
+        "triggerId": "3",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "social_click"
+          }
+        ]
+      }
+    ],
+    "tag": [
+      {
+        "name": "GA4 Event - whatsapp_click",
+        "tagId": "10",
+        "type": "gaawe",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "eventName", "value": "whatsapp_click" },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "gclid" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - gclid}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_source" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_source}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_medium" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_medium}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_campaign" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_campaign}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "landing_page" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - landing_page}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "previous_page" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - previous_page}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "page_path" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - page_path}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "cta_location" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - cta_location}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "location" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - location}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "objective" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - objective}}" }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["1"]
+      },
+      {
+        "name": "GA4 Event - email_click",
+        "tagId": "11",
+        "type": "gaawe",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "eventName", "value": "email_click" },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "email" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - email}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "cta_location" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - cta_location}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "landing_page" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - landing_page}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "page_path" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - page_path}}" }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["2"]
+      },
+      {
+        "name": "GA4 Event - social_click",
+        "tagId": "12",
+        "type": "gaawe",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "eventName", "value": "social_click" },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "social_platform" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - social_platform}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "landing_page" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - landing_page}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "page_path" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - page_path}}" }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["3"]
+      },
+      {
+        "name": "Meta Pixel - Base Code",
+        "tagId": "20",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<!-- Facebook Pixel Code -->\n<script>\n  !function(f,b,e,v,n,t,s)\n  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n  n.callMethod.apply(n,arguments):n.queue.push(arguments)};\n  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\n  n.queue=[];t=b.createElement(e);t.async=!0;\n  t.src=v;s=b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t,s)}(window, document,'script',\n  'https://connect.facebook.net/en_US/fbevents.js');\n  // REPLACE PLACEHOLDER WITH YOUR PIXEL ID:\n  fbq('init', 'YOUR_PIXEL_ID_PLACEHOLDER');\n  fbq('track', 'PageView');\n</script>\n<!-- End Facebook Pixel Code -->"
+          }
+        ],
+        "firingTriggerId": ["1", "2", "3"]
+      },
+      {
+        "name": "Meta Pixel - Event - whatsapp_click",
+        "tagId": "21",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'whatsapp_click', {\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      previous_page: '{{DLV - previous_page}}',\n      cta_location: '{{DLV - cta_location}}',\n      utm_source: '{{DLV - utm_source}}',\n      utm_medium: '{{DLV - utm_medium}}',\n      utm_campaign: '{{DLV - utm_campaign}}',\n      gclid: '{{DLV - gclid}}'\n    });\n  }\n</script>"
+          }
+        ],
+        "firingTriggerId": ["1"]
+      },
+      {
+        "name": "Meta Pixel - Event - email_click",
+        "tagId": "22",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'email_click', {\n      email: '{{DLV - email}}',\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      cta_location: '{{DLV - cta_location}}'\n    });\n  }\n</script>"
+          }
+        ],
+        "firingTriggerId": ["2"]
+      }
+    ]
+  }
+}
