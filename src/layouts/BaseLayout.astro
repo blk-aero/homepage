@@ -231,7 +231,60 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 
       (function () {
         const storageKey = "blk_attribution_v1";
+        const cookieKey = "blk_cookie_attribution_v1";
+        const landingPageKey = "blk_landing_page_v1";
+        const landingCookieKey = "blk_cookie_landing_page_v1";
         const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+
+        function getCookie(name) {
+          const nameEQ = name + "=";
+          const ca = document.cookie.split(";");
+          for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === " ") c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+          }
+          return null;
+        }
+
+        function setCookie(name, value, days) {
+          let expires = "";
+          if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+          }
+          document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/; SameSite=Lax";
+        }
+
+        function getLandingPage() {
+          let lp = sessionStorage.getItem(landingPageKey);
+          if (!lp) {
+            lp = getCookie(landingCookieKey);
+            if (lp) {
+              sessionStorage.setItem(landingPageKey, lp);
+            }
+          }
+          if (!lp) {
+            lp = window.location.pathname;
+            sessionStorage.setItem(landingPageKey, lp);
+            setCookie(landingCookieKey, lp, 7);
+          }
+          return lp;
+        }
+
+        function getPreviousPage() {
+          try {
+            const referrer = document.referrer;
+            if (referrer) {
+              const refUrl = new URL(referrer);
+              if (refUrl.hostname === window.location.hostname) {
+                return refUrl.pathname;
+              }
+            }
+          } catch {}
+          return "";
+        }
 
         function readStored() {
           try {
@@ -252,9 +305,25 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
         }
 
         function readAttribution() {
-          const attribution = mergeFirstTouchAttribution(readStored(), readCurrentParams());
+          let stored = readStored();
+
+          if (Object.keys(stored).length === 0) {
+            try {
+              stored = JSON.parse(getCookie(cookieKey) || "{}");
+            } catch {
+              stored = {};
+            }
+            if (Object.keys(stored).length > 0) {
+              sessionStorage.setItem(storageKey, JSON.stringify(stored));
+            }
+          }
+
+          const current = readCurrentParams();
+          const attribution = mergeFirstTouchAttribution(stored, current);
+
           if (Object.keys(attribution).length > 0) {
             sessionStorage.setItem(storageKey, JSON.stringify(attribution));
+            setCookie(cookieKey, JSON.stringify(attribution), 7);
           }
           return attribution;
         }
