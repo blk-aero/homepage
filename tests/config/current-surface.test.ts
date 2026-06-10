@@ -15,7 +15,6 @@ const removedLegacyFiles = [
   "src/lib/routes.ts",
   "src/lib/rollout.ts",
   "src/lib/schema.ts",
-  "scripts/indexnow.mjs",
   "data/rollout-control.json"
 ];
 
