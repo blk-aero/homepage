@@ -28,6 +28,9 @@ test("utm survives internal navigation in whatsapp click analytics", async ({ pa
     gclid: "abc123",
     utm_source: "google"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/blog");
+  expect(payload.previous_page).toBe("/blog");
 });
 
 test("first-touch attribution wins over later conflicting campaign params", async ({ page }) => {
@@ -57,6 +60,9 @@ test("first-touch attribution wins over later conflicting campaign params", asyn
     utm_content: "later",
     gclid: "first-click"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/");
+  expect(payload.previous_page).toBe("/");
 });
 
 test("homepage whatsapp CTA keeps message simple while click payload keeps attribution", async ({
@@ -88,6 +94,9 @@ test("homepage whatsapp CTA keeps message simple while click payload keeps attri
     utm_source: "google",
     gclid: "abc123"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/");
+  expect(payload.previous_page).toBe("");
 });
 
 test("homepage triage section whatsapp CTA includes section location and attribution", async ({
@@ -121,6 +130,9 @@ test("homepage triage section whatsapp CTA includes section location and attribu
     cta_location: "triage-section",
     gclid: "abc123"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/");
+  expect(payload.previous_page).toBe("");
   expect(payload.selected_cluster).toBeUndefined();
 });
 
@@ -196,6 +208,9 @@ test("homepage final CTA composer uses shared whatsapp payload behavior", async 
     objective: "Regularização Rural",
     gclid: "abc123"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/");
+  expect(payload.previous_page).toBe("");
 });
 
 test("footer email click pushes supporting contact analytics", async ({ page }) => {
@@ -217,6 +232,9 @@ test("footer email click pushes supporting contact analytics", async ({ page }) 
     utm_source: "google",
     gclid: "abc123"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/");
+  expect(payload.previous_page).toBe("");
 });
 
 test("privacy policy email click pushes supporting contact analytics", async ({ page }) => {
@@ -236,6 +254,9 @@ test("privacy policy email click pushes supporting contact analytics", async ({ 
     page_path: "/politica-de-privacidade",
     utm_source: "privacy-test"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/politica-de-privacidade");
+  expect(payload.previous_page).toBe("");
 });
 
 test("footer social click pushes supporting contact analytics", async ({ page }) => {
@@ -257,4 +278,7 @@ test("footer social click pushes supporting contact analytics", async ({ page })
     utm_source: "linkedin",
     utm_medium: "social"
   });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/");
+  expect(payload.previous_page).toBe("");
 });
