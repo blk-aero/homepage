@@ -1,6 +1,6 @@
 {
   "exportFormatVersion": 2,
-  "exportTime": "2026-06-10 13:00:00",
+  "exportTime": "2026-06-11 13:00:00",
   "containerVersion": {
     "name": "BLK Aero Analytics & Campaigns",
     "container": {
@@ -38,6 +38,22 @@
         "type": "v",
         "parameter": [
           { "type": "TEMPLATE", "key": "name", "value": "utm_campaign" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - utm_term",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "utm_term" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - utm_content",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "utm_content" },
           { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
         ]
       },
@@ -104,6 +120,46 @@
           { "type": "TEMPLATE", "key": "name", "value": "social_platform" },
           { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
         ]
+      },
+      {
+        "name": "DLV - event_timestamp",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "event_timestamp" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - whatsapp_greeting_id",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "whatsapp_greeting_id" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - service",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "service" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - selected_cluster",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "selected_cluster" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
+      },
+      {
+        "name": "DLV - outbound_url",
+        "type": "v",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "name", "value": "outbound_url" },
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
+        ]
       }
     ],
     "trigger": [
@@ -142,6 +198,11 @@
             "value": "social_click"
           }
         ]
+      },
+      {
+        "name": "All Pages",
+        "triggerId": "4",
+        "type": "PAGEVIEW"
       }
     ],
     "tag": [
@@ -186,6 +247,20 @@
               {
                 "type": "MAP",
                 "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_term" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_term}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_content" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_content}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
                   { "type": "TEMPLATE", "key": "name", "value": "landing_page" },
                   { "type": "TEMPLATE", "key": "value", "value": "{{DLV - landing_page}}" }
                 ]
@@ -223,6 +298,34 @@
                 "map": [
                   { "type": "TEMPLATE", "key": "name", "value": "objective" },
                   { "type": "TEMPLATE", "key": "value", "value": "{{DLV - objective}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "event_timestamp" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - event_timestamp}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "whatsapp_greeting_id" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - whatsapp_greeting_id}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "service" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - service}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "selected_cluster" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - selected_cluster}}" }
                 ]
               }
             ]
@@ -264,8 +367,64 @@
               {
                 "type": "MAP",
                 "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "previous_page" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - previous_page}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
                   { "type": "TEMPLATE", "key": "name", "value": "page_path" },
                   { "type": "TEMPLATE", "key": "value", "value": "{{DLV - page_path}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_source" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_source}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_medium" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_medium}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_campaign" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_campaign}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_term" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_term}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_content" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_content}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "gclid" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - gclid}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "event_timestamp" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - event_timestamp}}" }
                 ]
               }
             ]
@@ -293,6 +452,20 @@
               {
                 "type": "MAP",
                 "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "outbound_url" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - outbound_url}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "cta_location" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - cta_location}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
                   { "type": "TEMPLATE", "key": "name", "value": "landing_page" },
                   { "type": "TEMPLATE", "key": "value", "value": "{{DLV - landing_page}}" }
                 ]
@@ -300,8 +473,64 @@
               {
                 "type": "MAP",
                 "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "previous_page" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - previous_page}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
                   { "type": "TEMPLATE", "key": "name", "value": "page_path" },
                   { "type": "TEMPLATE", "key": "value", "value": "{{DLV - page_path}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_source" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_source}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_medium" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_medium}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_campaign" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_campaign}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_term" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_term}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "utm_content" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - utm_content}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "gclid" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - gclid}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "name", "value": "event_timestamp" },
+                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - event_timestamp}}" }
                 ]
               }
             ]
@@ -320,7 +549,7 @@
             "value": "<!-- Facebook Pixel Code -->\n<script>\n  !function(f,b,e,v,n,t,s)\n  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n  n.callMethod.apply(n,arguments):n.queue.push(arguments)};\n  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\n  n.queue=[];t=b.createElement(e);t.async=!0;\n  t.src=v;s=b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t,s)}(window, document,'script',\n  'https://connect.facebook.net/en_US/fbevents.js');\n  // REPLACE PLACEHOLDER WITH YOUR PIXEL ID:\n  fbq('init', 'YOUR_PIXEL_ID_PLACEHOLDER');\n  fbq('track', 'PageView');\n</script>\n<!-- End Facebook Pixel Code -->"
           }
         ],
-        "firingTriggerId": ["1", "2", "3"]
+        "firingTriggerId": ["4"]
       },
       {
         "name": "Meta Pixel - Event - whatsapp_click",
@@ -330,7 +559,7 @@
           {
             "type": "TEMPLATE",
             "key": "html",
-            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'whatsapp_click', {\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      previous_page: '{{DLV - previous_page}}',\n      cta_location: '{{DLV - cta_location}}',\n      utm_source: '{{DLV - utm_source}}',\n      utm_medium: '{{DLV - utm_medium}}',\n      utm_campaign: '{{DLV - utm_campaign}}',\n      gclid: '{{DLV - gclid}}'\n    });\n  }\n</script>"
+            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'whatsapp_click', {\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      previous_page: '{{DLV - previous_page}}',\n      cta_location: '{{DLV - cta_location}}',\n      utm_source: '{{DLV - utm_source}}',\n      utm_medium: '{{DLV - utm_medium}}',\n      utm_campaign: '{{DLV - utm_campaign}}',\n      utm_term: '{{DLV - utm_term}}',\n      utm_content: '{{DLV - utm_content}}',\n      gclid: '{{DLV - gclid}}',\n      location: '{{DLV - location}}',\n      objective: '{{DLV - objective}}',\n      whatsapp_greeting_id: '{{DLV - whatsapp_greeting_id}}',\n      service: '{{DLV - service}}',\n      selected_cluster: '{{DLV - selected_cluster}}',\n      event_timestamp: '{{DLV - event_timestamp}}'\n    });\n  }\n</script>"
           }
         ],
         "firingTriggerId": ["1"]
@@ -343,10 +572,23 @@
           {
             "type": "TEMPLATE",
             "key": "html",
-            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'email_click', {\n      email: '{{DLV - email}}',\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      cta_location: '{{DLV - cta_location}}'\n    });\n  }\n</script>"
+            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'email_click', {\n      email: '{{DLV - email}}',\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      previous_page: '{{DLV - previous_page}}',\n      cta_location: '{{DLV - cta_location}}',\n      utm_source: '{{DLV - utm_source}}',\n      utm_medium: '{{DLV - utm_medium}}',\n      utm_campaign: '{{DLV - utm_campaign}}',\n      utm_term: '{{DLV - utm_term}}',\n      utm_content: '{{DLV - utm_content}}',\n      gclid: '{{DLV - gclid}}',\n      event_timestamp: '{{DLV - event_timestamp}}'\n    });\n  }\n</script>"
           }
         ],
         "firingTriggerId": ["2"]
+      },
+      {
+        "name": "Meta Pixel - Event - social_click",
+        "tagId": "23",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'social_click', {\n      social_platform: '{{DLV - social_platform}}',\n      outbound_url: '{{DLV - outbound_url}}',\n      cta_location: '{{DLV - cta_location}}',\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      previous_page: '{{DLV - previous_page}}',\n      utm_source: '{{DLV - utm_source}}',\n      utm_medium: '{{DLV - utm_medium}}',\n      utm_campaign: '{{DLV - utm_campaign}}',\n      utm_term: '{{DLV - utm_term}}',\n      utm_content: '{{DLV - utm_content}}',\n      gclid: '{{DLV - gclid}}',\n      event_timestamp: '{{DLV - event_timestamp}}'\n    });\n  }\n</script>"
+          }
+        ],
+        "firingTriggerId": ["3"]
       }
     ]
   }

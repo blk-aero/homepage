@@ -42,7 +42,7 @@ The BLK Aero website lacks a robust, session-spanning marketing attribution fram
     *   The final merged attribution values are saved back to both sessionStorage and written to `blk_cookie_attribution_v1` (cookie expiration set to 7 days).
 *   **Macro Journey State**:
     *   `landing_page` is evaluated once per visitor: checked in sessionStorage, then in cookie `blk_cookie_landing_page_v1`. If both are missing, the current path is saved in both.
-    *   `previous_page` is computed dynamically on load by parsing `document.referrer`. If the referrer host matches the current site hostname, `previous_page` is set to the referrer path; otherwise, it is left empty.
+    *   `previous_page` is tracked via sessionStorage-based history. On page load, the script updates the session's navigation history, setting `previous_page` to the previously visited path on the same site within the session.
 *   **Conversion Event Payloads**:
     All tags pushed to the `dataLayer` for clicks on WhatsApp, email, and social outbound links will match the following JSON structure:
     ```json

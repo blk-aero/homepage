@@ -282,3 +282,31 @@ test("footer social click pushes supporting contact analytics", async ({ page })
   expect(payload.landing_page).toBe("/");
   expect(payload.previous_page).toBe("");
 });
+
+test("cross-session cookie fallback preserves attribution after sessionStorage is cleared", async ({
+  page
+}) => {
+  await page.goto("/blog?utm_source=google&utm_medium=cpc&utm_campaign=teste&gclid=abc123");
+
+  await page.evaluate(() => sessionStorage.clear());
+
+  await page.goto("/");
+
+  const cta = page.locator('[data-testid="whatsapp-cta"]').first();
+  await cta.dispatchEvent("click");
+
+  const payload = await page.evaluate(() => {
+    const events = Array.isArray(window.dataLayer) ? window.dataLayer : [];
+    return events.find((event) => event.event === "whatsapp_click");
+  });
+
+  expect(payload).toMatchObject({
+    gclid: "abc123",
+    utm_source: "google",
+    utm_medium: "cpc",
+    utm_campaign: "teste"
+  });
+  expect(payload.event_timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+  expect(payload.landing_page).toBe("/blog");
+});
+

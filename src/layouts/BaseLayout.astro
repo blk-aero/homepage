@@ -3,7 +3,6 @@ import "../styles/global.css";
 import faviconPng from "../assets/brand/favicon.png";
 import footerLogoInline from "../assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg";
 import logoInline from "../assets/brand/logo_inline_grey_halftext_aero_nobackground.svg";
-import AttributionCapture from "../components/AttributionCapture.astro";
 import BrandIcon from "../components/BrandIcon.astro";
 import GtmHead from "../components/GtmHead.astro";
 import SeoHead from "../components/SeoHead.astro";
@@ -218,7 +217,6 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
     </footer>
 
     <SimpleCookieNotice />
-    <AttributionCapture />
     <script>
       import { initAccordions } from "flowbite/lib/esm/components/accordion";
       import { initCollapses } from "flowbite/lib/esm/components/collapse";
@@ -255,7 +253,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
             expires = "; expires=" + date.toUTCString();
           }
-          document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/; SameSite=Lax";
+          document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/; SameSite=Lax; Secure";
         }
 
         function safeSessionStorageGet(key) {
