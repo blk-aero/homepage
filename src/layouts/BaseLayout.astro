@@ -3,7 +3,6 @@ import "../styles/global.css";
 import faviconPng from "../assets/brand/favicon.png";
 import footerLogoInline from "../assets/brand/logo_inline_grey_fulltext_aero_nobackground.svg";
 import logoInline from "../assets/brand/logo_inline_grey_halftext_aero_nobackground.svg";
-import AttributionCapture from "../components/AttributionCapture.astro";
 import BrandIcon from "../components/BrandIcon.astro";
 import GtmHead from "../components/GtmHead.astro";
 import SeoHead from "../components/SeoHead.astro";
@@ -60,6 +59,7 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 <!doctype html>
 <html lang="pt-BR">
   <head>
+    <!-- [A/B Testing Entry Point] Future A/B testing or optimization scripts (e.g., VWO, Optimizely) go here -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
@@ -217,7 +217,6 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
     </footer>
 
     <SimpleCookieNotice />
-    <AttributionCapture />
     <script>
       import { initAccordions } from "flowbite/lib/esm/components/accordion";
       import { initCollapses } from "flowbite/lib/esm/components/collapse";
@@ -231,11 +230,78 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
 
       (function () {
         const storageKey = "blk_attribution_v1";
+        const cookieKey = "blk_cookie_attribution_v1";
+        const landingPageKey = "blk_landing_page_v1";
+        const landingCookieKey = "blk_cookie_landing_page_v1";
         const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+
+        function getCookie(name) {
+          const nameEQ = name + "=";
+          const ca = document.cookie.split(";");
+          for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === " ") c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+          }
+          return null;
+        }
+
+        function setCookie(name, value, days) {
+          let expires = "";
+          if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+          }
+          document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/; SameSite=Lax; Secure";
+        }
+
+        function safeSessionStorageGet(key) {
+          try {
+            return sessionStorage.getItem(key);
+          } catch (e) {
+            return null;
+          }
+        }
+
+        function safeSessionStorageSet(key, value) {
+          try {
+            sessionStorage.setItem(key, value);
+          } catch (e) {
+            // Ignore storage blocked errors
+          }
+        }
+
+        function getLandingPage() {
+          let lp = safeSessionStorageGet(landingPageKey);
+          if (!lp) {
+            lp = getCookie(landingCookieKey);
+            if (lp) {
+              safeSessionStorageSet(landingPageKey, lp);
+            }
+          }
+          if (!lp) {
+            lp = window.location.pathname;
+            safeSessionStorageSet(landingPageKey, lp);
+            setCookie(landingCookieKey, lp, 7);
+          }
+          return lp;
+        }
+
+        function getPreviousPage() {
+          if (!document.referrer) return "";
+          try {
+            const referrerUrl = new URL(document.referrer);
+            if (referrerUrl.origin !== window.location.origin) return "";
+            return referrerUrl.pathname;
+          } catch {
+            return "";
+          }
+        }
 
         function readStored() {
           try {
-            return JSON.parse(sessionStorage.getItem(storageKey) || "{}");
+            return JSON.parse(safeSessionStorageGet(storageKey) || "{}");
           } catch {
             return {};
           }
@@ -252,9 +318,25 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
         }
 
         function readAttribution() {
-          const attribution = mergeFirstTouchAttribution(readStored(), readCurrentParams());
+          let stored = readStored();
+
+          if (Object.keys(stored).length === 0) {
+            try {
+              stored = JSON.parse(getCookie(cookieKey) || "{}");
+            } catch {
+              stored = {};
+            }
+            if (Object.keys(stored).length > 0) {
+              safeSessionStorageSet(storageKey, JSON.stringify(stored));
+            }
+          }
+
+          const current = readCurrentParams();
+          const attribution = mergeFirstTouchAttribution(stored, current);
+
           if (Object.keys(attribution).length > 0) {
-            sessionStorage.setItem(storageKey, JSON.stringify(attribution));
+            safeSessionStorageSet(storageKey, JSON.stringify(attribution));
+            setCookie(cookieKey, JSON.stringify(attribution), 7);
           }
           return attribution;
         }
@@ -294,12 +376,15 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
               event: "whatsapp_click",
+              event_timestamp: new Date().toISOString(),
               service: payload.service || undefined,
               city: payload.city || undefined,
               selected_cluster: payload.selectedCluster || undefined,
               cta_location: payload.ctaLocation || undefined,
               whatsapp_greeting_id: greeting.id,
               page_path: window.location.pathname,
+              landing_page: getLandingPage(),
+              previous_page: getPreviousPage(),
               ...attribution
             });
           });
@@ -320,9 +405,12 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
               event: "email_click",
+              event_timestamp: new Date().toISOString(),
               email: node.dataset.emailAddress || emailFromLink(node) || undefined,
               cta_location: node.dataset.ctaLocation || undefined,
               page_path: window.location.pathname,
+              landing_page: getLandingPage(),
+              previous_page: getPreviousPage(),
               ...readAttribution()
             });
           });
@@ -337,9 +425,12 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
               event: "social_click",
+              event_timestamp: new Date().toISOString(),
               social_platform: node.dataset.socialPlatform || undefined,
               outbound_url: node.href,
               page_path: window.location.pathname,
+              landing_page: getLandingPage(),
+              previous_page: getPreviousPage(),
               ...readAttribution()
             });
           });
@@ -382,15 +473,18 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
               event: "whatsapp_click",
+              event_timestamp: new Date().toISOString(),
               page_path: window.location.pathname,
+              landing_page: getLandingPage(),
+              previous_page: getPreviousPage(),
               cta_location: currentPayload.ctaLocation || undefined,
               whatsapp_greeting_id: greeting.id,
-              location: currentPayload.location || undefined,
-              objective: currentPayload.objective || undefined,
               ...attribution
             });
           });
         });
+        readAttribution();
+        getLandingPage();
       })();
     </script>
   </body>
