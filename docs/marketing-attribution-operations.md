@@ -10,9 +10,9 @@ The BLK Aero website lacks a robust, session-spanning marketing attribution fram
 
 ## Solution
 
-1.  **Durable First-Touch Cookie Fallback**: Add a first-party cookie fallback (`blk_cookie_attribution_v1`) with a 7-day TTL to preserve first-touch UTM parameters and GCLID values across browser closures and sessions.
-2.  **Macro User Journey Tracking**: Capture the first page a user visits as the `landing_page` (stored in sessionStorage and a 7-day cookie fallback) and the immediate previous path they came from as `previous_page`.
-3.  **Enriched dataLayer Events**: Push enriched conversion event payloads (`whatsapp_click`, `email_click`, `social_click`) containing attribution details, landing pages, referrer paths, and event timestamps to the GTM `dataLayer`.
+1.  **Durable First-Touch Cookie Fallback**: Add a first-party cookie fallback (`blk_cookie_attribution_v1`) with a rolling 7-day TTL to preserve first-touch UTM parameters and GCLID values across browser closures and sessions.
+2.  **Macro User Journey Tracking**: Capture the first page a user visits as the `landing_page` (stored in sessionStorage and a 7-day cookie fallback) and the immediate same-origin referrer path as `previous_page`.
+3.  **Enriched dataLayer Events**: Push enriched conversion event payloads (`whatsapp_click`, `email_click`, `social_click`) containing attribution details, landing pages, same-origin previous-page paths, and event timestamps to the GTM `dataLayer`.
 4.  **A/B Testing Head Room**: Place HTML comment placeholders early in the layout `<head>` to reserve slots for future optimization scripts (like VWO or Optimizely).
 5.  **GTM Container Recipe JSON**: Export a pre-configured JSON container template containing all dataLayer variables, custom triggers, GA4 event tags, and Meta Pixel Custom HTML tags for easy, one-click GTM import.
 6.  **IndexNow Submission Script**: Add an opt-in, environment-gated build utility that reads generated sitemaps and programmatically notifies Bing/Yandex of new or updated pages.
@@ -20,7 +20,7 @@ The BLK Aero website lacks a robust, session-spanning marketing attribution fram
 
 ## User Stories
 
-1.  As a marketing manager, I want campaign parameters (UTM parameters and GCLID) to persist in a first-party cookie for 7 days, so that returning search ad visitors who close their tabs before converting are still attributed to their original campaign.
+1.  As a marketing manager, I want campaign parameters (UTM parameters and GCLID) to persist in a first-party cookie with a rolling 7-day TTL, so that returning search ad visitors who close their tabs before converting are still attributed to their original campaign.
 2.  As a web developer, I want GTM events to include a `landing_page` parameter, so that I can see which SEO entry page (like city pages or home) eventually generated the WhatsApp lead.
 3.  As an analyst, I want GTM events to include a `previous_page` parameter, so that I can understand the macro user journey (e.g. Home to City to WhatsApp) immediately within a conversion event.
 4.  As a CRM developer, I want every conversion event pushed to the dataLayer to include an ISO 8601 `event_timestamp`, so that I can match conversions precisely in offline database imports.
@@ -39,10 +39,10 @@ The BLK Aero website lacks a robust, session-spanning marketing attribution fram
 *   **Attribution Storage Lifecycle**:
     *   On page load, if sessionStorage is empty, the client script will check for the `blk_cookie_attribution_v1` cookie. If found, it hydrates sessionStorage.
     *   If current URL query parameters exist, they are parsed and merged. The first-touch parameters take precedence.
-    *   The final merged attribution values are saved back to both sessionStorage and written to `blk_cookie_attribution_v1` (cookie expiration set to 7 days).
+    *   The final merged attribution values are saved back to both sessionStorage and written to `blk_cookie_attribution_v1` (cookie expiration refreshed to 7 days whenever attribution is refreshed).
 *   **Macro Journey State**:
     *   `landing_page` is evaluated once per visitor: checked in sessionStorage, then in cookie `blk_cookie_landing_page_v1`. If both are missing, the current path is saved in both.
-    *   `previous_page` is tracked via sessionStorage-based history. On page load, the script updates the session's navigation history, setting `previous_page` to the previously visited path on the same site within the session.
+    *   `previous_page` is computed from `document.referrer` only when the referrer is same-origin; it is empty for external referrers or no referrer. GTM/GA4 native referrer fields can be used separately if full referrer reporting is needed.
 *   **Conversion Event Payloads**:
     All tags pushed to the `dataLayer` for clicks on WhatsApp, email, and social outbound links will match the following JSON structure:
     ```json
@@ -58,9 +58,7 @@ The BLK Aero website lacks a robust, session-spanning marketing attribution fram
       "landing_page": "/cidades/sao-jose-dos-campos/",
       "page_path": "/solucoes/projeto-e-obra/",
       "cta_location": "triage-section",
-      "whatsapp_greeting_id": "google-cpc-home.home-hero.v1",
-      "location": "Rua X, 123",
-      "objective": "Regularização de Lote"
+      "whatsapp_greeting_id": "google-cpc-home.home-hero.v1"
     }
     ```
 *   **Opt-In IndexNow Build Hook**:

@@ -6,9 +6,9 @@ This guide details the specifications for conversion payloads, sitemap indexing,
 
 ## 1. Offline Conversion Import Payload Schema
 
-All conversion events (`whatsapp_click`, `email_click`, `social_click`) are pushed directly to GTM's `window.dataLayer` in this structure:
+All conversion events (`whatsapp_click`, `email_click`, `social_click`) are pushed directly to GTM's `window.dataLayer` in this structure. Final CTA `location` and `objective` values stay in the WhatsApp message only; they are not sent to analytics or ad platforms until a structured lead-capture path exists.
 
-```json
+```jsonc
 {
   "event": "whatsapp_click",
   "event_timestamp": "2026-06-10T16:15:30.000Z", // Precise conversion date/time (ISO 8601)
@@ -21,10 +21,7 @@ All conversion events (`whatsapp_click`, `email_click`, `social_click`) are push
   "landing_page": "/cidades/sao-jose-dos-campos/", // Entry URL where session started
   "page_path": "/solucoes/projeto-e-obra/",        // Page path where click occurred
   "cta_location": "triage-section",
-  "whatsapp_greeting_id": "google-cpc-home.home-hero.v1",
-  // Form qualifiers (only present for the Final WhatsApp Composer):
-  "location": "Rua X, 123",
-  "objective": "Regularização Rural"
+  "whatsapp_greeting_id": "google-cpc-home.home-hero.v1"
 }
 ```
 
@@ -53,9 +50,9 @@ To report on macro user journeys natively in GA4, register the custom event para
 5. Configure the **Previous Page** dimension:
    - **Dimension Name**: `Previous Page`
    - **Scope**: `Event`
-   - **Description**: `Page path visited right before converting`
+   - **Description**: `Same-origin referrer path visited right before converting`
    - **Event Parameter**: `previous_page`
-6. Click **Save**. Note: These custom dimensions will start populating in reports within 24-48 hours.
+6. Click **Save**. Note: These custom dimensions will start populating in reports within 24-48 hours. Use GA4 or GTM's native referrer fields separately if full external referrer reporting is needed.
 
 ---
 

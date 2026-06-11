@@ -29,7 +29,7 @@ This is a **Human-in-the-Loop (HITL)** setup task.
 - Behavior: The GTM script on the live site loads and triggers GA4/Meta pixel tags on WhatsApp and email click conversions.
   Public interface: GTM Tag Assistant / Preview Mode.
   Why this matters: Critical to ensure the dataLayer events pushed by the codebase are caught and routed to ad channels.
-  Evidence: In GTM preview mode, click a WhatsApp CTA and verify the Google Ads and Meta Pixel conversion tags fire.
+  Evidence: In GTM preview mode, click a WhatsApp CTA and verify the GA4 event and Meta Pixel conversion tags fire.
   Refactor-safe because: Tests the final tagging integrations inside the browser sandbox, independent of codebase architecture.
 
 ## Blocked by

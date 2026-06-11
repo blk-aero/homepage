@@ -12,7 +12,9 @@ describe("IndexNow Script", () => {
     process.env = { ...originalEnv };
     vi.spyOn(console, "log").mockImplementation(() => {});
     vi.spyOn(console, "error").mockImplementation(() => {});
-    vi.spyOn(process, "exit").mockImplementation(() => undefined as never);
+    vi.spyOn(process, "exit").mockImplementation((code) => {
+      throw new Error(`process.exit:${code}`);
+    });
   });
 
   afterEach(() => {
@@ -22,11 +24,12 @@ describe("IndexNow Script", () => {
 
   it("skips execution if INDEXNOW_KEY is not defined", async () => {
     delete process.env.INDEXNOW_KEY;
-    
+
     // Load script dynamically with cache-busting query
-    await import("../../scripts/indexnow.mjs?test1");
-    
+    await expect(import("../../scripts/indexnow.mjs?test1")).rejects.toThrow("process.exit:0");
+
     expect(process.exit).toHaveBeenCalledWith(0);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("submits sitemap URLs when INDEXNOW_KEY is defined", async () => {

@@ -288,20 +288,15 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
           return lp;
         }
 
-        const previousPageKey = "blk_previous_page_v1";
-        const currentPageKey = "blk_current_page_v1";
-
-        function trackPageNavigation() {
-          const currentPath = window.location.pathname;
-          const lastPage = safeSessionStorageGet(currentPageKey);
-          if (lastPage) {
-            safeSessionStorageSet(previousPageKey, lastPage);
-          }
-          safeSessionStorageSet(currentPageKey, currentPath);
-        }
-
         function getPreviousPage() {
-          return safeSessionStorageGet(previousPageKey) || "";
+          if (!document.referrer) return "";
+          try {
+            const referrerUrl = new URL(document.referrer);
+            if (referrerUrl.origin !== window.location.origin) return "";
+            return referrerUrl.pathname;
+          } catch {
+            return "";
+          }
         }
 
         function readStored() {
@@ -484,15 +479,12 @@ const faviconSrc = typeof faviconPng === "string" ? faviconPng : faviconPng.src;
               previous_page: getPreviousPage(),
               cta_location: currentPayload.ctaLocation || undefined,
               whatsapp_greeting_id: greeting.id,
-              location: currentPayload.location || undefined,
-              objective: currentPayload.objective || undefined,
               ...attribution
             });
           });
         });
         readAttribution();
         getLandingPage();
-        trackPageNavigation();
       })();
     </script>
   </body>

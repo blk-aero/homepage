@@ -10,6 +10,13 @@
     },
     "variable": [
       {
+        "name": "Constant - GA4 Measurement ID",
+        "type": "c",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "value", "value": "G-XXXXXXXXXX" }
+        ]
+      },
+      {
         "name": "DLV - gclid",
         "type": "v",
         "parameter": [
@@ -86,22 +93,6 @@
         "type": "v",
         "parameter": [
           { "type": "TEMPLATE", "key": "name", "value": "cta_location" },
-          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
-        ]
-      },
-      {
-        "name": "DLV - location",
-        "type": "v",
-        "parameter": [
-          { "type": "TEMPLATE", "key": "name", "value": "location" },
-          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
-        ]
-      },
-      {
-        "name": "DLV - objective",
-        "type": "v",
-        "parameter": [
-          { "type": "TEMPLATE", "key": "name", "value": "objective" },
           { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" }
         ]
       },
@@ -211,6 +202,7 @@
         "tagId": "10",
         "type": "gaawe",
         "parameter": [
+          { "type": "TEMPLATE", "key": "measurementId", "value": "{{Constant - GA4 Measurement ID}}" },
           { "type": "TEMPLATE", "key": "eventName", "value": "whatsapp_click" },
           {
             "type": "LIST",
@@ -289,20 +281,6 @@
               {
                 "type": "MAP",
                 "map": [
-                  { "type": "TEMPLATE", "key": "name", "value": "location" },
-                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - location}}" }
-                ]
-              },
-              {
-                "type": "MAP",
-                "map": [
-                  { "type": "TEMPLATE", "key": "name", "value": "objective" },
-                  { "type": "TEMPLATE", "key": "value", "value": "{{DLV - objective}}" }
-                ]
-              },
-              {
-                "type": "MAP",
-                "map": [
                   { "type": "TEMPLATE", "key": "name", "value": "event_timestamp" },
                   { "type": "TEMPLATE", "key": "value", "value": "{{DLV - event_timestamp}}" }
                 ]
@@ -338,6 +316,7 @@
         "tagId": "11",
         "type": "gaawe",
         "parameter": [
+          { "type": "TEMPLATE", "key": "measurementId", "value": "{{Constant - GA4 Measurement ID}}" },
           { "type": "TEMPLATE", "key": "eventName", "value": "email_click" },
           {
             "type": "LIST",
@@ -437,6 +416,7 @@
         "tagId": "12",
         "type": "gaawe",
         "parameter": [
+          { "type": "TEMPLATE", "key": "measurementId", "value": "{{Constant - GA4 Measurement ID}}" },
           { "type": "TEMPLATE", "key": "eventName", "value": "social_click" },
           {
             "type": "LIST",
@@ -559,7 +539,7 @@
           {
             "type": "TEMPLATE",
             "key": "html",
-            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'whatsapp_click', {\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      previous_page: '{{DLV - previous_page}}',\n      cta_location: '{{DLV - cta_location}}',\n      utm_source: '{{DLV - utm_source}}',\n      utm_medium: '{{DLV - utm_medium}}',\n      utm_campaign: '{{DLV - utm_campaign}}',\n      utm_term: '{{DLV - utm_term}}',\n      utm_content: '{{DLV - utm_content}}',\n      gclid: '{{DLV - gclid}}',\n      location: '{{DLV - location}}',\n      objective: '{{DLV - objective}}',\n      whatsapp_greeting_id: '{{DLV - whatsapp_greeting_id}}',\n      service: '{{DLV - service}}',\n      selected_cluster: '{{DLV - selected_cluster}}',\n      event_timestamp: '{{DLV - event_timestamp}}'\n    });\n  }\n</script>"
+            "value": "<script>\n  if (typeof fbq === 'function') {\n    fbq('trackCustom', 'whatsapp_click', {\n      landing_page: '{{DLV - landing_page}}',\n      page_path: '{{DLV - page_path}}',\n      previous_page: '{{DLV - previous_page}}',\n      cta_location: '{{DLV - cta_location}}',\n      utm_source: '{{DLV - utm_source}}',\n      utm_medium: '{{DLV - utm_medium}}',\n      utm_campaign: '{{DLV - utm_campaign}}',\n      utm_term: '{{DLV - utm_term}}',\n      utm_content: '{{DLV - utm_content}}',\n      gclid: '{{DLV - gclid}}',\n      whatsapp_greeting_id: '{{DLV - whatsapp_greeting_id}}',\n      service: '{{DLV - service}}',\n      selected_cluster: '{{DLV - selected_cluster}}',\n      event_timestamp: '{{DLV - event_timestamp}}'\n    });\n  }\n</script>"
           }
         ],
         "firingTriggerId": ["1"]
