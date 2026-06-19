@@ -7,6 +7,7 @@ Astro marketing site for BLK Aero, currently focused on the homepage PRD plus te
 - Do not read `ARCHIVE.md` or `/Archive` unless explicitly asked.
 - Keep edits scoped to the requested change and do not edit generated artifacts (`dist`, `.astro`) unless explicitly requested.
 - Keep this site vanilla Astro + Tailwind v4 + Flowbite: prefer installed Flowbite ESM/CSS integration over CDN scripts, frontend framework integrations, adapters, or heavy Vite plugins unless explicitly requested.
+- `npm run build` runs `astro build` plus the opt-in IndexNow `postbuild` hook; without `INDEXNOW_KEY`, it should skip external submission and exit 0.
 - Do not claim completion without running relevant verification and reporting the exact commands and outcomes.
 
 ## Task Guides

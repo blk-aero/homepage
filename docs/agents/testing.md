@@ -6,6 +6,7 @@
 - `npm run build`
 - `npm run preview`
 - `npm run test`
+- `npm run test:built`
 - `npm run test:e2e`
 - `npm run check:links`
 
@@ -19,6 +20,8 @@ npm run build && npm run preview -- --host 127.0.0.1 --port 4321
 
 Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright against an already-started local server. By default, Playwright builds and previews the current checkout to avoid stale dev-server output.
 
+`npm run build` also runs `postbuild` (`node scripts/indexnow.mjs`). The IndexNow hook is opt-in: with no `INDEXNOW_KEY`, it should print a skip message, make no external request, and exit 0. Changes to that workflow should run `npm run test -- tests/scripts/indexnow.test.ts`.
+
 `npm run test` excludes the `dist`-reading built-output specs so the default unit/config suite does not depend on local build state. Use `npm run test:built` for crawlable HTML, public runtime, and deployment release checks that must build first.
 
 ## Verification Matrix
@@ -27,6 +30,7 @@ Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright again
 - `src/lib/*` changes: run related unit tests under `tests/lib/*`, then `npm run test`.
 - `src/lib/attribution.ts`: run `npm run test -- tests/lib/attribution.test.ts`.
 - `package.json` script changes: run `npm run test -- tests/config/package-scripts.test.ts`.
+- `scripts/indexnow.mjs` or IndexNow build-hook changes: run `npm run test -- tests/scripts/indexnow.test.ts`, then `npm run build`.
 - `src/content/config.ts` or active route inventory changes: run `npm run test -- tests/config/current-surface.test.ts`.
 - `src/content/site/global.yaml` or `src/lib/site-config.ts`: run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.
 - Route/content changes in `src/pages` or `src/content`: run `npm run test:e2e -- tests/e2e/routing.spec.ts`, relevant behavior specs, and `npm run build`.
