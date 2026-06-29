@@ -31,6 +31,7 @@ Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright again
 - `src/lib/attribution.ts`: run `npm run test -- tests/lib/attribution.test.ts`.
 - `package.json` script changes: run `npm run test -- tests/config/package-scripts.test.ts`.
 - `scripts/indexnow.mjs` or IndexNow build-hook changes: run `npm run test -- tests/scripts/indexnow.test.ts`, then `npm run build`.
+- `docs/gtm-container-recipe.json` changes: run `npm run test -- tests/scripts/gtm-recipe.test.ts`.
 - `src/content/config.ts` or active route inventory changes: run `npm run test -- tests/config/current-surface.test.ts`.
 - `src/content/site/global.yaml` or `src/lib/site-config.ts`: run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.
 - Route/content changes in `src/pages` or `src/content`: run `npm run test:e2e -- tests/e2e/routing.spec.ts`, relevant behavior specs, and `npm run build`.

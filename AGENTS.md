@@ -13,6 +13,7 @@ Astro marketing site for BLK Aero, currently focused on the homepage PRD plus te
 ## Task Guides
 
 - [Repository map](docs/agents/repository-map.md)
+- [Design and UI guidance](docs/agents/design-ui.md)
 - [Testing and verification](docs/agents/testing.md)
 - [Repo workflows and TODOs](docs/agents/repo-workflows.md)
 - [Deployment and release](docs/agents/deployment-release.md)
