@@ -45,6 +45,8 @@ blocking user-facing page PRDs.
 - Document a post-project PR/backlink workflow for major completed projects.
 - Leave explicit entry points for future A/B testing scripts without adding a
   testing platform now.
+- Include Meta Pixel tag placeholders and triggers in the GTM Container Recipe.
+- Define manual tasks for Google Search Console sitemap registration and GA4 Custom Dimensions setup.
 
 ## Out of Scope
 
@@ -59,7 +61,8 @@ blocking user-facing page PRDs.
 - Attribution tests cover session and cookie fallback behavior.
 - Contact tracking tests prove the expected event names and payload shapes.
 - IndexNow is opt-in, environment-gated, and safe when no key is present.
-- Operations docs explain freshness, backlink, and post-project PR cadence.
+- Operations docs explain freshness, backlink, post-project PR cadence, GSC sitemap registration, and GA4 Custom Dimensions setup.
 - Existing WhatsApp message tests still prove that raw attribution does not
   appear in the visible prefilled message.
 - Relevant unit/config tests and `npm run build` pass.
+

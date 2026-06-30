@@ -348,6 +348,34 @@ _Avoid_: legal portal, stale template policy, hidden privacy link
 The session storage strategy that captures and preserves original campaign parameters (UTM and gclid) across pages without overwriting them.
 _Avoid_: last-touch attribution, parameter overwriting
 
+**Landing Page**:
+The first page a visitor accesses on the BLK website during their journey, stored in short-term storage and passed as a parameter in conversion events to track search/ad entry points.
+_Avoid_: session landing page only, untracked entry page
+
+**Conversion Page**:
+The website page where a conversion event occurs (e.g. where the WhatsApp CTA is clicked), passed as a parameter in conversion events.
+_Avoid_: generic redirect destination page
+
+**Attribution Cookie**:
+A first-party cookie named `blk_cookie_attribution_v1` with a 7-day TTL used as a fallback to preserve first-touch campaign and click parameters across sessions.
+_Avoid_: third-party tracking cookie, long-term persistent cookie
+
+**IndexNow Script**:
+A lightweight post-build script located at `scripts/indexnow.mjs` that reads the generated sitemap and submits updated website URLs to the IndexNow API when the required environment key is configured.
+_Avoid_: unverified URL submission, running without an explicit environment key
+
+**Marketing Operations Guide**:
+A minimalist document located at `docs/marketing-operations.md` that defines the offline conversion payload schema and lists the basic quarterly freshness and post-project backlink workflows.
+_Avoid_: bloated operations manuals, undocumented lead payloads
+
+**A/B Testing Entry Point**:
+An explicit HTML comment placeholder in the head of `BaseLayout.astro` indicating where future A/B testing or optimization scripts should be injected.
+_Avoid_: importing full A/B testing platforms prematurely
+
+
+
+
+
 **WhatsApp Click Event**:
 The stable website measurement event for a visitor opening a BLK WhatsApp contact path, enriched with page, CTA, service, objective, greeting, and attribution context.
 _Avoid_: separate event names per WhatsApp placement, generic click conversion
@@ -363,6 +391,11 @@ _Avoid_: generic form submit, page-view conversion
 **Measurement Provider**:
 A third-party tool BLK may use through website tagging to measure audience, campaigns, conversions, remarketing, or ad performance, such as Google Tag Manager, Google Analytics, Google Ads, or Meta Pixel.
 _Avoid_: treating every provider as a separate site integration, undocumented tracking tool
+
+**GTM Container Recipe**:
+An importable JSON configuration file that defines the necessary tags, triggers, variables, and templates in Google Tag Manager to capture and map BLK website conversion events.
+_Avoid_: manual GTM container configuration recipe, direct code edits for GTM tag templates
+
 
 ## Relationships
 
