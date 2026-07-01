@@ -7,3 +7,11 @@
 - Feedback: test having either less content in the main page and this be distributed in other 'tabs' or have a index nav button to move to the correct tab
 
 - **Task: Create a Competitor Comparison Landing Page:** Build a dedicated landing page titled `[Competitor Name] Alternative` featuring a concise value proposition and a prominent Call-to-Action button above the fold, followed by an H2 section styled `[Competitor Name] vs [Your Brand]: Comparison` containing a direct features comparison table. This captures high-intent traffic from users actively looking to switch or researching options, while the specific formatting and structured table optimize the page to rank at the top of Google searches and get cited directly within AI search engine snippets. _(Ref: https://www.youtube.com/shorts/ZsIXK86RdwI)_
+
+## Runtime Performance Audit Follow-Up
+
+- Replace Flowbite runtime JS for nav collapse, FAQ accordion, and hero carousel with small local handlers. Current build emits shared layout JS on every route plus homepage carousel JS; the main sources are `src/layouts/BaseLayout.astro` and `src/components/HomeHeroShowcase.astro`.
+
+- Move or gate attribution/contact tracking so placeholder routes without conversion elements do not load the full tracking chunk from `src/layouts/BaseLayout.astro`.
+
+- Reduce proof-logo image variants if retina logo quality is not materially needed. `src/components/HomeProofBand.astro` currently emits 152w and 304w for each logo.

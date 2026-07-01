@@ -11,6 +11,7 @@ Source of truth: `DEPLOYMENT.md`.
 - Deploy action: `actions/deploy-pages@v5`
 - Target URL: `https://blk.aero`
 - Optional environment variables: `SITE_URL`, `PUBLIC_WHATSAPP_NUMBER`, `PUBLIC_GTM_ID` override
+- Optional IndexNow submission: `npm run build` runs `scripts/indexnow.mjs` after `astro build`; set `INDEXNOW_KEY` only when production builds should submit sitemap URLs.
 
 ## Post-Deploy Checks
 

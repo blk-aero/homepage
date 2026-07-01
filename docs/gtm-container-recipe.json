@@ -160,9 +160,11 @@
         "type": "CUSTOM_EVENT",
         "customEventFilter": [
           {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "whatsapp_click"
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "whatsapp_click" }
+            ]
           }
         ]
       },
@@ -172,9 +174,11 @@
         "type": "CUSTOM_EVENT",
         "customEventFilter": [
           {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "email_click"
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "email_click" }
+            ]
           }
         ]
       },
@@ -184,9 +188,11 @@
         "type": "CUSTOM_EVENT",
         "customEventFilter": [
           {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "social_click"
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "social_click" }
+            ]
           }
         ]
       },
@@ -202,7 +208,7 @@
         "tagId": "10",
         "type": "gaawe",
         "parameter": [
-          { "type": "TEMPLATE", "key": "measurementId", "value": "{{Constant - GA4 Measurement ID}}" },
+          { "type": "TEMPLATE", "key": "measurementIdOverride", "value": "{{Constant - GA4 Measurement ID}}" },
           { "type": "TEMPLATE", "key": "eventName", "value": "whatsapp_click" },
           {
             "type": "LIST",
@@ -316,7 +322,7 @@
         "tagId": "11",
         "type": "gaawe",
         "parameter": [
-          { "type": "TEMPLATE", "key": "measurementId", "value": "{{Constant - GA4 Measurement ID}}" },
+          { "type": "TEMPLATE", "key": "measurementIdOverride", "value": "{{Constant - GA4 Measurement ID}}" },
           { "type": "TEMPLATE", "key": "eventName", "value": "email_click" },
           {
             "type": "LIST",
@@ -416,7 +422,7 @@
         "tagId": "12",
         "type": "gaawe",
         "parameter": [
-          { "type": "TEMPLATE", "key": "measurementId", "value": "{{Constant - GA4 Measurement ID}}" },
+          { "type": "TEMPLATE", "key": "measurementIdOverride", "value": "{{Constant - GA4 Measurement ID}}" },
           { "type": "TEMPLATE", "key": "eventName", "value": "social_click" },
           {
             "type": "LIST",

@@ -49,7 +49,39 @@ describe("GTM Container Recipe", () => {
 
     for (const eventName of ["whatsapp_click", "email_click", "social_click"]) {
       const tag = tags.find((candidate: { name: string }) => candidate.name === `GA4 Event - ${eventName}`);
-      expect(JSON.stringify(tag)).toContain("{{Constant - GA4 Measurement ID}}");
+      expect(tag.parameter).toEqual(
+        expect.arrayContaining([
+          {
+            type: "TEMPLATE",
+            key: "measurementIdOverride",
+            value: "{{Constant - GA4 Measurement ID}}"
+          }
+        ])
+      );
+    }
+  });
+
+  it("uses valid GTM condition filters for custom event triggers", () => {
+    const recipePath = path.join(process.cwd(), "docs", "gtm-container-recipe.json");
+    const content = fs.readFileSync(recipePath, "utf-8");
+    const json = JSON.parse(content);
+    const triggers = json.containerVersion.trigger;
+
+    for (const eventName of ["whatsapp_click", "email_click", "social_click"]) {
+      const trigger = triggers.find((candidate: { name: string }) => candidate.name === `Custom Event - ${eventName}`);
+      expect(trigger).toMatchObject({
+        type: "CUSTOM_EVENT",
+        customEventFilter: [
+          {
+            type: "EQUALS",
+            parameter: [
+              { type: "TEMPLATE", key: "arg0", value: "{{_event}}" },
+              { type: "TEMPLATE", key: "arg1", value: eventName }
+            ]
+          }
+        ]
+      });
+      expect(JSON.stringify(trigger.customEventFilter)).not.toContain('"type":"TEMPLATE","key":"eventName"');
     }
   });
 });
