@@ -49,7 +49,15 @@ describe("GTM Container Recipe", () => {
 
     for (const eventName of ["whatsapp_click", "email_click", "social_click"]) {
       const tag = tags.find((candidate: { name: string }) => candidate.name === `GA4 Event - ${eventName}`);
-      expect(JSON.stringify(tag)).toContain("{{Constant - GA4 Measurement ID}}");
+      expect(tag.parameter).toEqual(
+        expect.arrayContaining([
+          {
+            type: "TEMPLATE",
+            key: "measurementIdOverride",
+            value: "{{Constant - GA4 Measurement ID}}"
+          }
+        ])
+      );
     }
   });
 
