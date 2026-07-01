@@ -160,9 +160,11 @@
         "type": "CUSTOM_EVENT",
         "customEventFilter": [
           {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "whatsapp_click"
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "whatsapp_click" }
+            ]
           }
         ]
       },
@@ -172,9 +174,11 @@
         "type": "CUSTOM_EVENT",
         "customEventFilter": [
           {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "email_click"
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "email_click" }
+            ]
           }
         ]
       },
@@ -184,9 +188,11 @@
         "type": "CUSTOM_EVENT",
         "customEventFilter": [
           {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "social_click"
+            "type": "EQUALS",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "social_click" }
+            ]
           }
         ]
       },
