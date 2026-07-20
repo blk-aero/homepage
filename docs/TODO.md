@@ -15,3 +15,28 @@
 - Move or gate attribution/contact tracking so placeholder routes without conversion elements do not load the full tracking chunk from `src/layouts/BaseLayout.astro`.
 
 - Reduce proof-logo image variants if retina logo quality is not materially needed. `src/components/HomeProofBand.astro` currently emits 152w and 304w for each logo.
+
+## Ponytail Audit Follow-Up
+
+- `delete:` Remove the unused `homepageSectionOrder` export and `HomepageSectionId` type; the order is only stored in `homepageContent` and has no consumer, so it adds configuration surface without changing rendering. [src/lib/homepage-content.ts]
+- `shrink:` Remove the `isBrandIconName` runtime guard and `brand-icons.ts` type predicate; `src/content/config.ts` already constrains footer icons to the same four-name union, so the layout can pass the validated icon directly to `BrandIcon`. [src/lib/brand-icons.ts, src/layouts/BaseLayout.astro, src/content/config.ts]
+
+Audit estimate: -13 lines, -0 dependencies possible.
+
+## Ponytail Audit Follow-Up — Additional Findings
+
+- `delete:` Remove the unused `contact.whatsapp.nav_intro` and `contact.whatsapp.footer_intro` schema/config fields; no runtime code reads them, so they add content-model surface without behavior. [src/content/config.ts, src/content/site/global.yaml]
+- `delete:` Remove the unused `@vitest/coverage-v8` development dependency; no package script or test imports the coverage provider. [package.json, package-lock.json]
+- `shrink:` Inline the one-use `isExternalHref` predicate or share a single URL helper with the navigation path; `BaseLayout.astro` currently repeats the same `/^https?:\\/\\//` test in two forms. [src/layouts/BaseLayout.astro]
+
+Audit estimate: -6 lines, -1 dependency possible.
+
+## Improve Design
+- https://www.youtube.com/shorts/zP_nXzGlk2I
+- https://www.youtube.com/watch?v=DNSXlBmukck
+- https://www.youtube.com/watch?v=f2mGqlLLqok
+- https://github.com/pbakaus/impeccable
+
+
+## Improve SEO
+- Validate target keyword in webpage SEO layout (Page title, URL slug, H1, first sentence)

@@ -38,6 +38,7 @@ Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright again
 - Crawl/render-sensitive homepage changes: run `npm run test:built`. This includes `tests/config/crawlable-built-html.test.ts`, the crawlable built HTML foundation check and the prior-art path for future public templates.
 - Third-party runtime changes: update `docs/agents/public-runtime-allowlist.json` with the named business purpose, then run `npm run test:built`.
 - CTA/navigation/hero behavior changes: run relevant e2e specs, especially `tests/e2e/conversion-flow.spec.ts`, `tests/e2e/navigation-whatsapp.spec.ts`, and `tests/e2e/home-hero-showcase.spec.ts`.
+- Cookie notice, GTM consent-default, or inline runtime script changes: run `npm run test:e2e -- tests/e2e/runtime-smoke.spec.ts`.
 - Lead magnet/trust/about parity changes: run `npm run test:e2e -- tests/e2e/prd-parity.spec.ts`.
 - Embed/lazy-media changes: run `npm run test:e2e -- tests/e2e/lite-embed.spec.ts`.
 - Footer contact/social changes: run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.

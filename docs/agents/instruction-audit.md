@@ -2,6 +2,7 @@
 
 ## Contradictions
 
+- Current 2026-07-03 check: no new unresolved contradictions found between `AGENTS.md`, `docs/agents/*`, `package.json`, `playwright.config.ts`, `DEPLOYMENT.md`, `.github/workflows/astro.yml`, and the active config/script/e2e tests.
 - Current 2026-06-26 check: no new unresolved contradictions found between `AGENTS.md`, `docs/agents/*`, `package.json`, `playwright.config.ts`, `DEPLOYMENT.md`, `.github/workflows/astro.yml`, and the active config/script tests.
 - Current 2026-06-19 check: no new unresolved contradictions found between `AGENTS.md`, `docs/agents/*`, `package.json`, `playwright.config.ts`, `DEPLOYMENT.md`, and the active config tests.
 - `docs/agents/deployment-release.md` said Cloudflare Pages, while `DEPLOYMENT.md` and `.github/workflows/astro.yml` define GitHub Pages. Kept GitHub Pages because it is the live deployment source of truth.
