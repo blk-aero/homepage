@@ -75,6 +75,11 @@ const homepageProofGroups = [
         logo: "oliveira-roxo.png"
       },
       {
+        name: "EGD Engenharia",
+        href: "https://egdengenharia.com.br/",
+        logo: "egd-engenharia.png"
+      },
+      {
         name: "Lia Blanco Arquitetura",
         href: "https://www.instagram.com/blancolia/"
       },
@@ -97,6 +102,11 @@ const homepageProofGroups = [
         name: "Montante",
         href: "https://montante.com.br/",
         logo: "montante.png"
+      },
+      {
+        name: "NTS Brasil",
+        href: "https://www.ntsbrasil.com/",
+        logo: "nts-brasil.png"
       },
       {
         name: "Polimix Ambiental",

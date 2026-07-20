@@ -147,6 +147,7 @@ describe("homepage content model", () => {
         name: "Construtora Oliveira Roxo",
         href: "https://www.instagram.com/construtoraoliveiraroxo/"
       }),
+      expect.objectContaining({ name: "EGD Engenharia", href: "https://egdengenharia.com.br/" }),
       expect.objectContaining({
         name: "Lia Blanco Arquitetura",
         href: "https://www.instagram.com/blancolia/"
@@ -158,6 +159,7 @@ describe("homepage content model", () => {
       expect.objectContaining({ name: "Macaw Studio", href: "https://macawstudio.myportfolio.com/" }),
       expect.objectContaining({ name: "Mobilidade Urbana SJC", href: "https://www.sjc.sp.gov.br/secretarias/mobilidade-urbana/" }),
       expect.objectContaining({ name: "Montante", href: "https://montante.com.br/" }),
+      expect.objectContaining({ name: "NTS Brasil", href: "https://www.ntsbrasil.com/" }),
       expect.objectContaining({ name: "Polimix Ambiental", href: "https://www.polimixambiental.com.br/" }),
       expect.objectContaining({ name: "Sahyoun Properties", href: "https://sahyounproperties.com/" }),
       expect.objectContaining({ name: "Sergio Porto Engenharia", href: "https://www.sergioporto.com.br/" }),
@@ -173,7 +175,7 @@ describe("homepage content model", () => {
       group.items.filter((item) => item.logo)
     );
 
-    expect(logoItems).toHaveLength(18);
+    expect(logoItems).toHaveLength(20);
     for (const item of logoItems) {
       const logoPath = join("src/assets/homepage/proof-logos", item.logo || "");
       expect(existsSync(logoPath), `${item.name} logo asset exists`).toBe(true);
