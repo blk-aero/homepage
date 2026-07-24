@@ -31,6 +31,12 @@ Audit estimate: -13 lines, -0 dependencies possible.
 
 Audit estimate: -6 lines, -1 dependency possible.
 
+## Ponytail Audit Follow-Up — Current Scan
+
+- `delete:` Remove `summary` from `HomepageCluster` and its five values; the cluster summary is never read because homepage cards use the separate `summaries` map in `homepage-content.ts`. [src/lib/homepage-clusters.ts, src/lib/homepage-content.ts]
+
+Audit estimate: -6 lines, -0 dependencies possible.
+
 ## Improve Design
 - https://www.youtube.com/shorts/zP_nXzGlk2I
 - https://www.youtube.com/watch?v=DNSXlBmukck
