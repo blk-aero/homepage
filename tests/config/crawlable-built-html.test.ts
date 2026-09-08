@@ -39,9 +39,10 @@ describe("crawlable built HTML foundation", () => {
       '<meta name="description"',
       '<link rel="canonical"',
       '<meta property="og:title"',
-      'href="/solucoes"',
-      'href="/cidades"',
-      'href="/blog"',
+      'href="/solucoes/"',
+      'href="/cidades/"',
+      'href="/blog/"',
+      'href="/politica-de-privacidade/"',
       'href="https://wa.me/5512988062737',
       'data-cta-location="home-hero"',
       'data-final-whatsapp-submit'

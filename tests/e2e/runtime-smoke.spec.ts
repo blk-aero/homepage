@@ -40,7 +40,7 @@ test("simple cookie notice is dismissed with OK", async ({ page }) => {
   await expect(notice).toContainText("Utilizamos cookies essenciais e tecnologias semelhantes");
   await expect(notice.getByRole("link", { name: "Política de Privacidade" })).toHaveAttribute(
     "href",
-    "/politica-de-privacidade"
+    "/politica-de-privacidade/"
   );
 
   await page.getByRole("button", { name: "OK" }).click();
