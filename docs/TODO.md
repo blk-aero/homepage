@@ -1,8 +1,8 @@
-- How to use Google Forms as a free backend for my website's forms to capture leads: `docs/Archive/backlog/lead-capture-offers-prd.md`
+- How to use Google Forms as a free backend for my website's forms to capture leads: `docs/_Archive/backlog/lead-capture-offers-prd.md`
 
-- Keep SEO/LLM indexing enrichment outside the Technical Performance PRD except for crawl/render overlap: built HTML should expose primary content, metadata, headings, and links without client JavaScript; OG/Twitter previews, JSON-LD, `/llms.txt`, FAQ schema, and local SEO strategy belong in the discovery/SEO backlog: `docs/Archive/backlog/searchable-coverage-index-prd.md`
+- Keep SEO/LLM indexing enrichment outside the Technical Performance PRD except for crawl/render overlap: built HTML should expose primary content, metadata, headings, and links without client JavaScript; OG/Twitter previews, JSON-LD, `/llms.txt`, FAQ schema, and local SEO strategy belong in the discovery/SEO backlog: `docs/_Archive/backlog/searchable-coverage-index-prd.md`
 
-- Pending Performance Foundation follow-up: finish shared foundation checks only after the first real non-homepage public template ships. Reference issue: `docs/Archive/issues/005-add-shared-foundation-checks-next-template.md`. Do not implement this against temporary support pages; resume the issue when a real Cluster Detail Page, Searchable Coverage Index, Local Service + City Page, or Lead Capture Offer page exists.
+- Pending Performance Foundation follow-up: finish shared foundation checks only after the first real non-homepage public template ships. Reference issue: `docs/_Archive/issues/005-add-shared-foundation-checks-next-template.md`. Do not implement this against temporary support pages; resume the issue when a real Cluster Detail Page, Searchable Coverage Index, Local Service + City Page, or Lead Capture Offer page exists.
 
 - Feedback: test having either less content in the main page and this be distributed in other 'tabs' or have a index nav button to move to the correct tab
 
@@ -30,6 +30,19 @@ Audit estimate: -13 lines, -0 dependencies possible.
 - `shrink:` Inline the one-use `isExternalHref` predicate or share a single URL helper with the navigation path; `BaseLayout.astro` currently repeats the same `/^https?:\\/\\//` test in two forms. [src/layouts/BaseLayout.astro]
 
 Audit estimate: -6 lines, -1 dependency possible.
+
+## Ponytail Audit Follow-Up — Current Scan
+
+- `delete:` Remove `summary` from `HomepageCluster` and its five values; the cluster summary is never read because homepage cards use the separate `summaries` map in `homepage-content.ts`. [src/lib/homepage-clusters.ts, src/lib/homepage-content.ts]
+
+Audit estimate: -6 lines, -0 dependencies possible.
+
+## Ponytail Audit Follow-Up — 2026-07-31
+
+- `delete:` Remove the direct `playwright` development dependency and its lockfile entry; the Playwright config imports `@playwright/test`, which already supplies the matching Playwright runtime, and no source file imports the direct package. [package.json, package-lock.json, playwright.config.ts]
+- `delete:` Remove the unused `src/lib/datalayer.ts` helper and its isolated unit test; production tracking pushes directly to `window.dataLayer` from `src/layouts/BaseLayout.astro`, leaving this module with no runtime consumer. [src/lib/datalayer.ts, tests/lib/datalayer.test.ts]
+
+Audit estimate: -20 lines, -1 dependency possible.
 
 ## Improve Design
 - https://www.youtube.com/shorts/zP_nXzGlk2I

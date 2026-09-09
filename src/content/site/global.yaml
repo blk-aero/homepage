@@ -17,24 +17,24 @@ contact:
 navigation:
   primary_links:
     - label: Soluções
-      href: /solucoes
+      href: /solucoes/
     - label: Cidades
-      href: /cidades
+      href: /cidades/
     - label: Blog
-      href: /blog
+      href: /blog/
 
 footer:
   link_columns:
     - title: Navegação
       links:
         - label: Soluções
-          href: /solucoes
+          href: /solucoes/
         - label: Cidades
-          href: /cidades
+          href: /cidades/
         - label: Blog
-          href: /blog
+          href: /blog/
         - label: Política de Privacidade
-          href: /politica-de-privacidade
+          href: /politica-de-privacidade/
   social_links:
     - label: LinkedIn
       href: https://www.linkedin.com/company/blk-aero

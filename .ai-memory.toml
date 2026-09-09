@@ -1,0 +1,21 @@
+# Homepage repository marker: its project identity follows the Git root.
+workspace = "cos"
+project_strategy = "repo-root" # Derive the project from the repository root.
+
+drop_subagent_captures = "false" # Default: retain subagent captures.
+
+[recall]
+default_global = "false" # Default: do not mix global recall into project recall.
+
+[briefing]
+inject_on_session_start = "true" # Default: inject this project briefing at session start.
+max_chars = 4000 # Default briefing budget.
+
+[capture] # Shared baseline; repeated because child capture policies do not merge.
+ignore_paths = [
+  "**/_Archive/**",
+  "**/_tmp/**",
+  "**/.env",
+  "**/.env.*",
+  "**/.DS_Store",
+]
