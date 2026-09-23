@@ -61,7 +61,7 @@ A generated local page must include:
 - Launching every possible city at once.
 - Auto-generating copy from templates without review.
 - IndexNow, freshness operations, and backlink workflows.
-- Reading or restoring `docs/Archive`.
+- Reading or restoring `docs/_Archive`.
 
 ## Open Question
 

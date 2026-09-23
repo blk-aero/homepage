@@ -72,7 +72,7 @@ A cluster page is ready to replace the temporary page only when it has:
 - Lead capture offers under `/ofertas`.
 - `/sobre`, `/llms.txt`, or full JSON-LD graph work.
 - Replacing the homepage triage model with an interactive matcher.
-- Reading or restoring `docs/Archive`.
+- Reading or restoring `docs/_Archive`.
 
 ## Open Question
 

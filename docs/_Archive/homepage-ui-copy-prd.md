@@ -135,7 +135,7 @@ The page should feel less like a generic service grid and more like a buyer-faci
 
 ## Further Notes
 
-- Respect the repo rule: do not read `ARCHIVE.md` or `/Archive` unless explicitly asked.
+- Respect the repo rule: do not read `ARCHIVE.md` or `/_Archive` unless explicitly asked.
 - Use the current domain glossary as the copy source of truth.
 - Preserve unrelated local changes and keep edits scoped to homepage UI/copy production integration.
 - Some proof logos and URLs will be supplied separately by the user; implementation should support provided logo assets and fallback text/visuals.

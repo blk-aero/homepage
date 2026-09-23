@@ -49,13 +49,13 @@ describe("global site config", () => {
     const config = readFileSync("src/content/site/global.yaml", "utf8");
 
     expect(config).toContain("label: Soluções");
-    expect(config).toContain("href: /solucoes");
+    expect(config).toContain("href: /solucoes/");
     expect(config).toContain("label: Cidades");
-    expect(config).toContain("href: /cidades");
+    expect(config).toContain("href: /cidades/");
     expect(config).toContain("label: Blog");
-    expect(config).toContain("href: /blog");
+    expect(config).toContain("href: /blog/");
     expect(config).toContain("label: Política de Privacidade");
-    expect(config).toContain("href: /politica-de-privacidade");
+    expect(config).toContain("href: /politica-de-privacidade/");
     expect(config).not.toContain("label: Servicos");
   });
 

@@ -19,12 +19,12 @@ test("footer shows BLK contact and trust details without template social links",
     .locator("xpath=following-sibling::ul[1]")
     .getByRole("link");
   await expect(footerLinks).toHaveText(["Soluções", "Cidades", "Blog", "Política de Privacidade"]);
-  await expect(footer.getByRole("link", { name: "Soluções" })).toHaveAttribute("href", "/solucoes");
-  await expect(footer.getByRole("link", { name: "Cidades" })).toHaveAttribute("href", "/cidades");
-  await expect(footer.getByRole("link", { name: "Blog" })).toHaveAttribute("href", "/blog");
+  await expect(footer.getByRole("link", { name: "Soluções" })).toHaveAttribute("href", "/solucoes/");
+  await expect(footer.getByRole("link", { name: "Cidades" })).toHaveAttribute("href", "/cidades/");
+  await expect(footer.getByRole("link", { name: "Blog" })).toHaveAttribute("href", "/blog/");
   await expect(footer.getByRole("link", { name: "Política de Privacidade" })).toHaveAttribute(
     "href",
-    "/politica-de-privacidade"
+    "/politica-de-privacidade/"
   );
   await expect(footer.getByRole("link", { name: "LinkedIn" })).toHaveAttribute("href", "https://www.linkedin.com/company/blk-aero");
   await expect(footer.getByRole("link", { name: "YouTube" })).toHaveAttribute("href", "https://www.youtube.com/@blk-aero");

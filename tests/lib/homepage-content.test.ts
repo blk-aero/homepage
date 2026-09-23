@@ -25,13 +25,13 @@ describe("homepage content model", () => {
     expect(homepageContent).not.toHaveProperty("proofSnippets");
 
     expect(homepageContent.triageCards.cards.map((card) => [card.title, card.detailPath])).toEqual([
-      ["Projeto e Obra", "/solucoes/projeto-e-obra"],
-      ["Regularização Rural", "/solucoes/regularizacao-rural"],
-      ["Regularização Urbana", "/solucoes/regularizacao-urbana"],
-      ["Volumetria e Medição", "/solucoes/volumetria-e-medicao"],
+      ["Projeto e Obra", "/solucoes/projeto-e-obra/"],
+      ["Regularização Rural", "/solucoes/regularizacao-rural/"],
+      ["Regularização Urbana", "/solucoes/regularizacao-urbana/"],
+      ["Volumetria e Medição", "/solucoes/volumetria-e-medicao/"],
       [
         "Monitoramento e Inteligência Geográfica",
-        "/solucoes/monitoramento-e-inteligencia-geografica"
+        "/solucoes/monitoramento-e-inteligencia-geografica/"
       ]
     ]);
   });

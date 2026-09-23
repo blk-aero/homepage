@@ -53,12 +53,12 @@ for (const path of [
 }
 
 const homepageClusterRoutes = [
-  { path: "/solucoes/projeto-e-obra", title: "Projeto e Obra" },
-  { path: "/solucoes/regularizacao-rural", title: "Regularização Rural" },
-  { path: "/solucoes/regularizacao-urbana", title: "Regularização Urbana" },
-  { path: "/solucoes/volumetria-e-medicao", title: "Volumetria e Medição" },
+  { path: "/solucoes/projeto-e-obra/", title: "Projeto e Obra" },
+  { path: "/solucoes/regularizacao-rural/", title: "Regularização Rural" },
+  { path: "/solucoes/regularizacao-urbana/", title: "Regularização Urbana" },
+  { path: "/solucoes/volumetria-e-medicao/", title: "Volumetria e Medição" },
   {
-    path: "/solucoes/monitoramento-e-inteligencia-geografica",
+    path: "/solucoes/monitoramento-e-inteligencia-geografica/",
     title: "Monitoramento e Inteligência Geográfica"
   }
 ];
@@ -77,7 +77,7 @@ test("top navigation points to temporary hub pages", async ({ page }) => {
   await page.goto("/");
 
   const nav = page.getByRole("navigation", { name: "Navegação principal" });
-  await expect(nav.getByRole("link", { name: "Soluções" })).toHaveAttribute("href", "/solucoes");
-  await expect(nav.getByRole("link", { name: "Cidades" })).toHaveAttribute("href", "/cidades");
-  await expect(nav.getByRole("link", { name: "Blog" })).toHaveAttribute("href", "/blog");
+  await expect(nav.getByRole("link", { name: "Soluções" })).toHaveAttribute("href", "/solucoes/");
+  await expect(nav.getByRole("link", { name: "Cidades" })).toHaveAttribute("href", "/cidades/");
+  await expect(nav.getByRole("link", { name: "Blog" })).toHaveAttribute("href", "/blog/");
 });
