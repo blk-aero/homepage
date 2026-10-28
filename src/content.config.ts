@@ -1,4 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const navLink = z.object({
   label: z.string(),
@@ -22,7 +24,7 @@ const footerSocialLink = z.object({
 });
 
 const site = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.yaml", base: "./src/content/site" }),
   schema: z.object({
     meta: z.object({
       brand_name: z.string(),

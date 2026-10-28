@@ -14,18 +14,17 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.17.1",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.2",
     "flowbite": "^4.0.2",
-    "tailwindcss": "^4.1.18",
-    "zod": "^3.25.76"
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
-    "@vitest/coverage-v8": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.12",
     "linkinator": "^7.5.3",
     "playwright": "^1.58.2",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.12"
   }
 }

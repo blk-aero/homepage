@@ -4,7 +4,7 @@
 # Production site is built and deployed as a static site to GitHub Pages.
 # ==========================================
 
-FROM node:20-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
