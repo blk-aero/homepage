@@ -65,7 +65,7 @@ To test the application locally without installing Node/npm or packages directly
    docker compose up --build
    ```
    This will:
-   - Build a container using the local `Dockerfile` (running Node 20).
+   - Build a container using the local `Dockerfile` (running Node 24).
    - Install all required dependencies within the container sandbox.
    - Mount the local workspace volume (excluding host `node_modules` to avoid conflict).
    - Start the Astro development server at `http://localhost:4321` with hot-reloading enabled.
@@ -92,7 +92,7 @@ To test the application locally without installing Node/npm or packages directly
   ```
 
 * **Running Playwright E2E Tests:**
-  The development container runs on a minimal Alpine image (`node:20-alpine`) which does not contain the system dependencies or browser binaries required by Playwright.
+  The development container runs on a minimal Alpine image (`node:24-alpine`) which does not contain the system dependencies or browser binaries required by Playwright.
   - To run Playwright E2E tests (`npm run test:e2e`), you must have Node/npm and dependencies installed locally on your host machine (via `npm install`). You can then run `npm run test:e2e` from your host, which will target the running container at `http://localhost:4321`.
   - Alternatively, E2E tests can be run containerized using a dedicated Playwright Docker image (e.g., `mcr.microsoft.com/playwright`).
 
