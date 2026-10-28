@@ -32,7 +32,7 @@ Set `PLAYWRIGHT_REUSE_SERVER=1` only when intentionally running Playwright again
 - `package.json` script changes: run `npm run test -- tests/config/package-scripts.test.ts`.
 - `scripts/indexnow.mjs` or IndexNow build-hook changes: run `npm run test -- tests/scripts/indexnow.test.ts`, then `npm run build`.
 - `docs/gtm-container-recipe.json` changes: run `npm run test -- tests/scripts/gtm-recipe.test.ts`.
-- `src/content/config.ts` or active route inventory changes: run `npm run test -- tests/config/current-surface.test.ts`.
+- `src/content.config.ts` or active route inventory changes: run `npm run test -- tests/config/current-surface.test.ts`.
 - `src/content/site/global.yaml` or `src/lib/site-config.ts`: run `npm run test:e2e -- tests/e2e/footer-social.spec.ts`.
 - Route/content changes in `src/pages` or `src/content`: run `npm run test:e2e -- tests/e2e/routing.spec.ts`, relevant behavior specs, and `npm run build`.
 - Crawl/render-sensitive homepage changes: run `npm run test:built`. This includes `tests/config/crawlable-built-html.test.ts`, the crawlable built HTML foundation check and the prior-art path for future public templates.
@@ -65,7 +65,7 @@ To test the application locally without installing Node/npm or packages directly
    docker compose up --build
    ```
    This will:
-   - Build a container using the local `Dockerfile` (running Node 20).
+   - Build a container using the local `Dockerfile` (running Node 24).
    - Install all required dependencies within the container sandbox.
    - Mount the local workspace volume (excluding host `node_modules` to avoid conflict).
    - Start the Astro development server at `http://localhost:4321` with hot-reloading enabled.
@@ -92,7 +92,7 @@ To test the application locally without installing Node/npm or packages directly
   ```
 
 * **Running Playwright E2E Tests:**
-  The development container runs on a minimal Alpine image (`node:20-alpine`) which does not contain the system dependencies or browser binaries required by Playwright.
+  The development container runs on a minimal Alpine image (`node:24-alpine`) which does not contain the system dependencies or browser binaries required by Playwright.
   - To run Playwright E2E tests (`npm run test:e2e`), you must have Node/npm and dependencies installed locally on your host machine (via `npm install`). You can then run `npm run test:e2e` from your host, which will target the running container at `http://localhost:4321`.
   - Alternatively, E2E tests can be run containerized using a dedicated Playwright Docker image (e.g., `mcr.microsoft.com/playwright`).
 

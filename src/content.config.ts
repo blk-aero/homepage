@@ -1,18 +1,15 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
-const navLink = z.object({
-  label: z.string(),
-  href: z.string()
-});
-
-const footerLink = z.object({
+const link = z.object({
   label: z.string(),
   href: z.string()
 });
 
 const footerLinkColumn = z.object({
   title: z.string(),
-  links: z.array(footerLink).min(1)
+  links: z.array(link).min(1)
 });
 
 const footerSocialLink = z.object({
@@ -22,7 +19,7 @@ const footerSocialLink = z.object({
 });
 
 const site = defineCollection({
-  type: "data",
+  loader: glob({ pattern: "**/*.yaml", base: "./src/content/site" }),
   schema: z.object({
     meta: z.object({
       brand_name: z.string(),
@@ -42,7 +39,7 @@ const site = defineCollection({
       })
     }),
     navigation: z.object({
-      primary_links: z.array(navLink).min(1)
+      primary_links: z.array(link).min(1)
     }),
     footer: z.object({
       link_columns: z.array(footerLinkColumn).min(1),
