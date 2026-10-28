@@ -19,3 +19,17 @@ Astro marketing site for BLK Aero, currently focused on the homepage PRD plus te
 - [Deployment and release](docs/agents/deployment-release.md)
 - [Git workflow](docs/agents/git-workflow.md)
 - [Instruction audit](docs/agents/instruction-audit.md)
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked as local Markdown files. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the default triage status values. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repository uses a single-context layout. See `docs/agents/domain.md`.
