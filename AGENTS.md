@@ -18,4 +18,3 @@ Astro marketing site for BLK Aero, currently focused on the homepage PRD plus te
 - [Repo workflows and TODOs](docs/agents/repo-workflows.md)
 - [Deployment and release](docs/agents/deployment-release.md)
 - [Git workflow](docs/agents/git-workflow.md)
-- [Instruction audit](docs/agents/instruction-audit.md)

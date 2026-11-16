@@ -13,6 +13,13 @@ max_chars = 4000 # Default briefing budget.
 
 [capture] # Shared baseline; repeated because child capture policies do not merge.
 ignore_paths = [
+  "Archive/**",
+  "_Archive/**",
+  "_tmp/**",
+  ".env",
+  ".env.*",
+  ".DS_Store",
+  "**/Archive/**",
   "**/_Archive/**",
   "**/_tmp/**",
   "**/.env",
